@@ -6,8 +6,6 @@ public class Tile : MonoBehaviour {
 
 	[SerializeField]
 	private bool occupied;
-	private bool currentlyMovable;
-	private bool currentlyAttackable;
 	[SerializeField]
 	private GameObject unit = null;
 	private int xGridPosition;
@@ -55,11 +53,9 @@ public class Tile : MonoBehaviour {
 
 	public void ResetColor(){
 		GetComponent<Renderer> ().material = defaultMaterial;
-		currentlyMovable = false;
-		currentlyAttackable = false;
 	}
 
-	public void ReferenceUnit(GameObject unit){
+	public void SetUnit(GameObject unit){
 		this.unit = unit;
 		if (unit == null) {
 			occupied = false;
@@ -70,20 +66,14 @@ public class Tile : MonoBehaviour {
 
 
 
+
 	//Propertystuff (Autogenerating)
 	public List<GameObject> AdjacentTiles {
 		get {
 			return adjacentTiles;
 		}
 	}
-	public bool CurrentlyMovable {
-		get {
-			return currentlyMovable;
-		}
-		set {
-			currentlyMovable = value;
-		}
-	}
+
 	public bool Occupied {
 		get {
 			return occupied;
@@ -92,17 +82,10 @@ public class Tile : MonoBehaviour {
 			occupied = value;
 		}
 	}
+
 	public GameObject Unit {
 		get {
 			return unit;
-		}
-	}
-	public bool CurrentlyAttackable {
-		get {
-			return currentlyAttackable;
-		}
-		set {
-			currentlyAttackable = value;
 		}
 	}
 }
