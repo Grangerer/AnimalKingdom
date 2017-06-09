@@ -29,3 +29,4 @@ D:\Daten\Kings of Color\TurnBasedStuff\Temp\bin\Debug\UnityEngine.HoloLens.xml
 D:\Daten\Kings of Color\TurnBasedStuff\Temp\bin\Debug\UnityEngine.VR.xml
 D:\Daten\Kings of Color\TurnBasedStuff\obj\Debug\Assembly-CSharp.dll
 D:\Daten\Kings of Color\TurnBasedStuff\obj\Debug\Assembly-CSharp.pdb
+D:\Daten\TurnBasedStuff\obj\Debug\Assembly-CSharp.csprojResolveAssemblyReference.cache

@@ -10,6 +10,7 @@ public class GameManager : MonoBehaviour {
 	//Test
 
 	public Player player;
+	bool playersTurn;
 
 	private float unitHeight = 0.75f;
 
@@ -35,6 +36,7 @@ public class GameManager : MonoBehaviour {
 			tmpUnit.GetComponent<Unit> ().Setup (spawnOnTile);
 			tmpUnit.GetComponent<Unit> ().OwnedByPlayer = true;
 			spawnOnTile.GetComponent<Tile> ().ReferenceUnit(tmpUnit);
+			player.AddUnit (tmpUnit);
 		}
 		//Test: Spawn EnemyUnit on Tile (2)(1)
 		if (GameObject.Find ("Tile(2)(1)") != null) {
@@ -53,14 +55,16 @@ public class GameManager : MonoBehaviour {
 			tmpUnit.GetComponent<Unit> ().Setup (spawnOnTile);
 			tmpUnit.GetComponent<Unit> ().OwnedByPlayer = true;
 			spawnOnTile.GetComponent<Tile> ().ReferenceUnit(tmpUnit);
+			player.AddUnit (tmpUnit);
 		}
 
 		player.OnTurnStart ();
+		playersTurn = true;
 	}
 
 	void Awake() {
 		if (instance != null) {
-			Debug.LogError("More than one BuildManager in scene!");
+			Debug.LogError("More than one GameManager in scene!");
 			return;
 		}
 		instance = this;
@@ -72,7 +76,22 @@ public class GameManager : MonoBehaviour {
 
 
 	public void NextTurn(){
-		Debug.Log ("Insert Next Turn logic here");
+
+		playersTurn = !playersTurn;
+		if (!playersTurn) {
+			Debug.Log ("AiTurn");
+			//initiate AI stuff
+			StartCoroutine (AIStart ());
+
+		} else {
+			player.OnTurnStart ();
+			playersTurn = true;
+		}
+	}
+	IEnumerator AIStart(){
+		yield return new WaitForSeconds (5);
+		Debug.Log ("AiTurn End");
+		NextTurn();
 	}
 		
 }

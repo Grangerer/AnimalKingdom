@@ -25,7 +25,11 @@ public class Tile : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		
+		if (currentlyMovable || currentlyAttackable) {
+			ActivateAnimation ();
+		} else {
+			DeactivateAnimation ();
+		}
 	}
 
 	public void Setup(int xGrid, int zGrid){
@@ -68,6 +72,12 @@ public class Tile : MonoBehaviour {
 		}			
 	}
 
+	public void ActivateAnimation(){
+		this.GetComponent<Animator> ().enabled = true;
+	}
+	public void DeactivateAnimation(){
+		this.GetComponent<Animator> ().enabled = false;
+	}
 
 
 	//Propertystuff (Autogenerating)

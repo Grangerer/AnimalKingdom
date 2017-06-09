@@ -5,6 +5,7 @@ using UnityEngine;
 public class Player : MonoBehaviour {
 
 	GameManager gameManager;
+	UIController uiController;
 
 	List<GameObject> units = new List<GameObject> ();
 	GameObject selectedUnit = null;
@@ -23,6 +24,7 @@ public class Player : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		gameManager = GameManager.instance;
+		uiController = UIController.instance;
 		//Disable UI (Cleanup)
 		unitControl.SetActive(false);
 	}
@@ -51,15 +53,14 @@ public class Player : MonoBehaviour {
 		}
 	}
 
+
 	void CheckMouseTarget(){
 		Ray ray = Camera.main.ScreenPointToRay (Input.mousePosition);
 		RaycastHit hit;
 		GameObject selectedTile = null;
 
 		if (Physics.Raycast (ray, out hit, 100)) {
-
-			if (selectedUnit == null || !selectedUnit.GetComponent<Unit>().OwnedByPlayer) {
-				if (Physics.Raycast (ray, out hit, 100)) {
+			if (!moving && !attacking && !UnityEngine.EventSystems.EventSystem.current.IsPointerOverGameObject()) {
 					if (hit.transform.gameObject.tag == "Unit") {
 						selectedUnit = hit.transform.gameObject;
 					} else if (hit.transform.gameObject.tag == "Tile") {
@@ -68,17 +69,16 @@ public class Player : MonoBehaviour {
 					if (selectedUnit != null) {						
 						Debug.Log ("Successful Hit: " + selectedUnit);
 						//Display stats
+						uiController.SetUnitStatPanel(selectedUnit.GetComponent<Unit>());
 
-
-						if (selectedUnit.GetComponent<Unit> ().TurnEnded) {
-							selectedUnit = null;
-						} //Check UnitOwner
-						else if (selectedUnit.GetComponent<Unit> ().OwnedByPlayer) {
-								//Display UI Buttons (Move, attack, End)
-								ActivateUnitControl ();				
+						//Check UnitOwner
+						if (selectedUnit.GetComponent<Unit> ().OwnedByPlayer) {
+							//Display UI Buttons (Move, attack, End)
+							ActivateUnitControl ();				
+						} else {
+							unitControl.SetActive (false);
 						}
 					}
-				}
 			}
 			if (moving) {
 				if (hit.transform.gameObject.tag == "Unit") {
@@ -105,9 +105,9 @@ public class Player : MonoBehaviour {
 				if (selectedTile != null && selectedTile.GetComponent<Tile>().CurrentlyAttackable) {
 					selectedUnit.GetComponent<Unit> ().AttackTile (selectedTile);
 					attacking = false;
+					UnselectUnit ();
 					selectedTile = null;
-					//Disable Move Button
-					AdjustUnitControl();
+					AdjustUnitControl ();
 				}
 			}
 		}
@@ -116,6 +116,7 @@ public class Player : MonoBehaviour {
 	public void OnTurnStart(){
 		foreach (GameObject unit in units) {
 			//activate "not used this turn" marker
+			unit.GetComponent<Unit>().OnTurnStart();
 		}
 		myTurn = true;
 	}
@@ -124,7 +125,7 @@ public class Player : MonoBehaviour {
 		if (moving || attacking) {
 			selectedUnit.GetComponent<Unit> ().ResetCurrentlyColoredTiles ();
 		} else {
-			selectedUnit = null;
+			UnselectUnit ();
 			unitControl.SetActive (false);
 		}
 		ResetTurnStat ();
@@ -148,6 +149,14 @@ public class Player : MonoBehaviour {
 			moving = true;
 		}
 	}
+	//Unit
+	public void AddUnit(GameObject unit){
+		units.Add (unit);
+	}
+
+	public void UnitEndTurn(){
+		selectedUnit.GetComponent<Unit>().OnTurnEnd();
+	}
 
 	void ActivateUnitControl(){
 		unitControl.SetActive (true);
@@ -159,7 +168,9 @@ public class Player : MonoBehaviour {
 		GameObject Move = unitControl.transform.Find("MoveButton").gameObject;
 		GameObject Attack = unitControl.transform.Find("AttackButton").gameObject;
 
-		if (selectedUnit.GetComponent<Unit> ().TurnEnded) {
+		if (selectedUnit == null) {
+			unitControl.SetActive (false);
+		}else if (selectedUnit.GetComponent<Unit> ().TurnEnded) {
 			unitControl.SetActive (false);
 		} else if (Attack != null && selectedUnit.GetComponent<Unit> ().Attacked) {
 			Move.SetActive (false);
@@ -178,9 +189,19 @@ public class Player : MonoBehaviour {
 
 	public void EndTurn(){
 		//Cleanupstuff
-
+		//end all turns for units
+		foreach (GameObject unit in units) {
+			unit.GetComponent<Unit> ().TurnEnded = true;
+		}
+		myTurn = false;
+		AdjustUnitControl();
 		//Tell GameManager to go to next turn
 		gameManager.NextTurn();
+	}
+
+	void UnselectUnit(){
+		selectedUnit = null;
+		uiController.UnsetUnitStatPanel ();
 	}
 
 

@@ -9,6 +9,7 @@ public class Unit : MonoBehaviour {
 	public int attackRange;
 	public int damage;
 	public int health;
+	private int currentHealth;
 
 	private bool ownedByPlayer;
 	private GameObject currentTile;
@@ -21,7 +22,7 @@ public class Unit : MonoBehaviour {
 	List<GameObject> currentlyColoredTiles = new List<GameObject>();
 	// Use this for initialization
 	void Start () {
-		
+		currentHealth = health;
 	}
 	
 	// Update is called once per frame
@@ -130,9 +131,9 @@ public class Unit : MonoBehaviour {
 		currentlyColoredTiles = null;
 	}
 	public void Damage(int damage){
-		this.health -= damage;
+		this.currentHealth -= damage;
 		//Do all relevant checks regarding death and abilities
-		if (health <= 0) {
+		if (currentHealth <= 0) {
 			Destroy (this.gameObject);
 		}
 	}
@@ -143,6 +144,16 @@ public class Unit : MonoBehaviour {
 				tile.GetComponent<Tile> ().ResetColor ();
 			}
 		}
+	}
+
+	//Turn
+	public void OnTurnStart(){
+		moved = false;
+		attacked = false;
+		turnEnded = false;
+	}
+	public void OnTurnEnd(){
+		turnEnded = true;
 	}
 
 	//PropertyStuff
@@ -184,6 +195,14 @@ public class Unit : MonoBehaviour {
 		}
 		set {
 			attacked = value;
+		}
+	}
+	public int CurrentHealth {
+		get {
+			return currentHealth;
+		}
+		set {
+			currentHealth = value;
 		}
 	}
 }
