@@ -34,7 +34,7 @@ public class Player : MonoBehaviour {
 		if (Input.GetMouseButtonDown (0)) {
 			CheckMouseTarget ();
 		}
-		if (myTurn) {		
+		if (myTurn && selectedUnit != null && selectedUnit.GetComponent<Unit>().OwnedByPlayer) {		
 			//Moving	
 			if (Input.GetKeyDown (KeyCode.Alpha1) && selectedUnit != null) {
 				if (!selectedUnit.GetComponent<Unit> ().Moved) {
@@ -45,6 +45,9 @@ public class Player : MonoBehaviour {
 				if (!selectedUnit.GetComponent<Unit> ().Attacked) {
 					PrepareAttack ();
 				}
+			}//Skip Turn
+			else if (Input.GetKeyDown (KeyCode.Alpha3) && selectedUnit != null) {
+				UnitEndTurn ();
 			}//Right click => Cancel
 			else if (Input.GetMouseButtonDown (1)) {
 				//Reset out of current state (unchoose moving/attacking etc)
@@ -138,15 +141,18 @@ public class Player : MonoBehaviour {
 
 	public void PrepareAttack(){
 		if (!selectedUnit.GetComponent<Unit> ().Attacked) {
-			selectedUnit.GetComponent<Unit> ().FindAllAttackableTiles (attackableMaterial);
-			attacking = true;
+			if (selectedUnit.GetComponent<Unit> ().FindAllAttackableTiles (attackableMaterial)) {
+				attacking = true;
+				moving = false;
+			}
 		}
 	}
 
 	public void PrepareMove(){
 		if (!selectedUnit.GetComponent<Unit> ().Moved) {
-			selectedUnit.GetComponent<Unit> ().FindAllMovableTiles (movableMaterial);
-			moving = true;
+			if (selectedUnit.GetComponent<Unit> ().FindAllMovableTiles (movableMaterial)) {
+				moving = true;
+			}
 		}
 	}
 	//Unit
@@ -156,6 +162,8 @@ public class Player : MonoBehaviour {
 
 	public void UnitEndTurn(){
 		selectedUnit.GetComponent<Unit>().OnTurnEnd();
+
+		AdjustUnitControl ();
 	}
 
 	void ActivateUnitControl(){
@@ -181,9 +189,7 @@ public class Player : MonoBehaviour {
 		} else {
 			Move.SetActive (true);
 			Attack.SetActive (true);
-		}
-
-		
+		}				
 	
 	}
 

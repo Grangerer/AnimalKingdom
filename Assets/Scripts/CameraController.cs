@@ -4,11 +4,12 @@ using UnityEngine;
 
 public class CameraController : MonoBehaviour {
 
-	public Camera camera;
-	public int scrollSpeed;
+	public Camera mainCamera;
+	public int baseScrollspeed;
+	private int scrollSpeed;
 	// Use this for initialization
 	void Start () {
-		
+		scrollSpeed = baseScrollspeed;
 	}
 	
 	// Update is called once per frame
@@ -16,27 +17,29 @@ public class CameraController : MonoBehaviour {
 
 		//perhaps increase scroll speed based on current cameraheight (y)
 		if(Input.GetKey(KeyCode.DownArrow) || Input.GetKey(KeyCode.S)){
-			camera.transform.position = new Vector3 (camera.transform.position.x, camera.transform.position.y, camera.transform.position.z - scrollSpeed * Time.deltaTime);
+			mainCamera.transform.position = new Vector3 (mainCamera.transform.position.x, mainCamera.transform.position.y, mainCamera.transform.position.z - scrollSpeed * Time.deltaTime);
 		}
 		if(Input.GetKey(KeyCode.UpArrow) || Input.GetKey(KeyCode.W)){
-			camera.transform.position = new Vector3 (camera.transform.position.x, camera.transform.position.y, camera.transform.position.z + scrollSpeed * Time.deltaTime);
+			mainCamera.transform.position = new Vector3 (mainCamera.transform.position.x, mainCamera.transform.position.y, mainCamera.transform.position.z + scrollSpeed * Time.deltaTime);
 		}
 		if(Input.GetKey(KeyCode.RightArrow) || Input.GetKey(KeyCode.D)){
-			camera.transform.position = new Vector3 (camera.transform.position.x + scrollSpeed * Time.deltaTime, camera.transform.position.y, camera.transform.position.z);
+			mainCamera.transform.position = new Vector3 (mainCamera.transform.position.x + scrollSpeed * Time.deltaTime, mainCamera.transform.position.y, mainCamera.transform.position.z);
 		}
 		if(Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.A)){
-			camera.transform.position = new Vector3 (camera.transform.position.x - scrollSpeed * Time.deltaTime, camera.transform.position.y, camera.transform.position.z);
+			mainCamera.transform.position = new Vector3 (mainCamera.transform.position.x - scrollSpeed * Time.deltaTime, mainCamera.transform.position.y, mainCamera.transform.position.z);
 		}
 		//Zoom in
 		if (Input.GetAxis ("Mouse ScrollWheel") > 0f) {
-			if (camera.transform.position.y > 5) {
-				camera.transform.position = new Vector3 (camera.transform.position.x, camera.transform.position.y - 1, camera.transform.position.z);
+			if (mainCamera.transform.position.y > 4) {
+				mainCamera.transform.position = new Vector3 (mainCamera.transform.position.x, mainCamera.transform.position.y - 1, mainCamera.transform.position.z);
+				scrollSpeed = baseScrollspeed + (int)mainCamera.transform.position.y / 2;
 			}
 		} 
 		//Zoom out
 		if(Input.GetAxis ("Mouse ScrollWheel") < 0f) {
-			if (camera.transform.position.y < 20) {
-				camera.transform.position = new Vector3 (camera.transform.position.x, camera.transform.position.y + 1, camera.transform.position.z);
+			if (mainCamera.transform.position.y < 20) {
+				mainCamera.transform.position = new Vector3 (mainCamera.transform.position.x, mainCamera.transform.position.y + 1, mainCamera.transform.position.z);
+				scrollSpeed = baseScrollspeed + (int)mainCamera.transform.position.y / 2;
 			}
 		}
 	}

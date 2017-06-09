@@ -30,3 +30,5 @@ D:\Daten\Kings of Color\TurnBasedStuff\Temp\bin\Debug\UnityEngine.VR.xml
 D:\Daten\Kings of Color\TurnBasedStuff\obj\Debug\Assembly-CSharp.dll
 D:\Daten\Kings of Color\TurnBasedStuff\obj\Debug\Assembly-CSharp.pdb
 D:\Daten\TurnBasedStuff\obj\Debug\Assembly-CSharp.csprojResolveAssemblyReference.cache
+C:\Users\FS\Documents\turnbased3rdProject\obj\Debug\Assembly-CSharp.csprojResolveAssemblyReference.cache
+C:\Users\FS\Documents\turnbased3rdProject\obj\Debug\Assembly-CSharp.dll

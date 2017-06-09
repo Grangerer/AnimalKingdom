@@ -30,7 +30,10 @@ public class LevelSpawner : MonoBehaviour {
 				tmpTile.GetComponent<Tile> ().Setup (i,j);
 				tmpTile.transform.parent = tileParent.transform;
 				//Spawn Obstacle if this tile shoudl contain an obstacle
-				SpawnObstacle(position);
+				if (Random.Range (1, 100) <= 15) {
+					tmpTile.GetComponent<Tile> ().Occupied = true;
+					SpawnObstacle (position).transform.parent = tmpTile.transform;
+				}
 				tileList.Add (tmpTile);
 			}
 		}
@@ -39,11 +42,12 @@ public class LevelSpawner : MonoBehaviour {
 		}
 		return tileList;
 	}
-	void SpawnObstacle(Vector3 position){
+	GameObject SpawnObstacle(Vector3 position){
 		int chosenObstacleIndex = Random.Range(0,obstacles.Count);
 
 		position.y = obstacles [chosenObstacleIndex].transform.position.y;
 		GameObject obstacle = Instantiate(obstacles[chosenObstacleIndex], position, Quaternion.identity);
+		return obstacle;
 	}
 
 

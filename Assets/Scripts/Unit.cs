@@ -31,7 +31,7 @@ public class Unit : MonoBehaviour {
 	}
 
 	//Movement
-	public void FindAllMovableTiles (Material movableMaterial)
+	public bool FindAllMovableTiles (Material movableMaterial)
 	{
 		ResetCurrentlyColoredTiles ();
 
@@ -60,15 +60,21 @@ public class Unit : MonoBehaviour {
 				}
 			}							
 		}
+		if (toColorTiles.Count == 0) {
+			return false;
+		}
+			
 		foreach (GameObject tileGO in toColorTiles) {
 			tileGO.GetComponent<Tile> ().Recolor (movableMaterial);
 			tileGO.GetComponent<Tile> ().CurrentlyMovable = true;
 		}
 		currentlyColoredTiles = toColorTiles;
+
+		return true;
 	}
 	public void MoveToTile(GameObject tile){
 		//Move
-		Vector3 newPosition = new Vector3 (tile.transform.position.x, 0.75f, tile.transform.position.z);
+		Vector3 newPosition = new Vector3 (tile.transform.position.x, this.transform.position.y, tile.transform.position.z);
 		this.transform.position = newPosition;
 		this.Moved = true;
 		//Dereference unit on old tile
@@ -82,12 +88,14 @@ public class Unit : MonoBehaviour {
 		}
 
 		currentlyColoredTiles = null;
+
 	}
 
 	//Attack
-	public void FindAllAttackableTiles(Material attackableMaterial){
+	public bool FindAllAttackableTiles(Material attackableMaterial){
 		ResetCurrentlyColoredTiles ();
 
+		bool foundAttackableTile = false;
 		Tile baseTile = this.CurrentTile.GetComponent<Tile> ();
 		List<GameObject> toColorTiles = new List<GameObject> ();
 		//Add all adjacentTiles to recolor list
@@ -111,19 +119,24 @@ public class Unit : MonoBehaviour {
 					}
 			}							
 		}
+
 		foreach (GameObject tileGO in toColorTiles) {
-			if (tileGO.GetComponent<Tile> ().Occupied && !tileGO.GetComponent<Tile> ().Unit.GetComponent<Unit> ().OwnedByPlayer) {				
+			if (tileGO.GetComponent<Tile> ().Unit != null && !tileGO.GetComponent<Tile> ().Unit.GetComponent<Unit> ().OwnedByPlayer) {				
 				tileGO.GetComponent<Tile> ().Recolor (attackableMaterial);
 				tileGO.GetComponent<Tile> ().CurrentlyAttackable = true;
+				foundAttackableTile = true;
 			}
 		}
+		if (!foundAttackableTile) {
+			return false;
+		}
 		currentlyColoredTiles = toColorTiles;
+		return true;
 	}
 	public void AttackTile(GameObject tile){
 		tile.GetComponent<Tile> ().Unit.GetComponent<Unit> ().Damage (this.damage);
-		this.Moved = true;
 		this.Attacked = true;
-		this.TurnEnded = true;
+		OnTurnEnd ();
 		//Uncolor tiles after attack
 		foreach (GameObject tileGO in currentlyColoredTiles) {
 			tileGO.GetComponent<Tile> ().ResetColor ();			
@@ -151,9 +164,11 @@ public class Unit : MonoBehaviour {
 		moved = false;
 		attacked = false;
 		turnEnded = false;
+		currentTile.GetComponent<Tile> ().ShowUsableUnit ();
 	}
 	public void OnTurnEnd(){
 		turnEnded = true;
+		currentTile.GetComponent<Tile> ().HideUsableUnit ();
 	}
 
 	//PropertyStuff

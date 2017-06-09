@@ -12,7 +12,6 @@ public class GameManager : MonoBehaviour {
 	public Player player;
 	bool playersTurn;
 
-	private float unitHeight = 0.75f;
 
 
 
@@ -26,12 +25,12 @@ public class GameManager : MonoBehaviour {
 	void Start () {
 		//Spawn Level
 		levelSpawner = this.GetComponent<LevelSpawner>();
-		tileList = levelSpawner.SpawnTiles(10,5);
+		tileList = levelSpawner.SpawnTiles(10,7);
 		//Spawn Units
 		//Test: Spawn PlayerUnit on Tile(3)(1)
 		if (GameObject.Find ("Tile(3)(1)") != null) {
 			GameObject spawnOnTile = GameObject.Find ("Tile(3)(1)");
-			Vector3 position = new Vector3 (spawnOnTile.transform.position.x, unitHeight, spawnOnTile.transform.position.z);
+			Vector3 position = new Vector3 (spawnOnTile.transform.position.x, testUnit.transform.position.y, spawnOnTile.transform.position.z);
 			GameObject tmpUnit = Instantiate (testUnit, position, Quaternion.identity);
 			tmpUnit.GetComponent<Unit> ().Setup (spawnOnTile);
 			tmpUnit.GetComponent<Unit> ().OwnedByPlayer = true;
@@ -41,7 +40,7 @@ public class GameManager : MonoBehaviour {
 		//Test: Spawn EnemyUnit on Tile (2)(1)
 		if (GameObject.Find ("Tile(2)(1)") != null) {
 			GameObject spawnOnTile = GameObject.Find ("Tile(2)(1)");
-			Vector3 position = new Vector3 (spawnOnTile.transform.position.x, unitHeight, spawnOnTile.transform.position.z);
+			Vector3 position = new Vector3 (spawnOnTile.transform.position.x, testUnit.transform.position.y, spawnOnTile.transform.position.z);
 			GameObject tmpUnit = Instantiate (testUnit, position, Quaternion.identity);
 			tmpUnit.GetComponent<Unit> ().Setup (spawnOnTile);
 			tmpUnit.GetComponent<Unit> ().OwnedByPlayer = false;
@@ -50,7 +49,7 @@ public class GameManager : MonoBehaviour {
 		//Test: Spawn second playerUnit on Tile (2)(2)
 		if (GameObject.Find ("Tile(2)(2)") != null) {
 			GameObject spawnOnTile = GameObject.Find ("Tile(2)(2)");
-			Vector3 position = new Vector3 (spawnOnTile.transform.position.x, unitHeight, spawnOnTile.transform.position.z);
+			Vector3 position = new Vector3 (spawnOnTile.transform.position.x, testUnit.transform.position.y, spawnOnTile.transform.position.z);
 			GameObject tmpUnit = Instantiate (testUnit, position, Quaternion.identity);
 			tmpUnit.GetComponent<Unit> ().Setup (spawnOnTile);
 			tmpUnit.GetComponent<Unit> ().OwnedByPlayer = true;
