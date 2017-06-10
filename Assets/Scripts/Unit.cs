@@ -18,11 +18,15 @@ public class Unit : MonoBehaviour {
 	private bool attacked = false;
 	private bool turnEnded = false;
 
+	public UnitAI unitAI;
 
-	List<GameObject> currentlyColoredTiles = new List<GameObject>();
+
+	List<GameObject> currentlyColoredTiles;
 	// Use this for initialization
 	void Start () {
 		currentHealth = health;
+		unitAI.Unit = this;
+		currentlyColoredTiles = new List<GameObject> ();
 	}
 	
 	// Update is called once per frame
@@ -87,7 +91,7 @@ public class Unit : MonoBehaviour {
 			tileGO.GetComponent<Tile> ().ResetColor ();			
 		}
 
-		currentlyColoredTiles = null;
+		currentlyColoredTiles = new List<GameObject> ();
 
 	}
 
@@ -133,6 +137,7 @@ public class Unit : MonoBehaviour {
 		currentlyColoredTiles = toColorTiles;
 		return true;
 	}
+
 	public void AttackTile(GameObject tile){
 		tile.GetComponent<Tile> ().Unit.GetComponent<Unit> ().Damage (this.damage);
 		this.Attacked = true;

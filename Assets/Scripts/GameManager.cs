@@ -12,7 +12,7 @@ public class GameManager : MonoBehaviour {
 	public Player player;
 	bool playersTurn;
 
-
+	AI ai;
 
 
 	private LevelSpawner levelSpawner;
@@ -23,6 +23,7 @@ public class GameManager : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+		ai = AI.instance;
 		//Spawn Level
 		levelSpawner = this.GetComponent<LevelSpawner>();
 		tileList = levelSpawner.SpawnTiles(10,7);
@@ -45,6 +46,7 @@ public class GameManager : MonoBehaviour {
 			tmpUnit.GetComponent<Unit> ().Setup (spawnOnTile);
 			tmpUnit.GetComponent<Unit> ().OwnedByPlayer = false;
 			spawnOnTile.GetComponent<Tile> ().ReferenceUnit(tmpUnit);
+			ai.AddUnit (tmpUnit);
 		}
 		//Test: Spawn second playerUnit on Tile (2)(2)
 		if (GameObject.Find ("Tile(2)(2)") != null) {
@@ -88,6 +90,7 @@ public class GameManager : MonoBehaviour {
 		}
 	}
 	IEnumerator AIStart(){
+		ai.StartTurn ();
 		yield return new WaitForSeconds (5);
 		Debug.Log ("AiTurn End");
 		NextTurn();
