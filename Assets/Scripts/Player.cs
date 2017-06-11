@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Player : MonoBehaviour {
 
+	public static Player instance;
+
 	GameManager gameManager;
 	UIController uiController;
 
@@ -27,6 +29,13 @@ public class Player : MonoBehaviour {
 		uiController = UIController.instance;
 		//Disable UI (Cleanup)
 		unitControl.SetActive(false);
+	}
+	void Awake() {
+		if (instance != null) {
+			Debug.LogError("More than one Player in scene!");
+			return;
+		}
+		instance = this;
 	}
 	
 	// Update is called once per frame
@@ -65,7 +74,7 @@ public class Player : MonoBehaviour {
 		if (Physics.Raycast (ray, out hit, 100)) {
 			if (!moving && !attacking && !UnityEngine.EventSystems.EventSystem.current.IsPointerOverGameObject()) {
 					if (hit.transform.gameObject.tag == "Unit") {
-						selectedUnit = hit.transform.gameObject;
+					selectedUnit = hit.transform.root.gameObject;
 					} else if (hit.transform.gameObject.tag == "Tile") {
 						selectedUnit = hit.transform.gameObject.GetComponent<Tile> ().Unit;
 					}
@@ -85,7 +94,7 @@ public class Player : MonoBehaviour {
 			}
 			if (moving) {
 				if (hit.transform.gameObject.tag == "Unit") {
-					selectedTile = hit.transform.gameObject.GetComponent<Unit> ().CurrentTile;
+					selectedTile = hit.transform.root.gameObject.GetComponent<Unit> ().CurrentTile;
 				} else if (hit.transform.gameObject.tag == "Tile") {
 					selectedTile = hit.transform.gameObject;
 				}
@@ -100,7 +109,7 @@ public class Player : MonoBehaviour {
 
 			} else if (attacking) {
 				if (hit.transform.gameObject.tag == "Unit") {
-					selectedTile = hit.transform.gameObject.GetComponent<Unit> ().CurrentTile;
+					selectedTile = hit.transform.root.gameObject.GetComponent<Unit> ().CurrentTile;
 				} else if (hit.transform.gameObject.tag == "Tile") {
 					selectedTile = hit.transform.gameObject;
 				}
@@ -209,7 +218,17 @@ public class Player : MonoBehaviour {
 		selectedUnit = null;
 		uiController.UnsetUnitStatPanel ();
 	}
-
+	public bool OwnsUnit(GameObject checkUnit){
+		return units.Contains (checkUnit);
+	}
+	public void RemoveUnit(GameObject unit){
+		units.Remove (unit);
+		//Check if no unit is left
+		if (units.Count == 0) {
+			//Player looses match
+			gameManager.LooseMatch();
+		}
+	}
 
 	//Properties
 	public GameObject SelectedUnit {

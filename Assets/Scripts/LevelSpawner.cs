@@ -4,22 +4,33 @@ using UnityEngine;
 
 public class LevelSpawner : MonoBehaviour {
 
+	private AI ai;
+
 	public GameObject tile;
 	public List<GameObject> obstacles;
+	public List<GameObject> enemies;
 	private float spaceBetweenTiles;
 
 	private GameObject tileParent;
 	// Use this for initialization
 	void Start () {
-		
+		ai = AI.instance;
 	}
 
-	// Update is called once per frame
-	void Update () {
-		
+	public List<GameObject> SpawnLevel(Level level){
+		List<GameObject> tileList = new List<GameObject>();
+
+		tileList = SpawnTiles (level);
+
+		return tileList;
 	}
 
-	public List<GameObject> SpawnTiles(int width, int height, ArrayList[][] obstacles = null){
+	private List<GameObject> SpawnTiles(Level level){
+		int width = level.GridWidth;
+		int height = level.GridHeight;
+		HashSet<KeyValuePair<int,int>> obstacles = level.ObstaclePositions; 
+		List<LevelEnemies> levelEnemies = level.EnemyPositionsAndType;
+
 		tileParent = new GameObject ("Tiles");
 		spaceBetweenTiles = tile.transform.lossyScale.x + 0.2f;
 		List<GameObject> tileList = new List<GameObject>();
@@ -29,10 +40,16 @@ public class LevelSpawner : MonoBehaviour {
 				GameObject tmpTile = Instantiate(tile, position, Quaternion.identity);
 				tmpTile.GetComponent<Tile> ().Setup (i,j);
 				tmpTile.transform.parent = tileParent.transform;
-				//Spawn Obstacle if this tile shoudl contain an obstacle
-				if (Random.Range (1, 100) <= 15) {
+				//Spawn Enemy if this tile should contain an enemy
+				foreach (LevelEnemies enemy in levelEnemies) {
+					if (enemy.GridWidth == i && enemy.GridHeight == j) {
+						SpawnEnemy (tmpTile, enemy.UnitId);
+					}
+				}
+				//Spawn Obstacle if this tile should contain an obstacle
+				if (obstacles.Contains(new KeyValuePair<int, int>(i,j))){
 					tmpTile.GetComponent<Tile> ().Occupied = true;
-					SpawnObstacle (position).transform.parent = tmpTile.transform;
+					SpawnObstacle (position, tmpTile);
 				}
 				tileList.Add (tmpTile);
 			}
@@ -42,12 +59,20 @@ public class LevelSpawner : MonoBehaviour {
 		}
 		return tileList;
 	}
-	GameObject SpawnObstacle(Vector3 position){
+	void SpawnObstacle(Vector3 position, GameObject tile){
 		int chosenObstacleIndex = Random.Range(0,obstacles.Count);
 
 		position.y = obstacles [chosenObstacleIndex].transform.position.y;
 		GameObject obstacle = Instantiate(obstacles[chosenObstacleIndex], position, Quaternion.identity);
-		return obstacle;
+		obstacle.transform.parent = tile.transform;
+	}
+	void SpawnEnemy(GameObject spawnOnTile, int unitID){
+		Vector3 position = new Vector3 (spawnOnTile.transform.position.x, enemies[unitID].transform.position.y, spawnOnTile.transform.position.z);
+		GameObject tmpUnit = Instantiate (enemies[unitID], position, Quaternion.identity);
+		tmpUnit.GetComponent<Unit> ().Setup (spawnOnTile);
+		tmpUnit.GetComponent<Unit> ().OwnedByPlayer = false;
+		spawnOnTile.GetComponent<Tile> ().ReferenceUnit(tmpUnit);
+		ai.AddUnit (tmpUnit);
 	}
 
 

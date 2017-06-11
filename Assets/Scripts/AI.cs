@@ -52,4 +52,16 @@ public class AI : MonoBehaviour {
 	public void AddUnit(GameObject unit){
 		units.Add (unit);
 	}
+	public bool OwnsUnit(GameObject checkUnit){
+		return units.Contains (checkUnit);
+	}
+	public void RemoveUnit(GameObject unit){
+		units.Remove (unit);
+		//Check if any units are left
+		if (units.Count == 0) {
+			//Player wins match
+			gameManager.WinMatch();
+		}
+	
+	}
 }

@@ -20,10 +20,15 @@ public class Unit : MonoBehaviour {
 
 	public UnitAI unitAI;
 
+	private AI ai;
+	private Player player;
 
 	List<GameObject> currentlyColoredTiles;
 	// Use this for initialization
 	void Start () {
+		ai = AI.instance;
+		player = Player.instance;
+
 		currentHealth = health;
 		unitAI.Unit = this;
 		currentlyColoredTiles = new List<GameObject> ();
@@ -77,6 +82,7 @@ public class Unit : MonoBehaviour {
 		return true;
 	}
 	public void MoveToTile(GameObject tile){
+		TurnTowards (tile);
 		//Move
 		Vector3 newPosition = new Vector3 (tile.transform.position.x, this.transform.position.y, tile.transform.position.z);
 		this.transform.position = newPosition;
@@ -137,33 +143,50 @@ public class Unit : MonoBehaviour {
 		currentlyColoredTiles = toColorTiles;
 		return true;
 	}
-
 	public void AttackTile(GameObject tile){
 		tile.GetComponent<Tile> ().Unit.GetComponent<Unit> ().Damage (this.damage);
 		this.Attacked = true;
 		OnTurnEnd ();
+		TurnTowards (tile);
 		//Uncolor tiles after attack
 		foreach (GameObject tileGO in currentlyColoredTiles) {
 			tileGO.GetComponent<Tile> ().ResetColor ();			
 		}
-		currentlyColoredTiles = null;
+		currentlyColoredTiles = new List<GameObject>();
 	}
 	public void Damage(int damage){
 		this.currentHealth -= damage;
 		//Do all relevant checks regarding death and abilities
 		if (currentHealth <= 0) {
 			Destroy (this.gameObject);
+
 		}
 	}
 
-	public void ResetCurrentlyColoredTiles(){
-		if (currentlyColoredTiles != null) {
-			foreach (GameObject tile in currentlyColoredTiles) {
-				tile.GetComponent<Tile> ().ResetColor ();
-			}
+	//General
+	void TurnTowards(GameObject target){
+		//Turn towards target
+		Vector3 targetPoint = new Vector3(target.transform.position.x, transform.position.y, target.transform.position.z) - transform.position;
+		Quaternion targetRotation = Quaternion.LookRotation (-targetPoint, Vector3.up) * Quaternion.Euler(0,90,0);
+		transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, 1);
+	}
+	public void ResetCurrentlyColoredTiles ()
+	{
+		foreach (GameObject tile in currentlyColoredTiles) {
+			tile.GetComponent<Tile> ().ResetColor ();
 		}
 	}
 
+	void OnDestroy(){
+		//Free the the tile from this unit
+		currentTile.GetComponent<Tile>().ReferenceUnit(null);
+		//Remove Unit from its owners unit list (Player or AI)
+		if (player.OwnsUnit (this.gameObject)) {
+			player.RemoveUnit (this.gameObject);
+		} else if (ai.OwnsUnit (this.gameObject)) {
+			ai.RemoveUnit (this.gameObject);
+		}
+	}
 	//Turn
 	public void OnTurnStart(){
 		moved = false;

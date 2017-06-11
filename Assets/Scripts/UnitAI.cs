@@ -27,7 +27,8 @@ public class UnitAI : MonoBehaviour {
 			//Move
 			FindMoveTarget();
 			//Attack target;
-			target.Damage(unit.damage);
+			unit.AttackTile(target.CurrentTile);
+			//target.Damage(unit.damage);
 		}//Move towards closest enemy
 		else {
 			Debug.Log ("No Enemy Found!");
@@ -75,7 +76,7 @@ public class UnitAI : MonoBehaviour {
 					tmpTiles.Add(tile.GetComponent<Tile>());
 			}
 			//go through each adjacent tiles of tile within attackrange
-			for (int i = 1; i < unit.attackRange; i++) {
+			for (int i = 1; i <= unit.attackRange; i++) {
 				List<Tile> tmpSecondaryTiles = new List<Tile> ();				
 				foreach (Tile tile in tmpTiles) {
 					foreach (GameObject checkTile in tile.AdjacentTiles) {

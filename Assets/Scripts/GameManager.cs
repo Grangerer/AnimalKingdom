@@ -25,8 +25,10 @@ public class GameManager : MonoBehaviour {
 	void Start () {
 		ai = AI.instance;
 		//Spawn Level
+		Level level = new Level();
+		level.LoadLevel(0);
 		levelSpawner = this.GetComponent<LevelSpawner>();
-		tileList = levelSpawner.SpawnTiles(10,7);
+		tileList = levelSpawner.SpawnLevel(level);
 		//Spawn Units
 		//Test: Spawn PlayerUnit on Tile(3)(1)
 		if (GameObject.Find ("Tile(3)(1)") != null) {
@@ -37,16 +39,6 @@ public class GameManager : MonoBehaviour {
 			tmpUnit.GetComponent<Unit> ().OwnedByPlayer = true;
 			spawnOnTile.GetComponent<Tile> ().ReferenceUnit(tmpUnit);
 			player.AddUnit (tmpUnit);
-		}
-		//Test: Spawn EnemyUnit on Tile (2)(1)
-		if (GameObject.Find ("Tile(2)(1)") != null) {
-			GameObject spawnOnTile = GameObject.Find ("Tile(2)(1)");
-			Vector3 position = new Vector3 (spawnOnTile.transform.position.x, testUnit.transform.position.y, spawnOnTile.transform.position.z);
-			GameObject tmpUnit = Instantiate (testUnit, position, Quaternion.identity);
-			tmpUnit.GetComponent<Unit> ().Setup (spawnOnTile);
-			tmpUnit.GetComponent<Unit> ().OwnedByPlayer = false;
-			spawnOnTile.GetComponent<Tile> ().ReferenceUnit(tmpUnit);
-			ai.AddUnit (tmpUnit);
 		}
 		//Test: Spawn second playerUnit on Tile (2)(2)
 		if (GameObject.Find ("Tile(2)(2)") != null) {
@@ -75,7 +67,7 @@ public class GameManager : MonoBehaviour {
 
 	}
 
-
+	//Turnstuff
 	public void NextTurn(){
 
 		playersTurn = !playersTurn;
@@ -91,9 +83,18 @@ public class GameManager : MonoBehaviour {
 	}
 	IEnumerator AIStart(){
 		ai.StartTurn ();
-		yield return new WaitForSeconds (5);
+		yield return new WaitForSeconds (2);
 		Debug.Log ("AiTurn End");
 		NextTurn();
 	}
 		
+	//Win Match
+	public void WinMatch(){
+		Debug.Log ("Player has won the match");
+		Time.timeScale = 0;
+	}
+	public void LooseMatch(){
+		Debug.Log ("Player has lost the match");
+		Time.timeScale = 0;
+	}
 }
