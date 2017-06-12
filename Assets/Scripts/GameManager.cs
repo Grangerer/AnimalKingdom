@@ -9,7 +9,7 @@ public class GameManager : MonoBehaviour {
 	public GameObject testUnit;
 	//Test
 
-	public Player player;
+	public PlayerController playerController;
 	bool playersTurn;
 
 	AI ai;
@@ -38,7 +38,7 @@ public class GameManager : MonoBehaviour {
 			tmpUnit.GetComponent<Unit> ().Setup (spawnOnTile);
 			tmpUnit.GetComponent<Unit> ().OwnedByPlayer = true;
 			spawnOnTile.GetComponent<Tile> ().ReferenceUnit(tmpUnit);
-			player.AddUnit (tmpUnit);
+			playerController.AddUnit (tmpUnit);
 		}
 		//Test: Spawn second playerUnit on Tile (2)(2)
 		if (GameObject.Find ("Tile(2)(2)") != null) {
@@ -48,10 +48,10 @@ public class GameManager : MonoBehaviour {
 			tmpUnit.GetComponent<Unit> ().Setup (spawnOnTile);
 			tmpUnit.GetComponent<Unit> ().OwnedByPlayer = true;
 			spawnOnTile.GetComponent<Tile> ().ReferenceUnit(tmpUnit);
-			player.AddUnit (tmpUnit);
+			playerController.AddUnit (tmpUnit);
 		}
 
-		player.OnTurnStart ();
+		playerController.OnTurnStart ();
 		playersTurn = true;
 	}
 
@@ -77,7 +77,7 @@ public class GameManager : MonoBehaviour {
 			StartCoroutine (AIStart ());
 
 		} else {
-			player.OnTurnStart ();
+			playerController.OnTurnStart ();
 			playersTurn = true;
 		}
 	}

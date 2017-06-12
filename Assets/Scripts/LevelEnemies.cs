@@ -20,13 +20,11 @@ public class LevelEnemies {
 			return gridHeight;
 		}
 	}
-
 	public int GridWidth {
 		get {
 			return gridWidth;
 		}
 	}
-
 	public int UnitId {
 		get {
 			return unitId;

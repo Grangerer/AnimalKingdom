@@ -21,13 +21,13 @@ public class Unit : MonoBehaviour {
 	public UnitAI unitAI;
 
 	private AI ai;
-	private Player player;
+	private PlayerController player;
 
 	List<GameObject> currentlyColoredTiles;
 	// Use this for initialization
 	void Start () {
 		ai = AI.instance;
-		player = Player.instance;
+		player = PlayerController.instance;
 
 		currentHealth = health;
 		unitAI.Unit = this;
