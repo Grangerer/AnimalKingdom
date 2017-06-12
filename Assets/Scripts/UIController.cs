@@ -33,7 +33,7 @@ public class UIController : MonoBehaviour {
 		healthText.text = "Health: " + unit.CurrentHealth + " / " + unit.health;
 		movementSpeedText.text = "Movementspeed: " + unit.movementSpeed;
 		attackrangeText.text = "Attackrange: " + unit.attackRange;
-		damageText.text = "Damage: " + unit.damage;
+		damageText.text = "Damage: " + unit.attackDamage;
 	}
 
 	public void UnsetUnitStatPanel(){

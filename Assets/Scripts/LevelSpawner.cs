@@ -12,9 +12,13 @@ public class LevelSpawner : MonoBehaviour {
 	private float spaceBetweenTiles;
 
 	private GameObject tileParent;
+	private GameObject enemyParent;
 	// Use this for initialization
 	void Start () {
 		ai = AI.instance;
+
+		tileParent = new GameObject ("Tiles");
+		enemyParent = new GameObject ("Enemies");
 	}
 
 	public List<GameObject> SpawnLevel(Level level){
@@ -31,7 +35,6 @@ public class LevelSpawner : MonoBehaviour {
 		HashSet<KeyValuePair<int,int>> obstacles = level.ObstaclePositions; 
 		List<LevelEnemies> levelEnemies = level.EnemyPositionsAndType;
 
-		tileParent = new GameObject ("Tiles");
 		spaceBetweenTiles = tile.transform.lossyScale.x + 0.2f;
 		List<GameObject> tileList = new List<GameObject>();
 		for (int i = 0; i < width; i++) {
@@ -73,6 +76,7 @@ public class LevelSpawner : MonoBehaviour {
 		tmpUnit.GetComponent<Unit> ().OwnedByPlayer = false;
 		spawnOnTile.GetComponent<Tile> ().ReferenceUnit(tmpUnit);
 		ai.AddUnit (tmpUnit);
+		tmpUnit.transform.parent = enemyParent.transform;
 	}
 
 

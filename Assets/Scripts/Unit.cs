@@ -4,12 +4,19 @@ using UnityEngine;
 
 public class Unit : MonoBehaviour {
 
-
+	//create currentvalues for battlemanipulation
 	public int movementSpeed;
+	private int currentMovementspeed;
 	public int attackRange;
-	public int damage;
+	private int currentAttackRange;
+	public int attackDamage;
+	private int currentAttackDamage;
 	public int health;
 	private int currentHealth;
+
+	//Status Ailments and remembering last turn stuff
+	bool movedLastTurn;
+	bool attackedLastTurn;
 
 	private bool ownedByPlayer;
 	private GameObject currentTile;
@@ -144,7 +151,7 @@ public class Unit : MonoBehaviour {
 		return true;
 	}
 	public void AttackTile(GameObject tile){
-		tile.GetComponent<Tile> ().Unit.GetComponent<Unit> ().Damage (this.damage);
+		tile.GetComponent<Tile> ().Unit.GetComponent<Unit> ().Damage (this.attackDamage);
 		this.Attacked = true;
 		OnTurnEnd ();
 		TurnTowards (tile);
@@ -154,8 +161,8 @@ public class Unit : MonoBehaviour {
 		}
 		currentlyColoredTiles = new List<GameObject>();
 	}
-	public void Damage(int damage){
-		this.currentHealth -= damage;
+	public void Damage(int attackDamage){
+		this.currentHealth -= attackDamage;
 		//Do all relevant checks regarding death and abilities
 		if (currentHealth <= 0) {
 			Destroy (this.gameObject);
@@ -179,7 +186,9 @@ public class Unit : MonoBehaviour {
 
 	void OnDestroy(){
 		//Free the the tile from this unit
-		currentTile.GetComponent<Tile>().ReferenceUnit(null);
+		if (currentTile != null) {
+			currentTile.GetComponent<Tile> ().ReferenceUnit (null);
+		}
 		//Remove Unit from its owners unit list (Player or AI)
 		if (player.OwnsUnit (this.gameObject)) {
 			player.RemoveUnit (this.gameObject);
@@ -189,6 +198,8 @@ public class Unit : MonoBehaviour {
 	}
 	//Turn
 	public void OnTurnStart(){
+		movedLastTurn = moved;
+		attackedLastTurn = attacked;
 		moved = false;
 		attacked = false;
 		turnEnded = false;
