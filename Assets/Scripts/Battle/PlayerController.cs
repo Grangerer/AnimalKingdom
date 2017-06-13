@@ -40,27 +40,29 @@ public class PlayerController : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if (Input.GetMouseButtonDown (0)) {
-			CheckMouseTarget ();
-		}
-		if (myTurn && selectedUnit != null && selectedUnit.GetComponent<Unit>().OwnedByPlayer) {		
-			//Moving	
-			if (Input.GetKeyDown (KeyCode.Alpha1) && selectedUnit != null) {
-				if (!selectedUnit.GetComponent<Unit> ().Moved) {
-					PrepareMove ();
-				}
-			} //Attacking
+		if (!gameManager.GamePaused) {
+			if (Input.GetMouseButtonDown (0)) {
+				CheckMouseTarget ();
+			}
+			if (myTurn && selectedUnit != null && selectedUnit.GetComponent<Unit> ().OwnedByPlayer) {		
+				//Moving	
+				if (Input.GetKeyDown (KeyCode.Alpha1) && selectedUnit != null) {
+					if (!selectedUnit.GetComponent<Unit> ().Moved) {
+						PrepareMove ();
+					}
+				} //Attacking
 			else if (Input.GetKeyDown (KeyCode.Alpha2) && selectedUnit != null) {
-				if (!selectedUnit.GetComponent<Unit> ().Attacked) {
-					PrepareAttack ();
-				}
-			}//Skip Turn
+					if (!selectedUnit.GetComponent<Unit> ().Attacked) {
+						PrepareAttack ();
+					}
+				}//Skip Turn
 			else if (Input.GetKeyDown (KeyCode.Alpha3) && selectedUnit != null) {
-				UnitEndTurn ();
-			}//Right click => Cancel
+					UnitEndTurn ();
+				}//Right click => Cancel
 			else if (Input.GetMouseButtonDown (1)) {
-				//Reset out of current state (unchoose moving/attacking etc)
-				ResetSelection();
+					//Reset out of current state (unchoose moving/attacking etc)
+					ResetSelection ();
+				}
 			}
 		}
 	}
@@ -74,7 +76,7 @@ public class PlayerController : MonoBehaviour {
 		if (Physics.Raycast (ray, out hit, 100)) {
 			if (!moving && !attacking && !UnityEngine.EventSystems.EventSystem.current.IsPointerOverGameObject()) {
 					if (hit.transform.gameObject.tag == "Unit") {
-					selectedUnit = hit.transform.root.gameObject;
+						selectedUnit = hit.transform.root.gameObject;
 					} else if (hit.transform.gameObject.tag == "Tile") {
 						selectedUnit = hit.transform.gameObject.GetComponent<Tile> ().Unit;
 					}

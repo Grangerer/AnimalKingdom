@@ -18,8 +18,9 @@ public class Unit : MonoBehaviour {
 	bool movedLastTurn;
 	bool attackedLastTurn;
 
-	private bool ownedByPlayer;
+	private bool ownedByPlayer = false;
 	private GameObject currentTile;
+	private Transform healthBar;
 
 	private bool moved = false;
 	private bool attacked = false;
@@ -28,14 +29,14 @@ public class Unit : MonoBehaviour {
 	public UnitAI unitAI;
 
 	private AI ai;
-	private PlayerController player;
+	private PlayerController playerController;
 
 	List<GameObject> currentlyColoredTiles;
 	// Use this for initialization
 	void Start () {
 		ai = AI.instance;
-		player = PlayerController.instance;
-
+		playerController = PlayerController.instance;
+		healthBar = this.transform.Find ("HealthBar");
 		currentHealth = health;
 		unitAI.Unit = this;
 		currentlyColoredTiles = new List<GameObject> ();
@@ -162,10 +163,16 @@ public class Unit : MonoBehaviour {
 		currentlyColoredTiles = new List<GameObject>();
 	}
 	public void Damage(int attackDamage){
+		//Damage
 		this.currentHealth -= attackDamage;
+		//Adjust Healthbar
+		healthBar.gameObject.SetActive(true);
+		float xScale = (float)currentHealth/ (float)health;
+		healthBar.Find("Health").localScale = new Vector3(xScale,1,1);
 		//Do all relevant checks regarding death and abilities
 		if (currentHealth <= 0) {
-			Destroy (this.gameObject);
+			DestroyUnit ();
+
 
 		}
 	}
@@ -176,6 +183,8 @@ public class Unit : MonoBehaviour {
 		Vector3 targetPoint = new Vector3(target.transform.position.x, transform.position.y, target.transform.position.z) - transform.position;
 		Quaternion targetRotation = Quaternion.LookRotation (-targetPoint, Vector3.up) * Quaternion.Euler(0,90,0);
 		transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, 1);
+		//Set healthbar turnrate back
+		healthBar.rotation = Quaternion.Euler(0,0,0);
 	}
 	public void ResetCurrentlyColoredTiles ()
 	{
@@ -184,18 +193,21 @@ public class Unit : MonoBehaviour {
 		}
 	}
 
-	void OnDestroy(){
+	void DestroyUnit(){
 		//Free the the tile from this unit
 		if (currentTile != null) {
 			currentTile.GetComponent<Tile> ().ReferenceUnit (null);
 		}
 		//Remove Unit from its owners unit list (Player or AI)
-		if (player.OwnsUnit (this.gameObject)) {
-			player.RemoveUnit (this.gameObject);
+		if (playerController.OwnsUnit (this.gameObject)) {
+			playerController.RemoveUnit (this.gameObject);
 		} else if (ai.OwnsUnit (this.gameObject)) {
 			ai.RemoveUnit (this.gameObject);
 		}
+		//Destroy
+		Destroy(this.gameObject);
 	}
+
 	//Turn
 	public void OnTurnStart(){
 		movedLastTurn = moved;

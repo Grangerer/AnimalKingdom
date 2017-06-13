@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour {
 
@@ -18,7 +19,8 @@ public class GameManager : MonoBehaviour {
 	private LevelSpawner levelSpawner;
 	private List<GameObject> tileList;
 
-
+	public GameObject BattleMenu;
+	bool gamePaused;
 
 
 	// Use this for initialization
@@ -64,7 +66,10 @@ public class GameManager : MonoBehaviour {
 	}
 	// Update is called once per frame
 	void Update () {
-
+		if (Input.GetKeyDown (KeyCode.Escape)) {
+			OpenInBattleMenu ();
+		}
+	
 	}
 
 	//Turnstuff
@@ -82,8 +87,8 @@ public class GameManager : MonoBehaviour {
 		}
 	}
 	IEnumerator AIStart(){
-		ai.StartTurn ();
-		yield return new WaitForSeconds (2);
+		StartCoroutine( ai.StartTurn ());
+		yield return new WaitForSeconds (1);
 		Debug.Log ("AiTurn End");
 		NextTurn();
 	}
@@ -96,5 +101,36 @@ public class GameManager : MonoBehaviour {
 	public void LooseMatch(){
 		Debug.Log ("Player has lost the match");
 		Time.timeScale = 0;
+	}
+	//Menu
+	public void OpenInBattleMenu(){
+		if (BattleMenu.active == false) {
+			Time.timeScale = 0;
+			gamePaused = true;
+			BattleMenu.SetActive (true);
+		} else {
+			Resume ();
+		}
+	}
+	public void Resume(){
+		BattleMenu.SetActive(false);
+		gamePaused = false;
+		Time.timeScale = 1;
+	}
+	public void RestartLevel(){
+		string sceneToLoadName = SceneManager.GetActiveScene ().name;
+		SceneManager.LoadScene (sceneToLoadName);
+	}
+	public void OpenOptions(){}
+	public void GoToMainMenu(){
+	}
+	//Propertystuff
+	public bool GamePaused {
+		get {
+			return gamePaused;
+		}
+		set {
+			gamePaused = value;
+		}
 	}
 }

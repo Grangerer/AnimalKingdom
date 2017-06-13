@@ -12,13 +12,11 @@ public class LevelSpawner : MonoBehaviour {
 	private float spaceBetweenTiles;
 
 	private GameObject tileParent;
-	private GameObject enemyParent;
 	// Use this for initialization
 	void Start () {
 		ai = AI.instance;
 
 		tileParent = new GameObject ("Tiles");
-		enemyParent = new GameObject ("Enemies");
 	}
 
 	public List<GameObject> SpawnLevel(Level level){
@@ -76,7 +74,6 @@ public class LevelSpawner : MonoBehaviour {
 		tmpUnit.GetComponent<Unit> ().OwnedByPlayer = false;
 		spawnOnTile.GetComponent<Tile> ().ReferenceUnit(tmpUnit);
 		ai.AddUnit (tmpUnit);
-		tmpUnit.transform.parent = enemyParent.transform;
 	}
 
 

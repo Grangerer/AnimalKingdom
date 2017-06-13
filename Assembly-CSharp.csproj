@@ -46,19 +46,21 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\Scripts\AI.cs" />
-     <Compile Include="Assets\Scripts\CameraController.cs" />
+     <Compile Include="Assets\Scripts\Battle\AI.cs" />
+     <Compile Include="Assets\Scripts\Battle\CameraController.cs" />
+     <Compile Include="Assets\Scripts\Battle\HealthBar.cs" />
+     <Compile Include="Assets\Scripts\Battle\Level.cs" />
+     <Compile Include="Assets\Scripts\Battle\LevelEnemies.cs" />
+     <Compile Include="Assets\Scripts\Battle\LevelSpawner.cs" />
+     <Compile Include="Assets\Scripts\Battle\PlayerController.cs" />
+     <Compile Include="Assets\Scripts\Battle\Tile.cs" />
+     <Compile Include="Assets\Scripts\Battle\UIController.cs" />
+     <Compile Include="Assets\Scripts\Battle\Unit.cs" />
+     <Compile Include="Assets\Scripts\Battle\UnitAI.cs" />
      <Compile Include="Assets\Scripts\GameManager.cs" />
-     <Compile Include="Assets\Scripts\Level.cs" />
-     <Compile Include="Assets\Scripts\LevelEnemies.cs" />
-     <Compile Include="Assets\Scripts\LevelSpawner.cs" />
      <Compile Include="Assets\Scripts\Player.cs" />
-     <Compile Include="Assets\Scripts\PlayerController.cs" />
-     <Compile Include="Assets\Scripts\Tile.cs" />
-     <Compile Include="Assets\Scripts\UIController.cs" />
-     <Compile Include="Assets\Scripts\Unit.cs" />
-     <Compile Include="Assets\Scripts\UnitAI.cs" />
      <Compile Include="Assets\Scripts\UnitUpgrades\Upgrade.cs" />
+     <Compile Include="Assets\Scripts\UpgradeManager.cs" />
  <Reference Include="UnityEngine.UI">
  <HintPath>D:/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>

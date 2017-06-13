@@ -30,10 +30,12 @@ public class UIController : MonoBehaviour {
 	}
 
 	public void SetUnitStatPanel(Unit unit){
-		healthText.text = "Health: " + unit.CurrentHealth + " / " + unit.health;
-		movementSpeedText.text = "Movementspeed: " + unit.movementSpeed;
-		attackrangeText.text = "Attackrange: " + unit.attackRange;
-		damageText.text = "Damage: " + unit.attackDamage;
+		if (unit != null) {
+			healthText.text = "Health: " + unit.CurrentHealth + " / " + unit.health;
+			movementSpeedText.text = "Movementspeed: " + unit.movementSpeed;
+			attackrangeText.text = "Attackrange: " + unit.attackRange;
+			damageText.text = "Damage: " + unit.attackDamage;
+		}
 	}
 
 	public void UnsetUnitStatPanel(){
