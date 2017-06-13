@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class Player : MonoBehaviour {
 
-
+	List<GameObject> units;
+	int experience;
 
 	// Use this for initialization
 	void Start () {
@@ -14,5 +15,11 @@ public class Player : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		
+	}
+
+
+
+	public void SpentExperience(int experienceCost){
+		experience -= experienceCost;
 	}
 }

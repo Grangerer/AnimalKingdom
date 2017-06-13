@@ -4,15 +4,18 @@ using UnityEngine;
 
 public class Unit : MonoBehaviour {
 
-	//create currentvalues for battlemanipulation
+	//Upgrades
+	private int level = 0;
+	public Upgrade upgrade;
+
+	public int health;
+	private int currentHealth;
 	public int movementSpeed;
 	private int currentMovementspeed;
 	public int attackRange;
 	private int currentAttackRange;
 	public int attackDamage;
 	private int currentAttackDamage;
-	public int health;
-	private int currentHealth;
 
 	//Status Ailments and remembering last turn stuff
 	bool movedLastTurn;
@@ -172,8 +175,6 @@ public class Unit : MonoBehaviour {
 		//Do all relevant checks regarding death and abilities
 		if (currentHealth <= 0) {
 			DestroyUnit ();
-
-
 		}
 	}
 
@@ -269,6 +270,15 @@ public class Unit : MonoBehaviour {
 		}
 		set {
 			currentHealth = value;
+		}
+	}
+
+	public int Level {
+		get {
+			return level;
+		}
+		set {
+			level = value;
 		}
 	}
 }

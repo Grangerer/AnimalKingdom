@@ -41,7 +41,6 @@ public class Level : MonoBehaviour {
 			obstaclePositions.Add (new KeyValuePair<int,int>(4,1));
 			obstaclePositions.Add (new KeyValuePair<int,int>(5,2));
 			obstaclePositions.Add (new KeyValuePair<int,int>(7,4));
-
 		}
 
 	}

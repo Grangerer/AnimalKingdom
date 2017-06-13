@@ -104,7 +104,7 @@ public class GameManager : MonoBehaviour {
 	}
 	//Menu
 	public void OpenInBattleMenu(){
-		if (BattleMenu.active == false) {
+		if (BattleMenu.activeSelf == false) {
 			Time.timeScale = 0;
 			gamePaused = true;
 			BattleMenu.SetActive (true);
@@ -123,6 +123,12 @@ public class GameManager : MonoBehaviour {
 	}
 	public void OpenOptions(){}
 	public void GoToMainMenu(){
+		string sceneToLoadName = "MainMenu";
+		SceneManager.LoadScene (sceneToLoadName);
+	}
+	public void GoToUpgrade(){
+		string sceneToLoadName = "UpgradeUnits";
+		SceneManager.LoadScene (sceneToLoadName);
 	}
 	//Propertystuff
 	public bool GamePaused {
