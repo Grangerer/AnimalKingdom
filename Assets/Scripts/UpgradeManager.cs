@@ -9,10 +9,14 @@ public class UpgradeManager : MonoBehaviour {
 	private GameObject currentShownUnit;
 
 	public GameObject ShowTile;
-	public GameObject ArrowLeft;
-	public GameObject ArrowRight;
+	public GameObject arrowLeft;
+	Animation arrowLeftAnimation;
+	public GameObject arrowRight;
+	Animation arrowRightAnimation;
 	// Use this for initialization
 	void Start () {
+		arrowLeftAnimation = arrowLeft.GetComponent<Animation>();
+		arrowRightAnimation = arrowRight.GetComponent<Animation> ();
 		 DisplayUnit (ShowTile, currentUnitID);
 	}
 	
@@ -23,46 +27,51 @@ public class UpgradeManager : MonoBehaviour {
 			RaycastHit hit;
 			if (Physics.Raycast (ray, out hit, 100)) {
 				if (hit.transform.root.name == "ArrowLeft") {
-					LastUnit ();
+					StartCoroutine(LastUnit ());
 				} else if (hit.transform.root.name == "ArrowRight") {
-					NextUnit ();
+					StartCoroutine(NextUnit ());
 				}
 			}
 		}
 		if (Input.GetKeyDown (KeyCode.A) || Input.GetKeyDown (KeyCode.LeftArrow)) {
-			if (currentUnitID > 0) {
-				LastUnit ();
-			} else {
-				//Display "Cannot next" animation
-			}
+			StartCoroutine(LastUnit ());
 		}else if (Input.GetKeyDown (KeyCode.D) || Input.GetKeyDown (KeyCode.RightArrow)){
-			if (currentUnitID < units.Count-1) {
-				NextUnit ();
-			} else {
-				//Display "Cannot next" animation
-			}
+			StartCoroutine(NextUnit ());
 		}//Upgrade
 		else if(Input.GetKeyDown(KeyCode.U)){
 			ShowTalentTree();
 		}
 
 	}
-	void NextUnit(){
-		Debug.Log ("Next unit");
-		currentUnitID++;
-		//Display Arrow Left animation
-
-		//Display next Unit
-		DisplayUnit(ShowTile,currentUnitID);
+	IEnumerator NextUnit(){
+		if (currentUnitID < units.Count-1) {
+			Debug.Log ("Next unit");
+			currentUnitID++;
+			//Display Arrow Right animation
+			arrowRightAnimation.Stop ();
+			arrowRightAnimation.Play ();
+			yield return new WaitForSeconds (arrowRightAnimation.clip.length/4*3);
+			//Display next Unit
+			DisplayUnit(ShowTile,currentUnitID);
+		} else {
+			//Display "Cannot next" animation
+		}
 	}
-	void LastUnit(){
-		Debug.Log ("Last unit");
-		currentUnitID--;
-		//Display Arrow Left animation
-
-		//Display next Unit
-		DisplayUnit(ShowTile,currentUnitID);
+	IEnumerator LastUnit(){
+		if (currentUnitID > 0) {
+			Debug.Log ("Last unit");
+			currentUnitID--;
+			//Display Arrow Left animation
+			arrowLeftAnimation.Stop ();
+			arrowLeftAnimation.Play ();
+			yield return new WaitForSeconds (arrowLeftAnimation.clip.length/4*3);
+			//Display next Unit
+			DisplayUnit(ShowTile,currentUnitID);
+		} else {
+			//Display "Cannot next" animation
+		}
 	}
+
 
 	void DisplayUnit(GameObject spawnOnTile, int unitID){
 		if (currentShownUnit != null) {

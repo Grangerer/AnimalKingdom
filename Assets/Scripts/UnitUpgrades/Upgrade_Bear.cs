@@ -7,9 +7,11 @@ public class Upgrade_Bear : Upgrade {
 	//Level 1
 	public override void UpgradeLevelOneLeftPath(){
 		UpgradeHealth (2);
+		chosenUpgrade.Add (0);
 	}
 	public override void UpgradeLevelOneRightPath(){
 		UpgradeAttackDamage (1);
+		chosenUpgrade.Add (0);
 	}
 	//Level 2
 	public override void UpgradeLevelTwoLeftPath(){}

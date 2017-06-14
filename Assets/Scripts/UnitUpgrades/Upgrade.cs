@@ -2,13 +2,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[System.Serializable]
 public abstract class Upgrade : MonoBehaviour {
 
 	protected List<int> upgradeCost;
-	protected Unit unit;
+	protected List<int> chosenUpgrade;
+	protected BaseUnit baseUnit;
 
 	void Start(){
-		unit = this.GetComponent<Unit> ();
+		baseUnit = this.GetComponent<Unit> ().baseUnit;
 
 		upgradeCost = new List<int> ();
 		upgradeCost.Add (100);
@@ -51,20 +53,20 @@ public abstract class Upgrade : MonoBehaviour {
 	public abstract void UpgradeLevelSixRightPath ();
 
 	public void UpgradeHealth(int healthUpgrade){
-		unit.health += healthUpgrade;
-		unit.Level++;
+		baseUnit.health += healthUpgrade;
+		baseUnit.Level++;
 	}
 	public void UpgradeMovementSpeed(int movementSpeedUpgrade){
-		unit.movementSpeed += movementSpeedUpgrade;
-		unit.Level++;
+		baseUnit.movementSpeed += movementSpeedUpgrade;
+		baseUnit.Level++;
 	}
 	public void UpgradeAttackDamage(int attackDamageUpgrade){
-		unit.attackDamage += attackDamageUpgrade;
-		unit.Level++;
+		baseUnit.attackDamage += attackDamageUpgrade;
+		baseUnit.Level++;
 	}
 	public void UpgradeAttackRange(int attackRangeUpgrade){
-		unit.attackRange += attackRangeUpgrade;
-		unit.Level++;
+		baseUnit.attackRange += attackRangeUpgrade;
+		baseUnit.Level++;
 	}
 	
 }

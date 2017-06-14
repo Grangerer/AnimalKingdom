@@ -4,43 +4,37 @@ using UnityEngine;
 
 public class Unit : MonoBehaviour {
 
-	//Upgrades
-	private int level = 0;
-	public Upgrade upgrade;
-
-	public int health;
-	private int currentHealth;
-	public int movementSpeed;
-	private int currentMovementspeed;
-	public int attackRange;
-	private int currentAttackRange;
-	public int attackDamage;
-	private int currentAttackDamage;
+	public BaseUnit baseUnit;
 
 	//Status Ailments and remembering last turn stuff
 	bool movedLastTurn;
 	bool attackedLastTurn;
 
 	private bool ownedByPlayer = false;
+	[System.NonSerialized]
 	private GameObject currentTile;
+	[System.NonSerialized]
 	private Transform healthBar;
 
 	private bool moved = false;
 	private bool attacked = false;
 	private bool turnEnded = false;
 
-	public UnitAI unitAI;
-
+	[System.NonSerialized]
+	public UnitAI unitAI = new UnitAI();
+	[System.NonSerialized]
 	private AI ai;
+	[System.NonSerialized]
 	private PlayerController playerController;
 
+	[System.NonSerialized]
 	List<GameObject> currentlyColoredTiles;
 	// Use this for initialization
 	void Start () {
 		ai = AI.instance;
 		playerController = PlayerController.instance;
 		healthBar = this.transform.Find ("HealthBar");
-		currentHealth = health;
+		baseUnit.SetupOnBattleStart ();
 		unitAI.Unit = this;
 		currentlyColoredTiles = new List<GameObject> ();
 	}
@@ -65,7 +59,7 @@ public class Unit : MonoBehaviour {
 			}
 		}
 		//add adjacent tiles of all added tiles, excluding already added tiles => repeat equal to movementspeed
-		for (int i = 1; i < this.movementSpeed; i++) {
+		for (int i = 1; i < baseUnit.CurrentMovementspeed; i++) {
 			List<GameObject> tmpTiles = new List<GameObject> ();
 			foreach (GameObject tile in toColorTiles) {
 				foreach (GameObject checkTile in tile.GetComponent<Tile>().AdjacentTiles) {
@@ -125,7 +119,7 @@ public class Unit : MonoBehaviour {
 			toColorTiles.Add(tile);
 		}
 		//add adjacent tiles of all added tiles, excluding already added tiles => repeat equal to attackrange
-		for (int i = 1; i < this.attackRange; i++) {
+		for (int i = 1; i < baseUnit.CurrentAttackRange; i++) {
 			List<GameObject> tmpTiles = new List<GameObject> ();
 			foreach (GameObject tile in toColorTiles) {
 				foreach (GameObject checkTile in tile.GetComponent<Tile>().AdjacentTiles) {
@@ -155,7 +149,7 @@ public class Unit : MonoBehaviour {
 		return true;
 	}
 	public void AttackTile(GameObject tile){
-		tile.GetComponent<Tile> ().Unit.GetComponent<Unit> ().Damage (this.attackDamage);
+		tile.GetComponent<Tile> ().Unit.GetComponent<Unit> ().Damage (baseUnit.CurrentAttackDamage);
 		this.Attacked = true;
 		OnTurnEnd ();
 		TurnTowards (tile);
@@ -167,13 +161,13 @@ public class Unit : MonoBehaviour {
 	}
 	public void Damage(int attackDamage){
 		//Damage
-		this.currentHealth -= attackDamage;
+		baseUnit.CurrentHealth -= attackDamage;
 		//Adjust Healthbar
 		healthBar.gameObject.SetActive(true);
-		float xScale = (float)currentHealth/ (float)health;
+		float xScale = (float)baseUnit.CurrentHealth/ (float)baseUnit.health;
 		healthBar.Find("Health").localScale = new Vector3(xScale,1,1);
 		//Do all relevant checks regarding death and abilities
-		if (currentHealth <= 0) {
+		if (baseUnit.CurrentHealth <= 0) {
 			DestroyUnit ();
 		}
 	}
@@ -264,21 +258,5 @@ public class Unit : MonoBehaviour {
 			attacked = value;
 		}
 	}
-	public int CurrentHealth {
-		get {
-			return currentHealth;
-		}
-		set {
-			currentHealth = value;
-		}
-	}
 
-	public int Level {
-		get {
-			return level;
-		}
-		set {
-			level = value;
-		}
-	}
 }

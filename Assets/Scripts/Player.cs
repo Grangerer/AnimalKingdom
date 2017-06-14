@@ -2,10 +2,16 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Player : MonoBehaviour {
+[System.Serializable]
+public class Player  {
 
-	List<GameObject> units;
+
+	public static Player current;
+
+	List<BaseUnit> units;
 	int experience;
+	//Unlocked Levels
+
 
 	// Use this for initialization
 	void Start () {
@@ -18,6 +24,12 @@ public class Player : MonoBehaviour {
 	}
 
 
+	public void PrintOut(){
+		//foreach (int unit in units) {
+		//	Debug.Log(unit.GetComponent<Unit> ().health);
+		//}
+		Debug.Log ("Current Experience: " + experience);
+	}
 
 	public void SpentExperience(int experienceCost){
 		experience -= experienceCost;

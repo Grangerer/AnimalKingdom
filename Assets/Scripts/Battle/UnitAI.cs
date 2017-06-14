@@ -41,6 +41,7 @@ public class UnitAI : MonoBehaviour {
 	}
 	List<Tile> FindAllMovableTiles(){
 		List<Tile> movableTiles = new List<Tile>();
+		movableTiles.Add (unit.CurrentTile.GetComponent<Tile> ());
 		//Add adjacent tiles
 		foreach (GameObject tile in unit.CurrentTile.GetComponent<Tile>().AdjacentTiles) {
 			if(!tile.GetComponent<Tile>().Occupied){
@@ -48,7 +49,7 @@ public class UnitAI : MonoBehaviour {
 			}
 		}
 		//add adjacent tiles of all added tiles, excluding already added tiles => repeat equal to movementspeed
-		for (int i = 1; i < unit.movementSpeed; i++) {
+		for (int i = 1; i < unit.baseUnit.movementSpeed; i++) {
 			List<Tile> tmpTiles = new List<Tile> ();
 			foreach (Tile tile in movableTiles) {
 				foreach (GameObject checkTile in tile.GetComponent<Tile>().AdjacentTiles) {
@@ -76,7 +77,7 @@ public class UnitAI : MonoBehaviour {
 					tmpTiles.Add(tile.GetComponent<Tile>());
 			}
 			//go through each adjacent tiles of tile within attackrange
-			for (int i = 1; i <= unit.attackRange; i++) {
+			for (int i = 1; i <= unit.baseUnit.CurrentAttackRange; i++) {
 				List<Tile> tmpSecondaryTiles = new List<Tile> ();				
 				foreach (Tile tile in tmpTiles) {
 					foreach (GameObject checkTile in tile.AdjacentTiles) {
@@ -112,7 +113,7 @@ public class UnitAI : MonoBehaviour {
 	Unit ChooseTarget(List<Unit> possibleTargets){
 		Unit chosenTarget = possibleTargets[0];
 		foreach (Unit unit in possibleTargets) {
-			if (unit.CurrentHealth < chosenTarget.CurrentHealth) {
+			if (unit.baseUnit.CurrentHealth < chosenTarget.baseUnit.CurrentHealth) {
 				chosenTarget = unit;
 			}
 		}
@@ -130,7 +131,9 @@ public class UnitAI : MonoBehaviour {
 		//4. Find Tile within 3. with most obstacles/allies adjacent
 		Tile finalTile = FindOptimalMoveTile(possibleFinalTiles);
 		//5. Move to 4.
-		unit.MoveToTile(finalTile.gameObject);
+		if (finalTile != null) {
+			unit.MoveToTile (finalTile.gameObject);
+		}
 	}
 	//1.
 	List<Tile> FindTilesWithinAttackrangeOfTarget(){
@@ -138,19 +141,16 @@ public class UnitAI : MonoBehaviour {
 
 		List<Tile> attackTiles = new List<Tile> ();
 		List<Tile> possibleAttackTiles = new List<Tile> ();
-		//Add all adjacentTiles to recolor list
 
 		foreach (GameObject tile in baseTile.AdjacentTiles) {
 			possibleAttackTiles.Add (tile.GetComponent<Tile> ());
 		}
 		//add adjacent tiles of all added tiles, excluding already added tiles => repeat equal to attackrange
-		for (int i = 1; i < this.unit.attackRange; i++) {
+		for (int i = 1; i < unit.baseUnit.attackRange; i++) {
 			List<Tile> tmpTiles = new List<Tile> ();
 			foreach (Tile tile in possibleAttackTiles) {
 				foreach (GameObject checkTile in tile.AdjacentTiles) {
-					if (checkTile.name != baseTile.name) {
-						tmpTiles.Add (checkTile.GetComponent<Tile>());
-					}
+					tmpTiles.Add (checkTile.GetComponent<Tile>());
 				}
 			}
 			foreach (Tile tile in tmpTiles) {
@@ -162,6 +162,8 @@ public class UnitAI : MonoBehaviour {
 
 		foreach (Tile tile in possibleAttackTiles) {
 			if (!tile.Occupied) {	
+				attackTiles.Add (tile);
+			}else if (tile.Occupied && tile.Unit != null) {
 				attackTiles.Add (tile);
 			}
 		}
@@ -179,7 +181,7 @@ public class UnitAI : MonoBehaviour {
 			}
 		}
 		//add adjacent tiles of all added tiles, excluding already added tiles => repeat equal to movementspeed
-		for (int i = 1; i < unit.movementSpeed; i++) {
+		for (int i = 1; i < unit.baseUnit.CurrentMovementspeed; i++) {
 			List<GameObject> tmpTiles = new List<GameObject> ();
 			foreach (Tile tile in movableTiles) {
 				foreach (GameObject checkTile in tile.AdjacentTiles) {
@@ -210,13 +212,15 @@ public class UnitAI : MonoBehaviour {
   	//4.
 	Tile FindOptimalMoveTile(List<Tile> tileOptions){
 		Tile finalTile = null;
-		float currentHighestScore = 0f;
+		float currentHighestScore = -10f;
 		foreach (Tile possibleTile in tileOptions) {
-			float adjacentScore = 0f; //Add 1 for each adjacent Obstacle, Add 1.1 for each adjacent ally
+			float adjacentScore = 0f; //Add 1 for each adjacent Obstacle, Add 1.1 for each adjacent ally, substract 1 for each adjacent enemy
 			foreach (GameObject adjacentTiles in possibleTile.AdjacentTiles) {
 				if (adjacentTiles.GetComponent<Tile> ().Occupied) {
 					if (adjacentTiles.GetComponent<Tile> ().Unit != null && !adjacentTiles.GetComponent<Tile> ().Unit.GetComponent<Unit> ().OwnedByPlayer) {
 						adjacentScore += 1.1f;
+					} else if (adjacentTiles.GetComponent<Tile> ().Unit != null) {
+						adjacentScore -= 1;
 					} else {
 						adjacentScore += 1;
 					}
