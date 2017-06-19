@@ -7,6 +7,7 @@ public class BaseUnit {
 
 	//Upgrades
 	private int level = 0;
+	private int unlockLevel = 0;
 	public Upgrade upgrade;
 
 	public int health;
@@ -69,6 +70,15 @@ public class BaseUnit {
 		}
 		set {
 			level = value;
+		}
+	}
+
+	public int UnlockLevel {
+		get {
+			return unlockLevel;
+		}
+		set {
+			unlockLevel = value;
 		}
 	}
 }

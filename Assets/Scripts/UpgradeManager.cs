@@ -5,7 +5,6 @@ using UnityEngine.UI;
 
 public class UpgradeManager : MonoBehaviour {
 
-	public List<GameObject> units;
 	private int currentUnitID = 0;
 	private GameObject currentShownUnit;
 
@@ -16,6 +15,14 @@ public class UpgradeManager : MonoBehaviour {
 	Animation arrowLeftAnimation;
 	public GameObject arrowRight;
 	Animation arrowRightAnimation;
+
+	//UpgradetreeText
+	public List<Text> upgradeTitlesLeft = new List<Text>();
+	public List<Text> upgradeDescriptionLeft = new List<Text>();
+	public List<Text> upgradeTitlesRight = new List<Text>();
+	public List<Text> upgradeDescriptionRight = new List<Text>();
+	public List<Button> unlockButtons = new List<Button>();
+
 	// Use this for initialization
 	void Start () {
 		arrowLeftAnimation = arrowLeft.GetComponent<Animation>();
@@ -43,12 +50,12 @@ public class UpgradeManager : MonoBehaviour {
 			StartCoroutine(NextUnit ());
 		}//Upgrade
 		else if(Input.GetKeyDown(KeyCode.U)){
-			ShowTalentTree();
+			DisplayTalentTree();
 		}
 
 	}
 	IEnumerator NextUnit(){
-		if (currentUnitID < units.Count-1) {
+		if (currentUnitID < Player.current.Units.Count-1) {
 			Debug.Log ("Next unit");
 			currentUnitID++;
 			//Display Arrow Right animation
@@ -81,22 +88,25 @@ public class UpgradeManager : MonoBehaviour {
 		if (currentShownUnit != null) {
 			Destroy (currentShownUnit);
 		}
-		Vector3 position = new Vector3 (spawnOnTile.transform.position.x, units[unitID].transform.position.y, spawnOnTile.transform.position.z);
-		GameObject tmpUnit = Instantiate (units[unitID], position, Quaternion.identity * Quaternion.Euler(0,25,0));
+		Vector3 position = new Vector3 (spawnOnTile.transform.position.x, Player.current.Units[unitID].transform.position.y, spawnOnTile.transform.position.z);
+		GameObject tmpUnit = Instantiate (Player.current.Units[unitID], position, Quaternion.identity * Quaternion.Euler(0,25,0));
 		tmpUnit.GetComponent<Unit> ().Setup (spawnOnTile);
 		currentShownUnit = tmpUnit;
 	}
 
-	public void ShowTalentTree(){
+	public void DisplayTalentTree(){
 		//Display Talent Tree
 		Debug.Log("Show Talent Tree");
 		//Talent Tree enables spending experience points to unlock permanent powerups
-		//Disable Arrows
-		arrowLeft.SetActive(false);
-		arrowRight.SetActive (false);
+
 		//Enable Talent Tree (Unlock buttons)
+		DisplayUnlockButtons();
 		//Enable Back Button
 
 	}
-		
+
+	void DisplayUnlockButtons(){
+		int unlockLevel = Player.current.Units [currentUnitID].UnlockLevel;
+		unlockButtons [unlockLevel].gameObject.SetActive (true);
+	}
 }

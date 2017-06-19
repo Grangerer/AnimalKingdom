@@ -5,6 +5,12 @@ using UnityEngine;
 [System.Serializable]
 public abstract class Upgrade : MonoBehaviour {
 
+
+	protected List<string> upgradeTitleLeft = new List<string>();
+	protected List<string> upgradeTitleRight = new List<string>();
+	protected List<string> upgradeDescriptionLeft = new List<string>();
+	protected List<string> upgradeDescriptionRight = new List<string>();
+
 	protected List<int> upgradeCost;
 	protected List<int> chosenUpgrade;
 	protected BaseUnit baseUnit;

@@ -1,13 +1,15 @@
 ﻿<Properties StartupItem="Assembly-CSharp.csproj" RefactoringSettings.EnableRefactorings="True">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Battle\Unit.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\UpgradeManager.cs">
     <Files>
-      <File FileName="Assets\Scripts\GameManager.cs" Line="130" Column="42" />
-      <File FileName="Assets\Scripts\Player.cs" Line="17" Column="3" />
-      <File FileName="Assets\Scripts\Battle\Unit.cs" Line="201" Column="4" />
-      <File FileName="Assets\Scripts\UnitUpgrades\Upgrade.cs" Line="40" Column="2" />
-      <File FileName="Assets\Scripts\UnitUpgrades\Upgrade_Bear.cs" Line="31" Column="51" />
-      <File FileName="Assets\Scripts\UnitUpgrades\Ability.cs" Line="18" Column="3" />
+      <File FileName="Assets\Scripts\GameManager.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\Player.cs" Line="11" Column="19" />
+      <File FileName="Assets\Scripts\Battle\Unit.cs" Line="40" Column="1" />
+      <File FileName="Assets\Scripts\Battle\BaseUnit.cs" Line="19" Column="26" />
+      <File FileName="Assets\Scripts\UnitUpgrades\Upgrade.cs" Line="12" Column="41" />
+      <File FileName="Assets\Scripts\UnitUpgrades\Upgrade_Bear.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\UpgradeManager.cs" Line="88" Column="34" />
+      <File FileName="Assets\Scripts\UnitUpgrades\Ability.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\Battle\LevelSpawner.cs" Line="1" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>

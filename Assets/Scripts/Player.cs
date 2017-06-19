@@ -43,4 +43,13 @@ public class Player  {
 			experience = value;
 		}
 	}
+
+	public List<BaseUnit> Units {
+		get {
+			return units;
+		}
+		set {
+			units = value;
+		}
+	}
 }
