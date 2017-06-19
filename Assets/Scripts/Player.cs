@@ -34,4 +34,13 @@ public class Player  {
 	public void SpentExperience(int experienceCost){
 		experience -= experienceCost;
 	}
+
+	public int Experience {
+		get {
+			return experience;
+		}
+		set {
+			experience = value;
+		}
+	}
 }

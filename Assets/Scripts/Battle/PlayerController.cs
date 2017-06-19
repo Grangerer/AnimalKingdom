@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerController : MonoBehaviour {
+public class PlayerController : MonoBehaviour
+{
 
 	public static PlayerController instance;
 
@@ -24,22 +25,26 @@ public class PlayerController : MonoBehaviour {
 	public GameObject unitControl;
 
 	// Use this for initialization
-	void Start () {
+	void Start ()
+	{
 		gameManager = GameManager.instance;
 		uiController = UIController.instance;
 		//Disable UI (Cleanup)
-		unitControl.SetActive(false);
+		unitControl.SetActive (false);
 	}
-	void Awake() {
+
+	void Awake ()
+	{
 		if (instance != null) {
-			Debug.LogError("More than one Player in scene!");
+			Debug.LogError ("More than one Player in scene!");
 			return;
 		}
 		instance = this;
 	}
 	
 	// Update is called once per frame
-	void Update () {
+	void Update ()
+	{
 		if (!gameManager.GamePaused) {
 			if (Input.GetMouseButtonDown (0)) {
 				CheckMouseTarget ();
@@ -68,31 +73,38 @@ public class PlayerController : MonoBehaviour {
 	}
 
 
-	void CheckMouseTarget(){
+	void CheckMouseTarget ()
+	{
 		Ray ray = Camera.main.ScreenPointToRay (Input.mousePosition);
 		RaycastHit hit;
 		GameObject selectedTile = null;
 
 		if (Physics.Raycast (ray, out hit, 100)) {
-			if (!moving && !attacking && !UnityEngine.EventSystems.EventSystem.current.IsPointerOverGameObject()) {
-					if (hit.transform.gameObject.tag == "Unit") {
-						selectedUnit = hit.transform.root.gameObject;
-					} else if (hit.transform.gameObject.tag == "Tile") {
-						selectedUnit = hit.transform.gameObject.GetComponent<Tile> ().Unit;
+			if (!moving && !attacking && !UnityEngine.EventSystems.EventSystem.current.IsPointerOverGameObject ()) {
+				GameObject oldSelectedUnit = null;
+				if (hit.transform.gameObject.tag == "Unit") {
+					oldSelectedUnit = selectedUnit;
+					selectedUnit = hit.transform.root.gameObject;
+				} else if (hit.transform.gameObject.tag == "Tile") {
+					oldSelectedUnit = selectedUnit;
+					selectedUnit = hit.transform.gameObject.GetComponent<Tile> ().Unit;
+				}
+				if (selectedUnit != null) {	
+					if (oldSelectedUnit != null) {
+						oldSelectedUnit.GetComponent<Unit> ().DisplayUnitSelector (false);
 					}
-					if (selectedUnit != null) {						
-						Debug.Log ("Successful Hit: " + selectedUnit);
-						//Display stats
-						uiController.SetUnitStatPanel(selectedUnit.GetComponent<Unit>());
+					selectedUnit.GetComponent<Unit> ().DisplayUnitSelector (true);
+					//Display stats
+					uiController.SetUnitStatPanel (selectedUnit.GetComponent<Unit> ());
 
-						//Check UnitOwner
-						if (selectedUnit.GetComponent<Unit> ().OwnedByPlayer) {
-							//Display UI Buttons (Move, attack, End)
-							ActivateUnitControl ();				
-						} else {
-							unitControl.SetActive (false);
-						}
+					//Check UnitOwner
+					if (selectedUnit.GetComponent<Unit> ().OwnedByPlayer) {
+						//Display UI Buttons (Move, attack, End)
+						ActivateUnitControl ();				
+					} else {
+						unitControl.SetActive (false);
 					}
+				}
 			}
 			if (moving) {
 				if (hit.transform.gameObject.tag == "Unit") {
@@ -101,12 +113,12 @@ public class PlayerController : MonoBehaviour {
 					selectedTile = hit.transform.gameObject;
 				}
 				//Move Unit to new tile
-				if (selectedTile != null && selectedTile.GetComponent<Tile>().CurrentlyMovable) {
+				if (selectedTile != null && selectedTile.GetComponent<Tile> ().CurrentlyMovable) {
 					selectedUnit.GetComponent<Unit> ().MoveToTile (selectedTile);
 					moving = false;
 					selectedTile = null;
 					//Disable Move Button
-					AdjustUnitControl();
+					AdjustUnitControl ();
 				}
 
 			} else if (attacking) {
@@ -116,7 +128,7 @@ public class PlayerController : MonoBehaviour {
 					selectedTile = hit.transform.gameObject;
 				}
 				//Attack Unit on target tile
-				if (selectedTile != null && selectedTile.GetComponent<Tile>().CurrentlyAttackable) {
+				if (selectedTile != null && selectedTile.GetComponent<Tile> ().CurrentlyAttackable) {
 					selectedUnit.GetComponent<Unit> ().AttackTile (selectedTile);
 					attacking = false;
 					UnselectUnit ();
@@ -127,15 +139,17 @@ public class PlayerController : MonoBehaviour {
 		}
 	}
 
-	public void OnTurnStart(){
+	public void OnTurnStart ()
+	{
 		foreach (GameObject unit in units) {
 			//activate "not used this turn" marker
-			unit.GetComponent<Unit>().OnTurnStart();
+			unit.GetComponent<Unit> ().OnTurnStart ();
 		}
 		myTurn = true;
 	}
 
-	void ResetSelection(){
+	void ResetSelection ()
+	{
 		if (moving || attacking) {
 			selectedUnit.GetComponent<Unit> ().ResetCurrentlyColoredTiles ();
 		} else {
@@ -145,12 +159,14 @@ public class PlayerController : MonoBehaviour {
 		ResetTurnStat ();
 	}
 
-	void ResetTurnStat(){
+	void ResetTurnStat ()
+	{
 		moving = false;
 		attacking = false;
 	}
 
-	public void PrepareAttack(){
+	public void PrepareAttack ()
+	{
 		if (!selectedUnit.GetComponent<Unit> ().Attacked) {
 			if (selectedUnit.GetComponent<Unit> ().FindAllAttackableTiles (attackableMaterial)) {
 				attacking = true;
@@ -159,7 +175,8 @@ public class PlayerController : MonoBehaviour {
 		}
 	}
 
-	public void PrepareMove(){
+	public void PrepareMove ()
+	{
 		if (!selectedUnit.GetComponent<Unit> ().Moved) {
 			if (selectedUnit.GetComponent<Unit> ().FindAllMovableTiles (movableMaterial)) {
 				moving = true;
@@ -167,29 +184,33 @@ public class PlayerController : MonoBehaviour {
 		}
 	}
 	//Unit
-	public void AddUnit(GameObject unit){
+	public void AddUnit (GameObject unit)
+	{
 		units.Add (unit);
 	}
 
-	public void UnitEndTurn(){
-		selectedUnit.GetComponent<Unit>().OnTurnEnd();
+	public void UnitEndTurn ()
+	{
+		selectedUnit.GetComponent<Unit> ().OnTurnEnd ();
 
 		AdjustUnitControl ();
 	}
 
-	void ActivateUnitControl(){
+	void ActivateUnitControl ()
+	{
 		unitControl.SetActive (true);
 
 		AdjustUnitControl ();
 	}
 
-	void AdjustUnitControl(){
-		GameObject Move = unitControl.transform.Find("MoveButton").gameObject;
-		GameObject Attack = unitControl.transform.Find("AttackButton").gameObject;
+	void AdjustUnitControl ()
+	{
+		GameObject Move = unitControl.transform.Find ("MoveButton").gameObject;
+		GameObject Attack = unitControl.transform.Find ("AttackButton").gameObject;
 
 		if (selectedUnit == null) {
 			unitControl.SetActive (false);
-		}else if (selectedUnit.GetComponent<Unit> ().TurnEnded) {
+		} else if (selectedUnit.GetComponent<Unit> ().TurnEnded) {
 			unitControl.SetActive (false);
 		} else if (Attack != null && selectedUnit.GetComponent<Unit> ().Attacked) {
 			Move.SetActive (false);
@@ -204,31 +225,41 @@ public class PlayerController : MonoBehaviour {
 	
 	}
 
-	public void EndTurn(){
+	public void EndTurn ()
+	{
 		//Cleanupstuff
+		if (selectedUnit != null) {
+			UnselectUnit ();
+		}
 		//end all turns for units
 		foreach (GameObject unit in units) {
-			unit.GetComponent<Unit> ().TurnEnded = true;
+			unit.GetComponent<Unit> ().OnTurnEnd();
 		}
 		myTurn = false;
-		AdjustUnitControl();
+		AdjustUnitControl ();
 		//Tell GameManager to go to next turn
-		gameManager.NextTurn();
+		gameManager.NextTurn ();
 	}
 
-	void UnselectUnit(){
+	void UnselectUnit ()
+	{
+		selectedUnit.GetComponent<Unit> ().DisplayUnitSelector (false);
 		selectedUnit = null;
 		uiController.UnsetUnitStatPanel ();
 	}
-	public bool OwnsUnit(GameObject checkUnit){
+
+	public bool OwnsUnit (GameObject checkUnit)
+	{
 		return units.Contains (checkUnit);
 	}
-	public void RemoveUnit(GameObject unit){
+
+	public void RemoveUnit (GameObject unit)
+	{
 		units.Remove (unit);
 		//Check if no unit is left
 		if (units.Count == 0) {
 			//Player looses match
-			gameManager.LooseMatch();
+			gameManager.LooseMatch ();
 		}
 	}
 

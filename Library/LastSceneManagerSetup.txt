@@ -1,4 +1,4 @@
 sceneSetups:
-- path: Assets/UpgradeUnits.unity
+- path: Assets/UpgradeScene.unity
   isLoaded: 1
   isActive: 1

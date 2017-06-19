@@ -1,12 +1,15 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class UpgradeManager : MonoBehaviour {
 
 	public List<GameObject> units;
 	private int currentUnitID = 0;
 	private GameObject currentShownUnit;
+
+	public Text experienceText;
 
 	public GameObject ShowTile;
 	public GameObject arrowLeft;
@@ -17,7 +20,8 @@ public class UpgradeManager : MonoBehaviour {
 	void Start () {
 		arrowLeftAnimation = arrowLeft.GetComponent<Animation>();
 		arrowRightAnimation = arrowRight.GetComponent<Animation> ();
-		 DisplayUnit (ShowTile, currentUnitID);
+		DisplayUnit (ShowTile, currentUnitID);
+		//experienceText.text = "Experience: " + Player.current.Experience;
 	}
 	
 	// Update is called once per frame
@@ -78,7 +82,7 @@ public class UpgradeManager : MonoBehaviour {
 			Destroy (currentShownUnit);
 		}
 		Vector3 position = new Vector3 (spawnOnTile.transform.position.x, units[unitID].transform.position.y, spawnOnTile.transform.position.z);
-		GameObject tmpUnit = Instantiate (units[unitID], position, Quaternion.identity * Quaternion.Euler(0,75,0));
+		GameObject tmpUnit = Instantiate (units[unitID], position, Quaternion.identity * Quaternion.Euler(0,25,0));
 		tmpUnit.GetComponent<Unit> ().Setup (spawnOnTile);
 		currentShownUnit = tmpUnit;
 	}
@@ -87,6 +91,12 @@ public class UpgradeManager : MonoBehaviour {
 		//Display Talent Tree
 		Debug.Log("Show Talent Tree");
 		//Talent Tree enables spending experience points to unlock permanent powerups
-	}
+		//Disable Arrows
+		arrowLeft.SetActive(false);
+		arrowRight.SetActive (false);
+		//Enable Talent Tree (Unlock buttons)
+		//Enable Back Button
 
+	}
+		
 }

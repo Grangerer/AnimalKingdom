@@ -10,7 +10,6 @@ public class Tile : MonoBehaviour {
 	private GameObject unit = null;
 	private int xGridPosition;
 	private int zGridPosition;
-	public GameObject activatableUnit;
 
 	private Material defaultMaterial;
 
@@ -52,12 +51,6 @@ public class Tile : MonoBehaviour {
 		}
 	}
 
-	public void ShowUsableUnit(){
-		activatableUnit.SetActive (true);
-	}
-	public void HideUsableUnit(){
-		activatableUnit.SetActive (false);
-	}
 
 	public void Recolor(Material newMaterial){
 		GetComponent<Renderer> ().material = newMaterial;
@@ -72,13 +65,9 @@ public class Tile : MonoBehaviour {
 	public void ReferenceUnit(GameObject unit){
 		this.unit = unit;
 		if (unit == null) {
-			activatableUnit.SetActive (false);
 			occupied = false;
 		} else {
 			occupied = true;
-			if (unit.GetComponent<Unit> ().OwnedByPlayer) {
-				activatableUnit.SetActive (true);
-			}
 		}	
 
 	}

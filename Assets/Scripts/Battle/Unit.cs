@@ -11,32 +11,42 @@ public class Unit : MonoBehaviour {
 	bool attackedLastTurn;
 
 	private bool ownedByPlayer = false;
-	[System.NonSerialized]
 	private GameObject currentTile;
-	[System.NonSerialized]
 	private Transform healthBar;
 
 	private bool moved = false;
 	private bool attacked = false;
 	private bool turnEnded = false;
 
-	[System.NonSerialized]
+	//Unit Selector
+	Transform unitSelected;
+	Transform unitOwned;
+	[SerializeField]
+	Material enemyOwnedMaterial;
+	Transform unitMove;
+	Transform unitAttack;
+
+
 	public UnitAI unitAI = new UnitAI();
-	[System.NonSerialized]
 	private AI ai;
-	[System.NonSerialized]
 	private PlayerController playerController;
 
-	[System.NonSerialized]
 	List<GameObject> currentlyColoredTiles;
 	// Use this for initialization
-	void Start () {
+	void Awake () {
 		ai = AI.instance;
 		playerController = PlayerController.instance;
-		healthBar = this.transform.Find ("HealthBar");
+		healthBar = this.transform.Find("HealthBar");
+		healthBar.gameObject.SetActive (false);
 		baseUnit.SetupOnBattleStart ();
 		unitAI.Unit = this;
 		currentlyColoredTiles = new List<GameObject> ();
+		//Get all unitSelectorObjects
+		unitSelected = this.transform.FindChild("UnitSelector/UnitSelected");
+		DisplayUnitSelector (false);
+		unitOwned = this.transform.FindChild("UnitSelector/UnitOwned");
+		unitMove = this.transform.FindChild("UnitSelector/UnitMove");
+		unitAttack = this.transform.FindChild("UnitSelector/UnitAttack");
 	}
 	
 	// Update is called once per frame
@@ -91,7 +101,7 @@ public class Unit : MonoBehaviour {
 		//Move
 		Vector3 newPosition = new Vector3 (tile.transform.position.x, this.transform.position.y, tile.transform.position.z);
 		this.transform.position = newPosition;
-		this.Moved = true;
+		ProcessMoving (true);
 		//Dereference unit on old tile
 		currentTile.GetComponent<Tile> ().ReferenceUnit (null);
 		//reference unit on new tile;
@@ -104,6 +114,11 @@ public class Unit : MonoBehaviour {
 
 		currentlyColoredTiles = new List<GameObject> ();
 
+	}
+
+	void ProcessMoving(bool moveBool){
+		moved = moveBool;
+		unitMove.gameObject.SetActive (!moveBool);
 	}
 
 	//Attack
@@ -150,7 +165,7 @@ public class Unit : MonoBehaviour {
 	}
 	public void AttackTile(GameObject tile){
 		tile.GetComponent<Tile> ().Unit.GetComponent<Unit> ().Damage (baseUnit.CurrentAttackDamage);
-		this.Attacked = true;
+		ProcessAttacking(true);
 		OnTurnEnd ();
 		TurnTowards (tile);
 		//Uncolor tiles after attack
@@ -159,6 +174,13 @@ public class Unit : MonoBehaviour {
 		}
 		currentlyColoredTiles = new List<GameObject>();
 	}
+	void ProcessAttacking(bool attackBool){
+		attacked = attackBool;
+		unitAttack.gameObject.SetActive (!attackBool);
+		unitMove.gameObject.SetActive (!attackBool);
+	}
+
+
 	public void Damage(int attackDamage){
 		//Damage
 		baseUnit.CurrentHealth -= attackDamage;
@@ -179,7 +201,7 @@ public class Unit : MonoBehaviour {
 		Quaternion targetRotation = Quaternion.LookRotation (-targetPoint, Vector3.up) * Quaternion.Euler(0,90,0);
 		transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, 1);
 		//Set healthbar turnrate back
-		healthBar.rotation = Quaternion.Euler(0,0,0);
+		healthBar.rotation = Quaternion.Euler(30,0,0);
 	}
 	public void ResetCurrentlyColoredTiles ()
 	{
@@ -207,14 +229,20 @@ public class Unit : MonoBehaviour {
 	public void OnTurnStart(){
 		movedLastTurn = moved;
 		attackedLastTurn = attacked;
-		moved = false;
-		attacked = false;
+		ProcessMoving (false);
+		ProcessAttacking (false);
 		turnEnded = false;
-		currentTile.GetComponent<Tile> ().ShowUsableUnit ();
+		//Display UnitSelector
 	}
 	public void OnTurnEnd(){
 		turnEnded = true;
-		currentTile.GetComponent<Tile> ().HideUsableUnit ();
+		unitMove.gameObject.SetActive (false);
+		unitAttack.gameObject.SetActive (false);
+		//Adjust UnitSelector
+	}
+
+	public void DisplayUnitSelector(bool display){
+		unitSelected.gameObject.SetActive (display);
 	}
 
 	//PropertyStuff
@@ -232,6 +260,9 @@ public class Unit : MonoBehaviour {
 		}
 		set {
 			ownedByPlayer = value;
+			if (!ownedByPlayer) {
+				unitOwned.GetComponent<Renderer> ().material = enemyOwnedMaterial;
+			}
 		}
 	}
 	public bool Moved {
