@@ -45,6 +45,8 @@ public class UpgradeManager : MonoBehaviour {
 				} else if (hit.transform.root.name == "ArrowRight") {
 					StartCoroutine(NextUnit ());
 				}
+				//Check all Talentoptions
+
 			}
 		}
 		if (Input.GetKeyDown (KeyCode.A) || Input.GetKeyDown (KeyCode.LeftArrow)) {
@@ -54,6 +56,35 @@ public class UpgradeManager : MonoBehaviour {
 		}
 
 	}
+
+	void checkAllTalentOptions(RaycastHit hit){
+		if (hit.transform.name.Equals("Talent1L")) {
+			LockUpdate (0, 1);
+		}else if (hit.transform.name.Equals("Talent1R")) {
+			LockUpdate (0, 2);
+		}else if (hit.transform.name.Equals("Talent2L")) {
+			LockUpdate (1, 1);
+		}else if (hit.transform.name.Equals("Talent2R")) {
+			LockUpdate (1, 2);
+		}else if (hit.transform.name.Equals("Talent3L")) {
+			LockUpdate (2, 1);
+		}else if (hit.transform.name.Equals("Talent3R")) {
+			LockUpdate (2, 2);
+		}else if (hit.transform.name.Equals("Talent4L")) {
+			LockUpdate (3, 1);
+		}else if (hit.transform.name.Equals("Talent4R")) {
+			LockUpdate (3, 2);
+		}else if (hit.transform.name.Equals("Talent5L")) {
+			LockUpdate (4, 1);
+		}else if (hit.transform.name.Equals("Talent5R")) {
+			LockUpdate (4, 2);
+		}else if (hit.transform.name.Equals("Talent6L")) {
+			LockUpdate (5, 1);
+		}else if (hit.transform.name.Equals("Talent6R")) {
+			LockUpdate (5, 2);
+		}
+	}
+
 	IEnumerator NextUnit(){
 		if (currentUnitID < displayUnits.Count-1) {
 			currentUnitID++;
@@ -131,8 +162,11 @@ public class UpgradeManager : MonoBehaviour {
 			experienceText.text = experienceBaseString + Player.current.Experience;
 			Player.current.Units [currentUnitID].upgrade.UnlockLevel ();
 			DisplayTalentTree ();
-			//unlock the next row
 		}
+	}
+
+	void LockUpdate(int upgradeLevel, int side){
+		Player.current.Units [currentUnitID].upgrade.ChooseUpgrade (upgradeLevel, side);
 	}
 
 	public void Back(){
