@@ -6,8 +6,9 @@ using UnityEngine;
 public class BaseUnit {
 
 	//Upgrades
+	public int id;
 	private int level = 0;
-	private int unlockLevel = 0;
+	readonly static int maxLevel = 5;
 	public Upgrade upgrade;
 
 	public int health;
@@ -18,6 +19,16 @@ public class BaseUnit {
 	private int currentAttackRange;
 	public int attackDamage;
 	private int currentAttackDamage;
+
+	public void SetUpgrade(){
+		if (id == 0) {
+			upgrade = new Upgrade_Bear ();
+		} else if (id == 1) {
+			upgrade = new Upgrades_Horse ();
+		}
+		upgrade.BaseUnit = this;
+		upgrade.SetupText ();
+	}
 
 	public void SetupOnBattleStart(){
 		currentHealth = health;
@@ -72,13 +83,10 @@ public class BaseUnit {
 			level = value;
 		}
 	}
-
-	public int UnlockLevel {
+		
+	public static int MaxLevel {
 		get {
-			return unlockLevel;
-		}
-		set {
-			unlockLevel = value;
+			return maxLevel;
 		}
 	}
 }

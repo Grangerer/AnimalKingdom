@@ -19,7 +19,7 @@ public static class SaveLoad {
 
 	public static void Load(){
 		Debug.Log(Application.persistentDataPath);
-		if(File.Exists(Application.persistentDataPath + "/savedGames.gd")) {			
+		if(File.Exists(Application.persistentDataPath + "/savedGames.gd")) {	
 			BinaryFormatter bf = new BinaryFormatter();
 			FileStream file = File.Open(Application.persistentDataPath + "/savedGames.gd", FileMode.Open);
 

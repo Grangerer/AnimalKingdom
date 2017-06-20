@@ -10,15 +10,12 @@ public class MainMenuManager : MonoBehaviour {
 
 	Player player = null;
 
+	public List<GameObject> basePlayerUnits = new List<GameObject> (); 
+
 	// Use this for initialization
 	void Start () {
-		//DontDestroyOnLoad (player);
 		LoadData ();
-
-		player = new Player ();
-		player.SpentExperience (-50);
-		Player.current = player;
-		SaveData ();
+		//SaveData ();
 	}
 	
 	// Update is called once per frame
@@ -30,10 +27,17 @@ public class MainMenuManager : MonoBehaviour {
 		Debug.Log ("Load");
 		SaveLoad.Load ();
 		if (SaveLoad.savedPlayers.Count != 0) {
+			//Insert a way to specify, which player should be loaded
 			player = SaveLoad.savedPlayers [0];
 			player.PrintOut ();
+		} else {
+			Debug.Log ("No saved player found");
+			player = new Player ();
+			player.SetupNewPlayer (basePlayerUnits);
+			player.Experience = 100;
+			Debug.Log ("Units: " + player.Units.Count);
 		}
-
+		Player.current = player;
 	}
 	void SaveData(){
 		Debug.Log ("Save");

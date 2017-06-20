@@ -2,13 +2,16 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class UpgradeManager : MonoBehaviour {
 
+	public List<GameObject> displayUnits;
 	private int currentUnitID = 0;
 	private GameObject currentShownUnit;
 
 	public Text experienceText;
+	private string experienceBaseString = "Experience:\n";
 
 	public GameObject ShowTile;
 	public GameObject arrowLeft;
@@ -28,7 +31,7 @@ public class UpgradeManager : MonoBehaviour {
 		arrowLeftAnimation = arrowLeft.GetComponent<Animation>();
 		arrowRightAnimation = arrowRight.GetComponent<Animation> ();
 		DisplayUnit (ShowTile, currentUnitID);
-		//experienceText.text = "Experience: " + Player.current.Experience;
+		experienceText.text = experienceBaseString + Player.current.Experience;
 	}
 	
 	// Update is called once per frame
@@ -48,15 +51,11 @@ public class UpgradeManager : MonoBehaviour {
 			StartCoroutine(LastUnit ());
 		}else if (Input.GetKeyDown (KeyCode.D) || Input.GetKeyDown (KeyCode.RightArrow)){
 			StartCoroutine(NextUnit ());
-		}//Upgrade
-		else if(Input.GetKeyDown(KeyCode.U)){
-			DisplayTalentTree();
 		}
 
 	}
 	IEnumerator NextUnit(){
-		if (currentUnitID < Player.current.Units.Count-1) {
-			Debug.Log ("Next unit");
+		if (currentUnitID < displayUnits.Count-1) {
 			currentUnitID++;
 			//Display Arrow Right animation
 			arrowRightAnimation.Stop ();
@@ -70,7 +69,6 @@ public class UpgradeManager : MonoBehaviour {
 	}
 	IEnumerator LastUnit(){
 		if (currentUnitID > 0) {
-			Debug.Log ("Last unit");
 			currentUnitID--;
 			//Display Arrow Left animation
 			arrowLeftAnimation.Stop ();
@@ -88,25 +86,57 @@ public class UpgradeManager : MonoBehaviour {
 		if (currentShownUnit != null) {
 			Destroy (currentShownUnit);
 		}
-		Vector3 position = new Vector3 (spawnOnTile.transform.position.x, Player.current.Units[unitID].transform.position.y, spawnOnTile.transform.position.z);
-		GameObject tmpUnit = Instantiate (Player.current.Units[unitID], position, Quaternion.identity * Quaternion.Euler(0,25,0));
+		Vector3 position = new Vector3 (spawnOnTile.transform.position.x, displayUnits[unitID].transform.position.y, spawnOnTile.transform.position.z);
+		GameObject tmpUnit = Instantiate (displayUnits[unitID], position, Quaternion.identity * Quaternion.Euler(0,25,0));
 		tmpUnit.GetComponent<Unit> ().Setup (spawnOnTile);
 		currentShownUnit = tmpUnit;
+		DisplayTalentTree ();
 	}
 
 	public void DisplayTalentTree(){
-		//Display Talent Tree
-		Debug.Log("Show Talent Tree");
 		//Talent Tree enables spending experience points to unlock permanent powerups
-
 		//Enable Talent Tree (Unlock buttons)
 		DisplayUnlockButtons();
 		//Enable Back Button
-
+		SetAbilityText ();
 	}
 
 	void DisplayUnlockButtons(){
-		int unlockLevel = Player.current.Units [currentUnitID].UnlockLevel;
-		unlockButtons [unlockLevel].gameObject.SetActive (true);
+		int unlockLevel = Player.current.Units [currentUnitID].Level;
+		for (int i = 0; i < BaseUnit.MaxLevel; i++) {
+			if (i != unlockLevel) {
+				unlockButtons [i].gameObject.SetActive (false);
+			} else {
+				unlockButtons [i].gameObject.SetActive (true);
+			}
+		}
+	}
+
+	void SetAbilityText(){
+		for (int i = 0; i < upgradeTitlesLeft.Count; i++) {
+			upgradeTitlesLeft[i].text = Player.current.Units[currentUnitID].upgrade.UpgradeTitleLeft [i];
+			upgradeDescriptionLeft[i].text = Player.current.Units[currentUnitID].upgrade.UpgradeDescriptionLeft [i];
+			upgradeTitlesRight[i].text = Player.current.Units[currentUnitID].upgrade.UpgradeTitleRight [i];
+			upgradeDescriptionRight[i].text = Player.current.Units[currentUnitID].upgrade.UpgradeDescriptionRight [i];
+		}
+
+	}
+
+	public void Unlock(){
+		int currentUnlockCost = Player.current.Units [currentUnitID].upgrade.UpgradeCost [Player.current.Units [currentUnitID].Level];
+		if (Player.current.Experience < currentUnlockCost) {
+			//Display Can't buy animation
+		} else {
+			Player.current.SpentExperience (currentUnlockCost);
+			experienceText.text = experienceBaseString + Player.current.Experience;
+			Player.current.Units [currentUnitID].upgrade.UnlockLevel ();
+			DisplayTalentTree ();
+			//unlock the next row
+		}
+	}
+
+	public void Back(){
+		//SaveLoad.Save();
+		SceneManager.LoadScene ("MainMenu");
 	}
 }

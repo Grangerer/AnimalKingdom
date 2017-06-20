@@ -2,10 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[System.Serializable]
 public class Upgrade_Bear : Upgrade {
 
 
-	void Start(){
+	public override void SetupText(){
 		upgradeTitleLeft.Add ("Endurance");
 		upgradeDescriptionLeft.Add ("+2 health");
 		upgradeTitleLeft.Add ("Grip");
@@ -17,7 +18,7 @@ public class Upgrade_Bear : Upgrade {
 		upgradeTitleLeft.Add ("Endurance");
 		upgradeDescriptionLeft.Add ("+6 health");
 		upgradeTitleLeft.Add ("Regenerative");
-		upgradeDescriptionLeft.Add ("Regenerate 10% of your maximum HP at the start of each turn.");
+		upgradeDescriptionLeft.Add ("Regenerate 10% of your maximum HP at the start of each turn");
 
 
 		upgradeTitleRight.Add ("Assault");
@@ -32,7 +33,6 @@ public class Upgrade_Bear : Upgrade {
 		upgradeDescriptionRight.Add ("+3 attackdamage");
 		upgradeTitleRight.Add ("Swipe");
 		upgradeDescriptionRight.Add ("Attacks deal 25% of their damage to all adjacent enemies to the target");
-
 	}
 
 	//Level 1

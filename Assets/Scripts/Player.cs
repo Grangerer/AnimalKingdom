@@ -8,19 +8,18 @@ public class Player  {
 
 	public static Player current;
 
-	List<BaseUnit> units;
+	List<BaseUnit> units = new List<BaseUnit>();
 	int experience;
 	//Unlocked Levels
 
 
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
+	public void SetupNewPlayer(List<GameObject> playerUnits){
+		foreach (GameObject unit in playerUnits) {
+			unit.GetComponent<Unit> ().baseUnit.SetUpgrade ();
+			units.Add (unit.GetComponent<Unit> ().baseUnit);
+
+		}
+		experience = 0;
 	}
 
 

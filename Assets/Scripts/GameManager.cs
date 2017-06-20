@@ -97,10 +97,12 @@ public class GameManager : MonoBehaviour {
 	public void WinMatch(){
 		Debug.Log ("Player has won the match");
 		Time.timeScale = 0;
+		SceneManager.LoadScene ("MainMenu");
 	}
 	public void LooseMatch(){
 		Debug.Log ("Player has lost the match");
 		Time.timeScale = 0;
+		SceneManager.LoadScene ("UpgradeScene");
 	}
 	//Menu
 	public void OpenInBattleMenu(){
