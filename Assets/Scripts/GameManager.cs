@@ -32,15 +32,16 @@ public class GameManager : MonoBehaviour {
 		levelSpawner = this.GetComponent<LevelSpawner>();
 		tileList = levelSpawner.SpawnLevel(level);
 		//Apply all playerUpgrades for units
-
 		//Spawn Units
+
 		//Test: Spawn PlayerUnit on Tile(3)(1)
 		if (GameObject.Find ("Tile(3)(1)") != null) {
 			GameObject spawnOnTile = GameObject.Find ("Tile(3)(1)");
 			Vector3 position = new Vector3 (spawnOnTile.transform.position.x, testUnit.transform.position.y, spawnOnTile.transform.position.z);
 			GameObject tmpUnit = (GameObject) Instantiate (testUnit, position, Quaternion.identity);
 			//This line links the units to each other
-			tmpUnit.GetComponent<Unit> ().baseUnit = Player.current.Units [0];
+			tmpUnit.GetComponent<Unit> ().baseUnit = new BaseUnit(Player.current.Units [0]);
+			tmpUnit.GetComponent<Unit> ().baseUnit.upgrade.BaseUnit = tmpUnit.GetComponent<Unit> ().baseUnit;
 			tmpUnit.GetComponent<Unit> ().Setup (spawnOnTile);
 			tmpUnit.GetComponent<Unit> ().OwnedByPlayer = true;
 			spawnOnTile.GetComponent<Tile> ().ReferenceUnit(tmpUnit);
@@ -52,13 +53,25 @@ public class GameManager : MonoBehaviour {
 			Vector3 position = new Vector3 (spawnOnTile.transform.position.x, testUnit.transform.position.y, spawnOnTile.transform.position.z);
 			GameObject tmpUnit = (GameObject) Instantiate (testUnit, position, Quaternion.identity);
 			//This line links the units to each other
-			tmpUnit.GetComponent<Unit> ().baseUnit = Player.current.Units [0];
+			tmpUnit.GetComponent<Unit> ().baseUnit = new BaseUnit(Player.current.Units [0]);
+			tmpUnit.GetComponent<Unit> ().baseUnit.upgrade.BaseUnit = tmpUnit.GetComponent<Unit> ().baseUnit;
+			tmpUnit.GetComponent<Unit> ().Setup (spawnOnTile);
+			tmpUnit.GetComponent<Unit> ().OwnedByPlayer = true;
+			spawnOnTile.GetComponent<Tile> ().ReferenceUnit(tmpUnit);
+			playerController.AddUnit (tmpUnit);
+		}//Test: Spawn second playerUnit on Tile (2)(2)
+		if (GameObject.Find ("Tile(1)(1)") != null) {
+			GameObject spawnOnTile = GameObject.Find ("Tile(1)(1)");
+			Vector3 position = new Vector3 (spawnOnTile.transform.position.x, testUnit.transform.position.y, spawnOnTile.transform.position.z);
+			GameObject tmpUnit = (GameObject) Instantiate (testUnit, position, Quaternion.identity);
+			//This line links the units to each other
+			tmpUnit.GetComponent<Unit> ().baseUnit = new BaseUnit(Player.current.Units [0]);
 			tmpUnit.GetComponent<Unit> ().Setup (spawnOnTile);
 			tmpUnit.GetComponent<Unit> ().OwnedByPlayer = true;
 			spawnOnTile.GetComponent<Tile> ().ReferenceUnit(tmpUnit);
 			playerController.AddUnit (tmpUnit);
 		}
-
+		playerController.ApplyUpgrades ();
 		playerController.OnTurnStart ();
 		playersTurn = true;
 	}

@@ -20,6 +20,19 @@ public class BaseUnit {
 	public int attackDamage;
 	private int currentAttackDamage;
 
+	public BaseUnit(BaseUnit toCopy){
+		this.id = toCopy.id;
+		this.level = toCopy.level;
+		this.upgrade = toCopy.upgrade;
+		this.health = toCopy.health;
+		this.currentHealth = toCopy.currentHealth;
+		this.movementSpeed = toCopy.movementSpeed;
+		this.currentMovementspeed = toCopy.currentMovementspeed;
+		this.attackRange = toCopy.attackRange;
+		this.currentAttackRange = toCopy.currentAttackRange;
+		this.attackDamage = toCopy.attackDamage;
+		this.currentAttackDamage = toCopy.currentAttackDamage;
+	}
 
 	public void SetupBase(){
 		if (id == 0) {

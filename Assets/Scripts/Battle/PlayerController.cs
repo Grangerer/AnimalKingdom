@@ -81,12 +81,10 @@ public class PlayerController : MonoBehaviour
 
 		if (Physics.Raycast (ray, out hit, 100)) {
 			if (!moving && !attacking && !UnityEngine.EventSystems.EventSystem.current.IsPointerOverGameObject ()) {
-				GameObject oldSelectedUnit = null;
+				GameObject oldSelectedUnit = selectedUnit;
 				if (hit.transform.gameObject.tag == "Unit") {
-					oldSelectedUnit = selectedUnit;
 					selectedUnit = hit.transform.root.gameObject;
 				} else if (hit.transform.gameObject.tag == "Tile") {
-					oldSelectedUnit = selectedUnit;
 					selectedUnit = hit.transform.gameObject.GetComponent<Tile> ().Unit;
 				}
 				if (selectedUnit != null) {	
@@ -104,6 +102,8 @@ public class PlayerController : MonoBehaviour
 					} else {
 						unitControl.SetActive (false);
 					}
+				} else {
+					selectedUnit = oldSelectedUnit;
 				}
 			}
 			if (moving) {
@@ -186,11 +186,18 @@ public class PlayerController : MonoBehaviour
 	//Unit
 	public void AddUnit (GameObject unit)
 	{
-		unit.GetComponent<Unit> ().baseUnit.upgrade.ApplyUpgrades ();
+		//unit.GetComponent<Unit> ().baseUnit.upgrade.ApplyUpgrades ();
 		units.Add (unit);
 	}
 	public void ApplyUpgrades(){
-		
+		List<int> upgradedUnitsId = new List<int> ();
+		foreach (GameObject unit in units) {
+			//if(!upgradedUnitsId.Contains(unit.GetComponent<Unit>().baseUnit.id)){
+			unit.GetComponent<Unit> ().baseUnit.upgrade.ApplyUpgrades ();
+			unit.GetComponent<Unit> ().baseUnit.upgrade.BaseUnit.attackDamage += 5;
+			upgradedUnitsId.Add (unit.GetComponent<Unit> ().baseUnit.id);
+			//}
+		}
 	}
 
 	public void UnitEndTurn ()
