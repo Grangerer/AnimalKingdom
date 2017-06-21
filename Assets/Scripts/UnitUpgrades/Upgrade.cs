@@ -19,9 +19,19 @@ public abstract class Upgrade {
 		baseUnit.Level++;
 	}
 		
+	public abstract void ApplyUpgrades ();
+
 	public abstract void SetupText ();
 
-	public abstract void ChooseUpgrade (int upgradeLevel, int side);
+	public void ChooseUpgrade (int upgradeLevel, int side){		
+		if (side == 1) {		
+			chosenUpgrade [upgradeLevel] = side;
+		} else if (side == 2) {				
+			chosenUpgrade [upgradeLevel] = side;
+		} else {
+			chosenUpgrade [upgradeLevel] = 0;
+		}	
+	}
 
 	public void UpgradeHealth(int healthUpgrade){
 		baseUnit.health += healthUpgrade;
@@ -75,6 +85,15 @@ public abstract class Upgrade {
 		}
 		set {
 			upgradeCost = value;
+		}
+	}
+
+	public List<int> ChosenUpgrade {
+		get {
+			return chosenUpgrade;
+		}
+		set {
+			chosenUpgrade = value;
 		}
 	}
 }

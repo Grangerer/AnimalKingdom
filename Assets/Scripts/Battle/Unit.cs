@@ -38,7 +38,6 @@ public class Unit : MonoBehaviour {
 		playerController = PlayerController.instance;
 		healthBar = this.transform.Find("HealthBar");
 		healthBar.gameObject.SetActive (false);
-		baseUnit.SetupOnBattleStart ();
 		unitAI.Unit = this;
 		currentlyColoredTiles = new List<GameObject> ();
 		//Get all unitSelectorObjects
@@ -245,10 +244,12 @@ public class Unit : MonoBehaviour {
 		unitSelected.gameObject.SetActive (display);
 	}
 
-	//PropertyStuff
+
 	public void Setup(GameObject tile){
 		currentTile = tile;
+		baseUnit.SetupOnBattleStart ();
 	}
+	//PropertyStuff
 	public GameObject CurrentTile {
 		get {
 			return currentTile;

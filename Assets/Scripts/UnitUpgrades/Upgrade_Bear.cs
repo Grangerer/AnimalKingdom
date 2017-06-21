@@ -34,41 +34,26 @@ public class Upgrade_Bear : Upgrade {
 		upgradeTitleRight.Add ("Swipe");
 		upgradeDescriptionRight.Add ("Attacks deal 25% of their damage to all adjacent enemies to the target");
 	}
-	public override void ChooseUpgrade(int upgradeLevel, int side){		
-		switch (upgradeLevel) {
-		case 0:
-			//DeApply current upgrade
-			if (chosenUpgrade [upgradeLevel] == 2) {
-				UpgradeAttackDamage (-1);
-			}else if (chosenUpgrade [upgradeLevel] == 1) {
-				UpgradeHealth (-2);
-			}
-			//Apply new upgrade/empty
-			if (side == 1) {				
-				chosenUpgrade [upgradeLevel] = 1;
-				UpgradeHealth (2);
-			} else if (side == 2) {				
-				chosenUpgrade [upgradeLevel] = 2;
-				UpgradeAttackDamage (1);
-			} else {
-				chosenUpgrade [upgradeLevel] = 0;
-			}
-			break;
-		case 1:
-			break;
-		case 2:
-			break;
-		case 3:
-			break;
-		case 4:
-			break;
-		case 5:
-			break;
-		default:
-			break;
-		}	
-	}
 
+	public override void ApplyUpgrades(){
+		for (int i = 0; i < chosenUpgrade.Count; i++) {
+			if (i == 0) {
+				if (chosenUpgrade [i] == 1) {
+					UpgradeHealth (2);
+				} else if (chosenUpgrade [i] == 2) {
+					UpgradeAttackDamage (1);
+				}
+			} else if (i == 1) {
+				
+			} else if (i == 2) {
+			} else if (i == 3) {
+			}else if (i == 4) {
+			}else if (i == 5) {
+			}
+
+		}
+		baseUnit.SetupOnBattleStart ();
+	}
 
 
 }

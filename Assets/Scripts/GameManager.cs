@@ -31,12 +31,16 @@ public class GameManager : MonoBehaviour {
 		level.LoadLevel(0);
 		levelSpawner = this.GetComponent<LevelSpawner>();
 		tileList = levelSpawner.SpawnLevel(level);
+		//Apply all playerUpgrades for units
+
 		//Spawn Units
 		//Test: Spawn PlayerUnit on Tile(3)(1)
 		if (GameObject.Find ("Tile(3)(1)") != null) {
 			GameObject spawnOnTile = GameObject.Find ("Tile(3)(1)");
 			Vector3 position = new Vector3 (spawnOnTile.transform.position.x, testUnit.transform.position.y, spawnOnTile.transform.position.z);
-			GameObject tmpUnit = Instantiate (testUnit, position, Quaternion.identity);
+			GameObject tmpUnit = (GameObject) Instantiate (testUnit, position, Quaternion.identity);
+			//This line links the units to each other
+			tmpUnit.GetComponent<Unit> ().baseUnit = Player.current.Units [0];
 			tmpUnit.GetComponent<Unit> ().Setup (spawnOnTile);
 			tmpUnit.GetComponent<Unit> ().OwnedByPlayer = true;
 			spawnOnTile.GetComponent<Tile> ().ReferenceUnit(tmpUnit);
@@ -46,7 +50,9 @@ public class GameManager : MonoBehaviour {
 		if (GameObject.Find ("Tile(2)(2)") != null) {
 			GameObject spawnOnTile = GameObject.Find ("Tile(2)(2)");
 			Vector3 position = new Vector3 (spawnOnTile.transform.position.x, testUnit.transform.position.y, spawnOnTile.transform.position.z);
-			GameObject tmpUnit = Instantiate (testUnit, position, Quaternion.identity);
+			GameObject tmpUnit = (GameObject) Instantiate (testUnit, position, Quaternion.identity);
+			//This line links the units to each other
+			tmpUnit.GetComponent<Unit> ().baseUnit = Player.current.Units [0];
 			tmpUnit.GetComponent<Unit> ().Setup (spawnOnTile);
 			tmpUnit.GetComponent<Unit> ().OwnedByPlayer = true;
 			spawnOnTile.GetComponent<Tile> ().ReferenceUnit(tmpUnit);

@@ -15,7 +15,7 @@ public class Player  {
 
 	public void SetupNewPlayer(List<GameObject> playerUnits){
 		foreach (GameObject unit in playerUnits) {
-			unit.GetComponent<Unit> ().baseUnit.SetUpgrade ();
+			unit.GetComponent<Unit> ().baseUnit.SetupBase ();
 			units.Add (unit.GetComponent<Unit> ().baseUnit);
 
 		}

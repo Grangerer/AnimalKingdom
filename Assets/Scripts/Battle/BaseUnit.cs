@@ -7,7 +7,7 @@ public class BaseUnit {
 
 	//Upgrades
 	public int id;
-	private int level = 0;
+	private int level;
 	readonly static int maxLevel = 5;
 	public Upgrade upgrade;
 
@@ -20,13 +20,15 @@ public class BaseUnit {
 	public int attackDamage;
 	private int currentAttackDamage;
 
-	public void SetUpgrade(){
+
+	public void SetupBase(){
 		if (id == 0) {
 			upgrade = new Upgrade_Bear ();
 		} else if (id == 1) {
 			upgrade = new Upgrades_Horse ();
 		}
-		upgrade.BaseUnit = this;
+		upgrade.BaseUnit = this;		
+		level = 0;
 		upgrade.SetupText ();
 	}
 

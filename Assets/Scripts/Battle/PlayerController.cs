@@ -186,7 +186,11 @@ public class PlayerController : MonoBehaviour
 	//Unit
 	public void AddUnit (GameObject unit)
 	{
+		unit.GetComponent<Unit> ().baseUnit.upgrade.ApplyUpgrades ();
 		units.Add (unit);
+	}
+	public void ApplyUpgrades(){
+		
 	}
 
 	public void UnitEndTurn ()

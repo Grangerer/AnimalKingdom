@@ -25,6 +25,10 @@ public class UpgradeManager : MonoBehaviour {
 	public List<Text> upgradeTitlesRight = new List<Text>();
 	public List<Text> upgradeDescriptionRight = new List<Text>();
 	public List<Button> unlockButtons = new List<Button>();
+	public List<GameObject> talentTier;
+
+	public Color unlockedTierColor;
+	public Color lockedTierColor;
 
 	// Use this for initialization
 	void Start () {
@@ -46,7 +50,7 @@ public class UpgradeManager : MonoBehaviour {
 					StartCoroutine(NextUnit ());
 				}
 				//Check all Talentoptions
-
+				checkAllTalentOptions(hit);
 			}
 		}
 		if (Input.GetKeyDown (KeyCode.A) || Input.GetKeyDown (KeyCode.LeftArrow)) {
@@ -126,10 +130,52 @@ public class UpgradeManager : MonoBehaviour {
 
 	public void DisplayTalentTree(){
 		//Talent Tree enables spending experience points to unlock permanent powerups
+		//Color locked and unlocked Talenttiers
+		ColorTalentTiers();
+		//Color chosen Upgrade of unlocked TalentTiers
+		ColorChosenUpgrades();
 		//Enable Talent Tree (Unlock buttons)
 		DisplayUnlockButtons();
-		//Enable Back Button
 		SetAbilityText ();
+	}
+	void ColorTalentTiers(){
+		for (int i = 0; i < BaseUnit.MaxLevel; i++) {
+			if (i <= Player.current.Units [currentUnitID].Level) {
+				talentTier [i].GetComponent<Image> ().color = unlockedTierColor;
+			} else {
+				talentTier [i].GetComponent<Image> ().color = lockedTierColor;			
+			}
+		}
+	}
+	void ColorChosenUpgrades(){
+		for (int i = 0; i < BaseUnit.MaxLevel; i++) {
+			if (Player.current.Units [currentUnitID].upgrade.ChosenUpgrade [i] == 1) {
+				ColorUpgrade (i, true);
+			} else if (Player.current.Units [currentUnitID].upgrade.ChosenUpgrade [i] == 2) {
+				ColorUpgrade (i, false);
+			} else {
+				UncolorUpgrade (i);
+			}
+		}
+	}
+	void ColorUpgrade(int tier, bool leftSide){
+		if (leftSide) {
+			upgradeTitlesLeft [tier].GetComponent<Outline> ().enabled =true ;
+			upgradeDescriptionLeft [tier].GetComponent<Outline> ().enabled = true;
+			upgradeTitlesRight [tier].GetComponent<Outline> ().enabled =false;
+			upgradeDescriptionRight [tier].GetComponent<Outline> ().enabled =false;
+		} else {
+			upgradeTitlesLeft [tier].GetComponent<Outline> ().enabled = false;
+			upgradeDescriptionLeft [tier].GetComponent<Outline> ().enabled = false;
+			upgradeTitlesRight [tier].GetComponent<Outline> ().enabled =true;
+			upgradeDescriptionRight [tier].GetComponent<Outline> ().enabled =true;
+		}
+	}
+	void UncolorUpgrade(int tier){
+			upgradeTitlesLeft [tier].GetComponent<Outline> ().enabled =false ;
+			upgradeDescriptionLeft [tier].GetComponent<Outline> ().enabled = false;
+			upgradeTitlesRight [tier].GetComponent<Outline> ().enabled =false;
+			upgradeDescriptionRight [tier].GetComponent<Outline> ().enabled =false;
 	}
 
 	void DisplayUnlockButtons(){
@@ -166,11 +212,14 @@ public class UpgradeManager : MonoBehaviour {
 	}
 
 	void LockUpdate(int upgradeLevel, int side){
-		Player.current.Units [currentUnitID].upgrade.ChooseUpgrade (upgradeLevel, side);
+		if (Player.current.Units [currentUnitID].Level >= upgradeLevel) {
+			Player.current.Units [currentUnitID].upgrade.ChooseUpgrade (upgradeLevel, side);
+			DisplayTalentTree ();
+		}
 	}
 
 	public void Back(){
-		//SaveLoad.Save();
+		SaveLoad.Save();
 		SceneManager.LoadScene ("MainMenu");
 	}
 }

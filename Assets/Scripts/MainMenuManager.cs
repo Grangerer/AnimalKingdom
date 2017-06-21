@@ -35,7 +35,6 @@ public class MainMenuManager : MonoBehaviour {
 			player = new Player ();
 			player.SetupNewPlayer (basePlayerUnits);
 			player.Experience = 200;
-			Debug.Log ("Units: " + player.Units.Count);
 		}
 		Player.current = player;
 	}
@@ -47,7 +46,7 @@ public class MainMenuManager : MonoBehaviour {
 		SceneManager.LoadScene ("UpgradeScene");
 	}
 	public void GoToBattleSelectScreen(){
-	
+		SceneManager.LoadScene ("TestScene");
 	}
 	public void GoToOptions(){
 		
