@@ -35,24 +35,29 @@ public class Upgrade_Bear : Upgrade {
 		upgradeDescriptionRight.Add ("Attacks deal 25% of their damage to all adjacent enemies to the target");
 	}
 
-	public override void ApplyUpgrades(){
+	public override void ApplyUpgrades(Unit unit){
 		for (int i = 0; i < chosenUpgrade.Count; i++) {
 			if (i == 0) {
 				if (chosenUpgrade [i] == 1) {
-					UpgradeHealth (2);
+					UpgradeHealth (2,unit.baseUnit);
 				} else if (chosenUpgrade [i] == 2) {
-					UpgradeAttackDamage (1);
+					UpgradeAttackDamage (1, unit.baseUnit);
 				}
 			} else if (i == 1) {
 				
 			} else if (i == 2) {
+				if (chosenUpgrade [i] == 1) {
+					UpgradeHealth (4,unit.baseUnit);
+				} else if (chosenUpgrade [i] == 2) {
+					UpgradeMovementSpeed (1, unit.baseUnit);
+				}
 			} else if (i == 3) {
 			}else if (i == 4) {
 			}else if (i == 5) {
 			}
 
 		}
-		baseUnit.SetupOnBattleStart ();
+		unit.baseUnit.SetupOnBattleStart ();
 	}
 
 

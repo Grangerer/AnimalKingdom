@@ -27,7 +27,7 @@ public class Level : MonoBehaviour {
 			//Enemies
 			enemyPositionsAndType.Add(new LevelEnemies(0,3,6));
 			enemyPositionsAndType.Add(new LevelEnemies(1,7,5));
-			enemyPositionsAndType.Add(new LevelEnemies(1,7,3));
+			enemyPositionsAndType.Add(new LevelEnemies(3,7,3));
 			//Obstacles
 			obstaclePositions.Add (new KeyValuePair<int,int>(0,2));
 			obstaclePositions.Add (new KeyValuePair<int,int>(1,2));

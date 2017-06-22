@@ -206,7 +206,7 @@ public class UpgradeManager : MonoBehaviour {
 		} else {
 			Player.current.SpentExperience (currentUnlockCost);
 			experienceText.text = experienceBaseString + Player.current.Experience;
-			Player.current.Units [currentUnitID].upgrade.UnlockLevel ();
+			Player.current.Units [currentUnitID].upgrade.UnlockLevel (Player.current.Units [currentUnitID]);
 			DisplayTalentTree ();
 		}
 	}

@@ -13,13 +13,12 @@ public abstract class Upgrade {
 
 	protected static List<int> upgradeCost = new List<int> (){100,175,275,400,550};
 	protected List<int> chosenUpgrade = new List<int>(){0,0,0,0,0,0};
-	protected BaseUnit baseUnit;
 
-	public void UnlockLevel(){
-		baseUnit.Level++;
+	public void UnlockLevel(BaseUnit unit){
+		unit.Level++;
 	}
 		
-	public abstract void ApplyUpgrades ();
+	public abstract void ApplyUpgrades (Unit unit);
 
 	public abstract void SetupText ();
 
@@ -33,17 +32,17 @@ public abstract class Upgrade {
 		}	
 	}
 
-	public void UpgradeHealth(int healthUpgrade){
-		baseUnit.health += healthUpgrade;
+	public void UpgradeHealth(int healthUpgrade, BaseUnit unit){
+		unit.health += healthUpgrade;
 	}
-	public void UpgradeMovementSpeed(int movementSpeedUpgrade){
-		baseUnit.movementSpeed += movementSpeedUpgrade;
+	public void UpgradeMovementSpeed(int movementSpeedUpgrade, BaseUnit unit){
+		unit.movementSpeed += movementSpeedUpgrade;
 	}
-	public void UpgradeAttackDamage(int attackDamageUpgrade){
-		baseUnit.attackDamage += attackDamageUpgrade;
+	public void UpgradeAttackDamage(int attackDamageUpgrade, BaseUnit unit){
+		unit.attackDamage += attackDamageUpgrade;
 	}
-	public void UpgradeAttackRange(int attackRangeUpgrade){
-		baseUnit.attackRange += attackRangeUpgrade;
+	public void UpgradeAttackRange(int attackRangeUpgrade, BaseUnit unit){
+		unit.attackRange += attackRangeUpgrade;
 	}
 
 	public List<string> UpgradeTitleLeft {
@@ -69,15 +68,7 @@ public abstract class Upgrade {
 			return upgradeDescriptionRight;
 		}
 	}
-
-	public BaseUnit BaseUnit {
-		get {
-			return baseUnit;
-		}
-		set {
-			baseUnit = value;
-		}
-	}
+		
 
 	public List<int> UpgradeCost {
 		get {

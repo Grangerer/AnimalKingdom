@@ -186,15 +186,14 @@ public class PlayerController : MonoBehaviour
 	//Unit
 	public void AddUnit (GameObject unit)
 	{
-		//unit.GetComponent<Unit> ().baseUnit.upgrade.ApplyUpgrades ();
+		//unit.GetComponent<Unit> ().baseUnit.upgrade.ApplyUpgrades (unit.GetComponent<Unit> ().baseUnit);
 		units.Add (unit);
 	}
 	public void ApplyUpgrades(){
 		List<int> upgradedUnitsId = new List<int> ();
 		foreach (GameObject unit in units) {
 			//if(!upgradedUnitsId.Contains(unit.GetComponent<Unit>().baseUnit.id)){
-			unit.GetComponent<Unit> ().baseUnit.upgrade.ApplyUpgrades ();
-			unit.GetComponent<Unit> ().baseUnit.upgrade.BaseUnit.attackDamage += 5;
+			unit.GetComponent<Unit> ().baseUnit.upgrade.ApplyUpgrades (unit.GetComponent<Unit> ());
 			upgradedUnitsId.Add (unit.GetComponent<Unit> ().baseUnit.id);
 			//}
 		}

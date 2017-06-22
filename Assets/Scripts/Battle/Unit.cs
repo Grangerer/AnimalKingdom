@@ -7,8 +7,8 @@ public class Unit : MonoBehaviour {
 	public BaseUnit baseUnit;
 
 	//Status Ailments and remembering last turn stuff
-	bool movedLastTurn;
-	bool attackedLastTurn;
+	bool movedLastTurn = false;
+	bool attackedLastTurn = false;
 
 	private bool ownedByPlayer = false;
 	private GameObject currentTile;
@@ -17,6 +17,15 @@ public class Unit : MonoBehaviour {
 	private bool moved = false;
 	private bool attacked = false;
 	private bool turnEnded = false;
+
+
+	//Abilities
+	public List<Ability> onBeingAttacked = new List<Ability>();
+	public List<Ability> onAttacking = new List<Ability>(){};
+	public List<Ability> onTurnStart = new List<Ability>();
+	public List<Ability> onTurnEnd = new List<Ability>();
+	public List<Ability> onMove = new List<Ability>();
+
 
 	//Unit Selector
 	Transform unitSelected;
@@ -163,7 +172,10 @@ public class Unit : MonoBehaviour {
 		return true;
 	}
 	public void AttackTile(GameObject tile){
-		tile.GetComponent<Tile> ().Unit.GetComponent<Unit> ().Damage (baseUnit.CurrentAttackDamage);
+		Attack attack = new Attack (this, tile.GetComponent<Tile> ().Unit.GetComponent<Unit> (), baseUnit.CurrentAttackDamage);
+		attack = OnAttacking (attack);
+
+		attack.Defender.OnBeingAttacked (attack);
 		ProcessAttacking(true);
 		OnTurnEnd ();
 		TurnTowards (tile);
@@ -179,6 +191,19 @@ public class Unit : MonoBehaviour {
 		unitMove.gameObject.SetActive (!attackBool);
 	}
 
+	Attack OnAttacking(Attack attack){
+		//Apply OnAttackingAbilities
+		attack = ApplyAbilities(onAttacking,attack);
+
+		return attack;
+	}
+
+	public void OnBeingAttacked(Attack attack){
+		//Apply OnBeingAttackedAbilities
+		attack = ApplyAbilities(onBeingAttacked,attack);
+
+		Damage (attack.GetFinalDamage ());
+	}
 
 	public void Damage(int attackDamage){
 		//Damage
@@ -207,6 +232,13 @@ public class Unit : MonoBehaviour {
 		foreach (GameObject tile in currentlyColoredTiles) {
 			tile.GetComponent<Tile> ().ResetColor ();
 		}
+	}
+
+	Attack ApplyAbilities(List<Ability> abilityList, Attack attack){
+		foreach (Ability ability in abilityList) {
+			ability.Apply(attack);
+		}
+		return attack;
 	}
 
 	void DestroyUnit(){
@@ -290,5 +322,20 @@ public class Unit : MonoBehaviour {
 			attacked = value;
 		}
 	}
-
+	public bool MovedLastTurn {
+		get {
+			return movedLastTurn;
+		}
+		set {
+			movedLastTurn = value;
+		}
+	}
+	public bool AttackedLastTurn {
+		get {
+			return attackedLastTurn;
+		}
+		set {
+			attackedLastTurn = value;
+		}
+	}
 }

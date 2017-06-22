@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class Ability : MonoBehaviour {
+[System.Serializable]
+public abstract class Ability {
 
 	/*Possible Triggers:
 	 * OnTurnStart
@@ -12,13 +13,7 @@ public abstract class Ability : MonoBehaviour {
 	 * OnMove
 	 */
 
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+	protected string name;
+
+	public abstract Attack Apply (Attack attack);
 }

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class LevelEnemies {
 
-	int unitId; //0=Horse, 1=Bear
+	int unitId; //0=Horse, 1=Bear, 3= porcupine, 5=panther
 	int gridHeight;
 	int gridWidth;
 

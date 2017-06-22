@@ -40,8 +40,7 @@ public class GameManager : MonoBehaviour {
 			Vector3 position = new Vector3 (spawnOnTile.transform.position.x, testUnit.transform.position.y, spawnOnTile.transform.position.z);
 			GameObject tmpUnit = (GameObject) Instantiate (testUnit, position, Quaternion.identity);
 			//This line links the units to each other
-			tmpUnit.GetComponent<Unit> ().baseUnit = new BaseUnit(Player.current.Units [0]);
-			tmpUnit.GetComponent<Unit> ().baseUnit.upgrade.BaseUnit = tmpUnit.GetComponent<Unit> ().baseUnit;
+			tmpUnit.GetComponent<Unit> ().baseUnit = new BaseUnit(Player.current.Units [2]);
 			tmpUnit.GetComponent<Unit> ().Setup (spawnOnTile);
 			tmpUnit.GetComponent<Unit> ().OwnedByPlayer = true;
 			spawnOnTile.GetComponent<Tile> ().ReferenceUnit(tmpUnit);
@@ -53,8 +52,7 @@ public class GameManager : MonoBehaviour {
 			Vector3 position = new Vector3 (spawnOnTile.transform.position.x, testUnit.transform.position.y, spawnOnTile.transform.position.z);
 			GameObject tmpUnit = (GameObject) Instantiate (testUnit, position, Quaternion.identity);
 			//This line links the units to each other
-			tmpUnit.GetComponent<Unit> ().baseUnit = new BaseUnit(Player.current.Units [0]);
-			tmpUnit.GetComponent<Unit> ().baseUnit.upgrade.BaseUnit = tmpUnit.GetComponent<Unit> ().baseUnit;
+			tmpUnit.GetComponent<Unit> ().baseUnit = new BaseUnit(Player.current.Units [2]);
 			tmpUnit.GetComponent<Unit> ().Setup (spawnOnTile);
 			tmpUnit.GetComponent<Unit> ().OwnedByPlayer = true;
 			spawnOnTile.GetComponent<Tile> ().ReferenceUnit(tmpUnit);
@@ -65,7 +63,7 @@ public class GameManager : MonoBehaviour {
 			Vector3 position = new Vector3 (spawnOnTile.transform.position.x, testUnit.transform.position.y, spawnOnTile.transform.position.z);
 			GameObject tmpUnit = (GameObject) Instantiate (testUnit, position, Quaternion.identity);
 			//This line links the units to each other
-			tmpUnit.GetComponent<Unit> ().baseUnit = new BaseUnit(Player.current.Units [0]);
+			tmpUnit.GetComponent<Unit> ().baseUnit = new BaseUnit(Player.current.Units [2]);
 			tmpUnit.GetComponent<Unit> ().Setup (spawnOnTile);
 			tmpUnit.GetComponent<Unit> ().OwnedByPlayer = true;
 			spawnOnTile.GetComponent<Tile> ().ReferenceUnit(tmpUnit);
@@ -115,8 +113,9 @@ public class GameManager : MonoBehaviour {
 	//Win Match
 	public void WinMatch(){
 		Debug.Log ("Player has won the match");
+		Player.current.Experience += 100;
 		Time.timeScale = 0;
-		SceneManager.LoadScene ("MainMenu");
+		GoToMainMenu ();
 	}
 	public void LooseMatch(){
 		Debug.Log ("Player has lost the match");
@@ -144,6 +143,7 @@ public class GameManager : MonoBehaviour {
 	}
 	public void OpenOptions(){}
 	public void GoToMainMenu(){
+		SaveLoad.Save ();
 		string sceneToLoadName = "MainMenu";
 		SceneManager.LoadScene (sceneToLoadName);
 	}

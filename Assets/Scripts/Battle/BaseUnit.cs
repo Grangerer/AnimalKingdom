@@ -7,7 +7,7 @@ public class BaseUnit {
 
 	//Upgrades
 	public int id;
-	private int level;
+	private int level =0;
 	readonly static int maxLevel = 5;
 	public Upgrade upgrade;
 
@@ -35,12 +35,19 @@ public class BaseUnit {
 	}
 
 	public void SetupBase(){
-		if (id == 0) {
+		switch (id) {
+		case 0: //Bear
 			upgrade = new Upgrade_Bear ();
-		} else if (id == 1) {
+			break;
+		case 1: //Horse
 			upgrade = new Upgrades_Horse ();
-		}
-		upgrade.BaseUnit = this;		
+			break;
+		case 5: //Panther
+			upgrade = new Upgrades_Panther ();
+			break;
+		default:
+			break;
+		}	
 		level = 0;
 		upgrade.SetupText ();
 	}

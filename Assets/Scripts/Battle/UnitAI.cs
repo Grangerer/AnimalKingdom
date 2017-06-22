@@ -32,8 +32,11 @@ public class UnitAI : MonoBehaviour {
 		}//Move towards closest enemy
 		else {
 			Debug.Log ("No Enemy Found!");
+			//Move to a free adjacent square, if possible
+			MoveToRandomAdjacentTile();
 		}
 	}
+	//Enemy Found
 	//Find all possible targets
 	List<Unit> FindAllPossibleTargets(){
 		List<Tile> movableTiles = FindAllMovableTiles();
@@ -233,7 +236,21 @@ public class UnitAI : MonoBehaviour {
 		}
 		return finalTile;
 	}
-	
+
+	//No Enemy found
+	void MoveToRandomAdjacentTile(){
+		List<Tile> possibleTiles = new List<Tile> ();
+		foreach (GameObject tile in unit.CurrentTile.GetComponent<Tile>().AdjacentTiles) {
+			if(!tile.GetComponent<Tile>().Occupied){
+				possibleTiles.Add(tile.GetComponent<Tile>());
+			}
+		}
+		if (possibleTiles.Count != 0) {
+			unit.MoveToTile (possibleTiles [(int)(Random.value * possibleTiles.Count)].gameObject);
+		}
+	}
+
+
 	//Propertystuff
 	public Unit Unit {
 		get {

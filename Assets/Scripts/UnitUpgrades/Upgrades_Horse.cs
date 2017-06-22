@@ -18,7 +18,7 @@ public class Upgrades_Horse : Upgrade {
 		upgradeTitleLeft.Add ("Endurance");
 		upgradeDescriptionLeft.Add ("+4 health");
 		upgradeTitleLeft.Add ("Pack");
-		upgradeDescriptionLeft.Add ("You take 1 less damage for each adjacent ally.\n(Minimum 1)");
+		upgradeDescriptionLeft.Add ("You take 7.5% less damage for each adjacent ally");
 
 
 		upgradeTitleRight.Add ("Assault");
@@ -35,13 +35,13 @@ public class Upgrades_Horse : Upgrade {
 		upgradeDescriptionRight.Add ("You can move through allies");
 	}
 
-	public override void ApplyUpgrades(){
+	public override void ApplyUpgrades(Unit unit){
 		for (int i = 0; i < chosenUpgrade.Count; i++) {
 			if (i == 0) {
 				if (chosenUpgrade [i] == 1) {
-					UpgradeMovementSpeed (2);
+					UpgradeMovementSpeed (2, unit.baseUnit);
 				} else if (chosenUpgrade [i] == 2) {
-					UpgradeAttackDamage (1);
+					UpgradeAttackDamage (1, unit.baseUnit);
 				}
 			} else if (i == 1) {
 
