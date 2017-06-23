@@ -271,6 +271,7 @@ public class Unit : MonoBehaviour {
 		foreach (Ability ability in abilityList) {
 			this.baseUnit = ability.ApplyTurn(this);
 		}
+		//Check if buffs/debuffs are expired
 	}
 
 	void DestroyUnit(){

@@ -101,7 +101,6 @@ public class UpgradeManager : MonoBehaviour {
 			DisplayUnit(ShowTile,currentUnitID);
 		} else {
 			//Display "Cannot next" animation
-			Debug.Log("Cannot next");
 		}
 	}
 	IEnumerator LastUnit(){
@@ -115,7 +114,6 @@ public class UpgradeManager : MonoBehaviour {
 			DisplayUnit(ShowTile,currentUnitID);
 		} else {
 			//Display "Cannot last" animation
-			Debug.Log("Cannot last");
 		}
 	}
 
