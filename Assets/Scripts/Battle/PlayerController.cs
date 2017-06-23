@@ -196,11 +196,14 @@ public class PlayerController : MonoBehaviour
 			unit.GetComponent<Unit> ().baseUnit.upgrade.ApplyUpgrades (unit.GetComponent<Unit> ());
 			upgradedUnitsId.Add (unit.GetComponent<Unit> ().baseUnit.id);
 			//}
+			unit.GetComponent<Unit> ().baseUnit.SetupOnBattleStart();
 		}
+
 	}
 
 	public void UnitEndTurn ()
 	{
+		ResetTurnStat ();
 		selectedUnit.GetComponent<Unit> ().OnTurnEnd ();
 
 		AdjustUnitControl ();
@@ -245,6 +248,7 @@ public class PlayerController : MonoBehaviour
 		foreach (GameObject unit in units) {
 			unit.GetComponent<Unit> ().OnTurnEnd();
 		}
+		ResetTurnStat ();
 		myTurn = false;
 		AdjustUnitControl ();
 		//Tell GameManager to go to next turn

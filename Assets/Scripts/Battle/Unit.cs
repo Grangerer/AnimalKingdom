@@ -193,32 +193,59 @@ public class Unit : MonoBehaviour {
 
 	Attack OnAttacking(Attack attack){
 		//Apply OnAttackingAbilities
-		attack = ApplyAbilities(onAttacking,attack);
-
+		attack = ApplyAttackAbilities(onAttacking,attack);
 		return attack;
 	}
 
 	public void OnBeingAttacked(Attack attack){
 		//Apply OnBeingAttackedAbilities
-		attack = ApplyAbilities(onBeingAttacked,attack);
-
-		Damage (attack.GetFinalDamage ());
+		attack = ApplyAttackAbilities(onBeingAttacked,attack);
+		Damage (attack);
 	}
 
-	public void Damage(int attackDamage){
-		//Damage
-		baseUnit.CurrentHealth -= attackDamage;
-		//Adjust Healthbar
-		healthBar.gameObject.SetActive(true);
-		float xScale = (float)baseUnit.CurrentHealth/ (float)baseUnit.health;
-		healthBar.Find("Health").localScale = new Vector3(xScale,1,1);
+	public void Damage(Attack attack){
+		int finalDamage;
+		//Miss
+		if (!attack.AttackHit && !attack.CannotMiss) {
+			//Nothing happens
+			//Will display the dodge in the combat log
+		} else {
+			finalDamage = attack.GetFinalDamage ();
+			//Damage
+			baseUnit.CurrentHealth -= finalDamage;
+			//Adjust Healthbar
+			healthBar.gameObject.SetActive(true);
+			float xScale = (float)baseUnit.CurrentHealth/ (float)baseUnit.health;
+			healthBar.Find("Health").localScale = new Vector3(xScale,1,1);
+		}
 		//Do all relevant checks regarding death and abilities
 		if (baseUnit.CurrentHealth <= 0) {
 			DestroyUnit ();
 		}
+
 	}
 
+
+
+
 	//General
+	public void AddAbility(Ability ability){
+		if (ability.TriggerId == (int) Trigger.OnTurnStart) {
+			onTurnStart.Add (ability);
+		} else if (ability.TriggerId == (int) Trigger.OnTurnEnd) {
+			onTurnEnd.Add (ability);
+		} else if (ability.TriggerId == (int) Trigger.OnMove) {
+			onMove.Add (ability);
+		} else if (ability.TriggerId == (int) Trigger.OnAttack) {
+			onAttacking.Add (ability);
+		} else if (ability.TriggerId == (int) Trigger.OnBeingAttack) {
+			onBeingAttacked.Add (ability);
+		} else {
+			Debug.Log ("Ability has no triggerID! Fix!");
+		}
+			
+	}
+
 	void TurnTowards(GameObject target){
 		//Turn towards target
 		Vector3 targetPoint = new Vector3(target.transform.position.x, transform.position.y, target.transform.position.z) - transform.position;
@@ -234,11 +261,16 @@ public class Unit : MonoBehaviour {
 		}
 	}
 
-	Attack ApplyAbilities(List<Ability> abilityList, Attack attack){
+	Attack ApplyAttackAbilities(List<Ability> abilityList, Attack attack){
 		foreach (Ability ability in abilityList) {
 			ability.Apply(attack);
 		}
 		return attack;
+	}
+	void ApplyTurnAbilities(List<Ability> abilityList){
+		foreach (Ability ability in abilityList) {
+			this.baseUnit = ability.ApplyTurn(this);
+		}
 	}
 
 	void DestroyUnit(){
@@ -256,6 +288,8 @@ public class Unit : MonoBehaviour {
 		Destroy(this.gameObject);
 	}
 
+
+
 	//Turn
 	public void OnTurnStart(){
 		movedLastTurn = moved;
@@ -263,9 +297,13 @@ public class Unit : MonoBehaviour {
 		ProcessMoving (false);
 		ProcessAttacking (false);
 		turnEnded = false;
-		//Display UnitSelector
+		//Temporay: Reset stats until a debuff/buff system is implemented
+		baseUnit.ResetStats();
+
+		ApplyTurnAbilities (onTurnStart);
 	}
 	public void OnTurnEnd(){
+		ResetCurrentlyColoredTiles ();
 		turnEnded = true;
 		unitMove.gameObject.SetActive (false);
 		unitAttack.gameObject.SetActive (false);
@@ -281,6 +319,9 @@ public class Unit : MonoBehaviour {
 		currentTile = tile;
 		baseUnit.SetupOnBattleStart ();
 	}
+
+
+
 	//PropertyStuff
 	public GameObject CurrentTile {
 		get {

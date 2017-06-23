@@ -31,7 +31,6 @@ public class UnitAI : MonoBehaviour {
 			//target.Damage(unit.damage);
 		}//Move towards closest enemy
 		else {
-			Debug.Log ("No Enemy Found!");
 			//Move to a free adjacent square, if possible
 			MoveToRandomAdjacentTile();
 		}

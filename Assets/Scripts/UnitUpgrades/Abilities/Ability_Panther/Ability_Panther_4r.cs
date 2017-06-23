@@ -5,19 +5,22 @@ using UnityEngine;
 [System.Serializable]
 public class Ability_Panther_4r : Ability {
 
-	/*AbilityType: OnBeingAttacked
+	/*AbilityType: OnTurnstart
 Sprint:
 Gain 50% increased movementspeed, if you haven't moved last turn
 	 * */
 	public Ability_Panther_4r(){
 		name = "Sprint";
+		triggerId = (int) Trigger.OnTurnStart;
 	}
 
-	public override Attack Apply (Attack attack){
-		if (!attack.Attacker.MovedLastTurn) {
-			attack.Attacker.baseUnit.CurrentMovementspeed += attack.Attacker.baseUnit.movementSpeed * 0.5f;
+	public override BaseUnit ApplyTurn (Unit unit){
+//		Debug.Log (name);
+		if (!unit.MovedLastTurn) {
+//			Debug.Log (name + " applied");
+			unit.baseUnit.CurrentMovementspeed += (int) Mathf.Round(unit.baseUnit.movementSpeed * 0.5f);
 		}
-		return attack;
+		return unit.baseUnit;
 	}
 
 }

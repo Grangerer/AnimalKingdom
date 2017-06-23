@@ -5,6 +5,12 @@ using UnityEngine;
 [System.Serializable]
 public class Upgrades_Horse : Upgrade {
 
+	Ability_Horse_2l abilityHorse2L = new Ability_Horse_2l();
+	Ability_Horse_2r abilityHorse2R = new Ability_Horse_2r();
+	Ability_Horse_4l abilityHorse4L = new Ability_Horse_4l();
+	Ability_Horse_4r abilityHorse4R = new Ability_Horse_4r();
+	Ability_Horse_6l abilityHorse6L = new Ability_Horse_6l();
+	Ability_Horse_6r abilityHorse6R = new Ability_Horse_6r();
 
 	public override void SetupText(){
 		upgradeTitleLeft.Add ("Celerity");
@@ -39,16 +45,40 @@ public class Upgrades_Horse : Upgrade {
 		for (int i = 0; i < chosenUpgrade.Count; i++) {
 			if (i == 0) {
 				if (chosenUpgrade [i] == 1) {
-					UpgradeMovementSpeed (2, unit.baseUnit);
+					UpgradeMovementSpeed (1, unit.baseUnit);
 				} else if (chosenUpgrade [i] == 2) {
 					UpgradeAttackDamage (1, unit.baseUnit);
 				}
 			} else if (i == 1) {
-
+				if (chosenUpgrade [i] == 1) {
+					unit.AddAbility (abilityHorse2L);
+				} else if (chosenUpgrade [i] == 2) {
+					unit.AddAbility (abilityHorse2R);
+				}
 			} else if (i == 2) {
+				if (chosenUpgrade [i] == 1) {
+					UpgradeHealth (2, unit.baseUnit);
+				} else if (chosenUpgrade [i] == 2) {
+					UpgradeAttackDamage (2, unit.baseUnit);
+				}
 			} else if (i == 3) {
+				if (chosenUpgrade [i] == 1) {
+					unit.AddAbility (abilityHorse2L);
+				} else if (chosenUpgrade [i] == 2) {
+					unit.AddAbility (abilityHorse2R);
+				}
 			}else if (i == 4) {
+				if (chosenUpgrade [i] == 1) {
+					UpgradeHealth (4, unit.baseUnit);
+				} else if (chosenUpgrade [i] == 2) {
+					UpgradeMovementSpeed (1, unit.baseUnit);
+				}
 			}else if (i == 5) {
+				if (chosenUpgrade [i] == 1) {
+					unit.AddAbility (abilityHorse2L);
+				} else if (chosenUpgrade [i] == 2) {
+					unit.AddAbility (abilityHorse2R);
+				}
 			}
 
 		}

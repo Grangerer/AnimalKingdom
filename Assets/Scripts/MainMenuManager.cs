@@ -15,6 +15,7 @@ public class MainMenuManager : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		LoadData ();
+		Time.timeScale = 1;
 		//SaveData ();
 	}
 	
@@ -34,7 +35,7 @@ public class MainMenuManager : MonoBehaviour {
 			Debug.Log ("No saved player found");
 			player = new Player ();
 			player.SetupNewPlayer (basePlayerUnits);
-			player.Experience = 200;
+			player.Experience = 20000;
 		}
 		Player.current = player;
 	}

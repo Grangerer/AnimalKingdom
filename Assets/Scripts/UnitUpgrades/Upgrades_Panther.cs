@@ -7,6 +7,10 @@ public class Upgrades_Panther : Upgrade {
 
 	Ability_Panther_2l abilityPanther2L = new Ability_Panther_2l();
 	Ability_Panther_2r abilityPanther2R = new Ability_Panther_2r();
+	Ability_Panther_4l abilityPanther4L = new Ability_Panther_4l();
+	Ability_Panther_4r abilityPanther4R = new Ability_Panther_4r();
+	Ability_Panther_6l abilityPanther6L = new Ability_Panther_6l();
+	Ability_Panther_6r abilityPanther6R = new Ability_Panther_6r();
 
 	public override void SetupText(){
 		upgradeTitleLeft.Add ("Endurance");
@@ -47,14 +51,34 @@ public class Upgrades_Panther : Upgrade {
 				}
 			} else if (i == 1) {
 				if (chosenUpgrade [i] == 1) {
-					unit.onBeingAttacked.Add (abilityPanther2L);
+					unit.AddAbility (abilityPanther2L);
 				} else if (chosenUpgrade [i] == 2) {
-					unit.onAttacking.Add (abilityPanther2R);
+					unit.AddAbility (abilityPanther2R);
 				}
 			} else if (i == 2) {
+				if (chosenUpgrade [i] == 1) {
+					UpgradeHealth (3, unit.baseUnit);
+				} else if (chosenUpgrade [i] == 2) {
+					UpgradeAttackDamage (2, unit.baseUnit);
+				}
 			} else if (i == 3) {
+				if (chosenUpgrade [i] == 1) {
+					unit.AddAbility (abilityPanther4L);
+				} else if (chosenUpgrade [i] == 2) {
+					unit.AddAbility (abilityPanther4R);
+				}
 			}else if (i == 4) {
+				if (chosenUpgrade [i] == 1) {
+					UpgradeMovementSpeed (1, unit.baseUnit);
+				} else if (chosenUpgrade [i] == 2) {
+					UpgradeAttackDamage (3, unit.baseUnit);
+				}
 			}else if (i == 5) {
+				if (chosenUpgrade [i] == 1) {
+					unit.AddAbility (abilityPanther6L);
+				} else if (chosenUpgrade [i] == 2) {
+					unit.AddAbility (abilityPanther6R);
+				}
 			}
 
 		}

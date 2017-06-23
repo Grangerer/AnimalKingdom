@@ -20,7 +20,7 @@ public class GameManager : MonoBehaviour {
 	private List<GameObject> tileList;
 
 	public GameObject BattleMenu;
-	bool gamePaused;
+	bool gamePaused = false;
 
 
 	// Use this for initialization

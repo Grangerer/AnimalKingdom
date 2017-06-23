@@ -18,7 +18,7 @@ public class BaseUnit {
 	public int attackRange;
 	private int currentAttackRange;
 	public int attackDamage;
-	private int currentAttackDamage;
+	public int currentAttackDamage;
 
 	public BaseUnit(BaseUnit toCopy){
 		this.id = toCopy.id;
@@ -54,6 +54,13 @@ public class BaseUnit {
 
 	public void SetupOnBattleStart(){
 		currentHealth = health;
+		currentMovementspeed = movementSpeed;
+		currentAttackRange = attackRange;
+		currentAttackDamage = attackDamage;
+	}
+
+	//Temporay: Reset stats until a debuff/buff system is implemented
+	public void ResetStats(){
 		currentMovementspeed = movementSpeed;
 		currentAttackRange = attackRange;
 		currentAttackDamage = attackDamage;

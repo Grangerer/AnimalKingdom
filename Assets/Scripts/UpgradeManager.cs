@@ -91,6 +91,7 @@ public class UpgradeManager : MonoBehaviour {
 
 	IEnumerator NextUnit(){
 		if (currentUnitID < displayUnits.Count-1) {
+			Debug.Log ("Next unit");
 			currentUnitID++;
 			//Display Arrow Right animation
 			arrowRightAnimation.Stop ();
@@ -100,6 +101,7 @@ public class UpgradeManager : MonoBehaviour {
 			DisplayUnit(ShowTile,currentUnitID);
 		} else {
 			//Display "Cannot next" animation
+			Debug.Log("Cannot next");
 		}
 	}
 	IEnumerator LastUnit(){
@@ -112,7 +114,8 @@ public class UpgradeManager : MonoBehaviour {
 			//Display next Unit
 			DisplayUnit(ShowTile,currentUnitID);
 		} else {
-			//Display "Cannot next" animation
+			//Display "Cannot last" animation
+			Debug.Log("Cannot last");
 		}
 	}
 
@@ -139,7 +142,7 @@ public class UpgradeManager : MonoBehaviour {
 		SetAbilityText ();
 	}
 	void ColorTalentTiers(){
-		for (int i = 0; i < BaseUnit.MaxLevel; i++) {
+		for (int i = 0; i <= BaseUnit.MaxLevel; i++) {
 			if (i <= Player.current.Units [currentUnitID].Level) {
 				talentTier [i].GetComponent<Image> ().color = unlockedTierColor;
 			} else {
@@ -148,7 +151,7 @@ public class UpgradeManager : MonoBehaviour {
 		}
 	}
 	void ColorChosenUpgrades(){
-		for (int i = 0; i < BaseUnit.MaxLevel; i++) {
+		for (int i = 0; i <= BaseUnit.MaxLevel; i++) {
 			if (Player.current.Units [currentUnitID].upgrade.ChosenUpgrade [i] == 1) {
 				ColorUpgrade (i, true);
 			} else if (Player.current.Units [currentUnitID].upgrade.ChosenUpgrade [i] == 2) {
@@ -207,6 +210,8 @@ public class UpgradeManager : MonoBehaviour {
 			Player.current.SpentExperience (currentUnlockCost);
 			experienceText.text = experienceBaseString + Player.current.Experience;
 			Player.current.Units [currentUnitID].upgrade.UnlockLevel (Player.current.Units [currentUnitID]);
+			//Lock left side upgrade
+			LockUpdate(Player.current.Units[currentUnitID].Level,1);
 			DisplayTalentTree ();
 		}
 	}

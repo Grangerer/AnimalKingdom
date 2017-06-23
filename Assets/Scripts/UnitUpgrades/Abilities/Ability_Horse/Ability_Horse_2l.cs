@@ -7,12 +7,13 @@ public class Ability_Horse_2l : Ability
 {
 
 	/*AbilityType: OnBeingAttacked
-	  Hidden:
-		Attacks against you have a 50% chance to miss, if you haven't attacked last turn
+Agitation:
+Attacks against you have a 20% chance to miss
 	 * */
 	public Ability_Horse_2l ()
 	{
 		name = "Agitation";
+		triggerId = (int) Trigger.OnBeingAttack;
 	}
 
 	public override Attack Apply (Attack attack)
