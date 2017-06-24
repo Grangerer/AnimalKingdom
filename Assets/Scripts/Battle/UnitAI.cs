@@ -51,7 +51,7 @@ public class UnitAI : MonoBehaviour {
 			}
 		}
 		//add adjacent tiles of all added tiles, excluding already added tiles => repeat equal to movementspeed
-		for (int i = 1; i < unit.baseUnit.movementSpeed; i++) {
+		for (int i = 1; i < unit.baseUnit.CurrentMovementspeed; i++) {
 			List<Tile> tmpTiles = new List<Tile> ();
 			foreach (Tile tile in movableTiles) {
 				foreach (GameObject checkTile in tile.GetComponent<Tile>().AdjacentTiles) {

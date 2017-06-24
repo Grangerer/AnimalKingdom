@@ -209,10 +209,16 @@ public class Unit : MonoBehaviour {
 		if (!attack.AttackHit && !attack.CannotMiss) {
 			//Nothing happens
 			//Will display the dodge in the combat log
+			Debug.Log("Attack on me "+this.name+" missed!");
 		} else {
 			finalDamage = attack.GetFinalDamage ();
 			//Damage
 			baseUnit.CurrentHealth -= finalDamage;
+			//Apply debuffs
+			foreach(De_Buff debuff in attack.AppliedDebuffs ){
+				AddAbility (debuff);
+				Debug.Log ("Added " + debuff.Name);
+			}
 			//Adjust Healthbar
 			healthBar.gameObject.SetActive(true);
 			float xScale = (float)baseUnit.CurrentHealth/ (float)baseUnit.health;
@@ -308,7 +314,8 @@ public class Unit : MonoBehaviour {
 		turnEnded = true;
 		unitMove.gameObject.SetActive (false);
 		unitAttack.gameObject.SetActive (false);
-		//Adjust UnitSelector
+		//Check all buffs and debuffs and remove them if they have no duration left
+
 	}
 
 	public void DisplayUnitSelector(bool display){

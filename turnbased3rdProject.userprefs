@@ -1,25 +1,17 @@
 ﻿<Properties StartupItem="Assembly-CSharp.csproj" RefactoringSettings.EnableRefactorings="True">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Battle\Unit.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\UnitUpgrades\Abilities\Ability_SpittingSnake\Ability_Spitsnake_6r.cs">
     <Files>
-      <File FileName="Assets\Scripts\GameManager.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Battle\PlayerController.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Player.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Battle\Unit.cs" Line="274" Column="39" />
-      <File FileName="Assets\Scripts\Battle\BaseUnit.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\UpgradeManager.cs" Line="106" Column="25" />
-      <File FileName="Assets\Scripts\UnitUpgrades\Upgrade.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\UnitUpgrades\Upgrade_Bear.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\UnitUpgrades\Upgrades_Horse.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Battle\LevelSpawner.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\MainMenuManager.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Battle\UnitAI.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\UnitUpgrades\Abilities\De_Buff.cs" Line="9" Column="2" />
-      <File FileName="Assets\Scripts\UnitUpgrades\Abilities\Ability.cs" Line="24" Column="2" />
-      <File FileName="Assets\Scripts\UnitUpgrades\Abilities\Ability_Horse\Debuff_Kick.cs" Line="23" Column="14" />
-      <File FileName="Assets\Scripts\UnitUpgrades\Abilities\Ability_Horse\Ability_Horse_2r.cs" Line="19" Column="2" />
-      <File FileName="Assets\Scripts\UnitUpgrades\Abilities\Ability_Horse\Ability_Horse_2l.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\UnitUpgrades\Abilities\Ability_Horse\Ability_Horse_4l.cs" Line="10" Column="1" />
+      <File FileName="Assets\Scripts\UnitUpgrades\Abilities\Ability_SpittingSnake\Ability_Spitsnake_2l.cs" Line="21" Column="91" />
+      <File FileName="Assets\Scripts\UnitUpgrades\Abilities\Ability_SpittingSnake\Ability_Spitsnake_2r.cs" Line="12" Column="26" />
+      <File FileName="Assets\Scripts\UnitUpgrades\Abilities\Ability_SpittingSnake\Ability_Spitsnake_4l.cs" Line="19" Column="157" />
+      <File FileName="Assets\Scripts\UnitUpgrades\Abilities\Ability_SpittingSnake\Ability_Spitsnake_4r.cs" Line="26" Column="3" />
+      <File FileName="Assets\Scripts\UnitUpgrades\Abilities\Ability_SpittingSnake\Ability_Spitsnake_6l.cs" Line="32" Column="56" />
+      <File FileName="Assets\Scripts\UnitUpgrades\Abilities\Ability_SpittingSnake\Ability_Spitsnake_6r.cs" Line="19" Column="3" />
+      <File FileName="Assets\Scripts\UnitUpgrades\Abilities\Ability_Horse\Ability_Horse_4r.cs" Line="19" Column="3" />
+      <File FileName="Assets\Scripts\UnitUpgrades\Abilities\Ability_Horse\Ability_Horse_6r.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\UnitUpgrades\Abilities\Ability_Horse\Ability_Horse_6l.cs" Line="15" Column="3" />
+      <File FileName="Assets\Scripts\UnitUpgrades\Abilities\Ability_Horse\Ability_Horse_2l.cs" Line="21" Column="3" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

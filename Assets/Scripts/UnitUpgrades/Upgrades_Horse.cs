@@ -63,9 +63,9 @@ public class Upgrades_Horse : Upgrade {
 				}
 			} else if (i == 3) {
 				if (chosenUpgrade [i] == 1) {
-					unit.AddAbility (abilityHorse2L);
+					unit.AddAbility (abilityHorse4L);
 				} else if (chosenUpgrade [i] == 2) {
-					unit.AddAbility (abilityHorse2R);
+					unit.AddAbility (abilityHorse4R);
 				}
 			}else if (i == 4) {
 				if (chosenUpgrade [i] == 1) {
@@ -75,9 +75,9 @@ public class Upgrades_Horse : Upgrade {
 				}
 			}else if (i == 5) {
 				if (chosenUpgrade [i] == 1) {
-					unit.AddAbility (abilityHorse2L);
+					unit.AddAbility (abilityHorse6L);
 				} else if (chosenUpgrade [i] == 2) {
-					unit.AddAbility (abilityHorse2R);
+					unit.AddAbility (abilityHorse6R);
 				}
 			}
 

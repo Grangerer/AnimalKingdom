@@ -36,6 +36,7 @@ public class UpgradeManager : MonoBehaviour {
 		arrowRightAnimation = arrowRight.GetComponent<Animation> ();
 		DisplayUnit (ShowTile, currentUnitID);
 		experienceText.text = experienceBaseString + Player.current.Experience;
+		Time.timeScale = 1;
 	}
 	
 	// Update is called once per frame

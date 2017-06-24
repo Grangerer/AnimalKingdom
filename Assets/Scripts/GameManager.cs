@@ -40,7 +40,7 @@ public class GameManager : MonoBehaviour {
 			Vector3 position = new Vector3 (spawnOnTile.transform.position.x, testUnit.transform.position.y, spawnOnTile.transform.position.z);
 			GameObject tmpUnit = (GameObject) Instantiate (testUnit, position, Quaternion.identity);
 			//This line links the units to each other
-			tmpUnit.GetComponent<Unit> ().baseUnit = new BaseUnit(Player.current.Units [2]);
+			tmpUnit.GetComponent<Unit> ().baseUnit = new BaseUnit(Player.current.Units [1]);
 			tmpUnit.GetComponent<Unit> ().Setup (spawnOnTile);
 			tmpUnit.GetComponent<Unit> ().OwnedByPlayer = true;
 			spawnOnTile.GetComponent<Tile> ().ReferenceUnit(tmpUnit);
@@ -52,7 +52,7 @@ public class GameManager : MonoBehaviour {
 			Vector3 position = new Vector3 (spawnOnTile.transform.position.x, testUnit.transform.position.y, spawnOnTile.transform.position.z);
 			GameObject tmpUnit = (GameObject) Instantiate (testUnit, position, Quaternion.identity);
 			//This line links the units to each other
-			tmpUnit.GetComponent<Unit> ().baseUnit = new BaseUnit(Player.current.Units [2]);
+			tmpUnit.GetComponent<Unit> ().baseUnit = new BaseUnit(Player.current.Units [1]);
 			tmpUnit.GetComponent<Unit> ().Setup (spawnOnTile);
 			tmpUnit.GetComponent<Unit> ().OwnedByPlayer = true;
 			spawnOnTile.GetComponent<Tile> ().ReferenceUnit(tmpUnit);
@@ -63,7 +63,7 @@ public class GameManager : MonoBehaviour {
 			Vector3 position = new Vector3 (spawnOnTile.transform.position.x, testUnit.transform.position.y, spawnOnTile.transform.position.z);
 			GameObject tmpUnit = (GameObject) Instantiate (testUnit, position, Quaternion.identity);
 			//This line links the units to each other
-			tmpUnit.GetComponent<Unit> ().baseUnit = new BaseUnit(Player.current.Units [2]);
+			tmpUnit.GetComponent<Unit> ().baseUnit = new BaseUnit(Player.current.Units [1]);
 			tmpUnit.GetComponent<Unit> ().Setup (spawnOnTile);
 			tmpUnit.GetComponent<Unit> ().OwnedByPlayer = true;
 			spawnOnTile.GetComponent<Tile> ().ReferenceUnit(tmpUnit);

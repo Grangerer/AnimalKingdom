@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[System.Serializable]
 public class Debuff_Kick : De_Buff {
 	/*
 	Kick:
@@ -11,16 +12,16 @@ public class Debuff_Kick : De_Buff {
 	// Use this for initialization
 	public Debuff_Kick ()
 	{
-		name = "Kick";
+		name = "Kick_Debuff";
 		triggerId = (int)Trigger.OnTurnStart;
 		duration = 1;
 	}
 
 	public override BaseUnit ApplyTurn(Unit unit){
-		if (unit.baseUnit.CurrentMovementspeed > 1) {
-			unit.baseUnit.CurrentMovementspeed -= 1;
-		}
+		unit.baseUnit.CurrentMovementspeed -= 1;
+
 		duration--;
+
 		return unit.baseUnit;
 	}
 }
