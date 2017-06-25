@@ -228,7 +228,19 @@ public class Unit : MonoBehaviour {
 		if (baseUnit.CurrentHealth <= 0) {
 			DestroyUnit ();
 		}
+	}
 
+	public void DebuffDamage(int damage){
+		//Damage
+		baseUnit.CurrentHealth -= damage;
+		//Adjust Healthbar
+		healthBar.gameObject.SetActive(true);
+		float xScale = (float)baseUnit.CurrentHealth/ (float)baseUnit.health;
+		healthBar.Find("Health").localScale = new Vector3(xScale,1,1);
+		//Do all relevant checks regarding death and abilities
+		if (baseUnit.CurrentHealth <= 0) {
+			DestroyUnit ();
+		}
 	}
 
 

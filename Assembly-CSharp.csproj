@@ -83,6 +83,7 @@
      <Compile Include="Assets\Scripts\UnitUpgrades\Abilities\Ability_SpittingSnake\Ability_Spitsnake_4r.cs" />
      <Compile Include="Assets\Scripts\UnitUpgrades\Abilities\Ability_SpittingSnake\Ability_Spitsnake_6l.cs" />
      <Compile Include="Assets\Scripts\UnitUpgrades\Abilities\Ability_SpittingSnake\Ability_Spitsnake_6r.cs" />
+     <Compile Include="Assets\Scripts\UnitUpgrades\Abilities\Ability_SpittingSnake\Debuff_Venom.cs" />
      <Compile Include="Assets\Scripts\UnitUpgrades\Abilities\De_Buff.cs" />
      <Compile Include="Assets\Scripts\UnitUpgrades\Upgrade.cs" />
      <Compile Include="Assets\Scripts\UnitUpgrades\Upgrade_Bear.cs" />
