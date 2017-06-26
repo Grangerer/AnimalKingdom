@@ -11,15 +11,26 @@ public class Level : MonoBehaviour {
 	HashSet<KeyValuePair<int,int>> obstaclePositions = new HashSet<KeyValuePair<int, int>>();
 	//EnemyPositions + enemy
 	List<LevelEnemies> enemyPositionsAndType = new List<LevelEnemies>();
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+
+	/*Improved Version:
+	  Textfile containing a "grid":
+	  X = empty
+	  O = Obstacle
+	  S = Playerspawn
+	  Numbers = Id of spawned enemy
+
+Example:
+
+XXO4XO1
+XXX3XOX
+XXOXO3X
+XXOXXXX
+OXXXXXX
+SSXXOXO
+SSXXXXX
+ 
+	 */
+
 	public void LoadLevel(int id){
 		if(id == 0){
 			gridHeight = 8;

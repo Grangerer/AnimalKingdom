@@ -22,6 +22,14 @@ public class GameManager : MonoBehaviour {
 	public GameObject BattleMenu;
 	bool gamePaused = false;
 
+	void Awake() {
+		if (instance != null) {
+			Debug.LogError("More than one GameManager in scene!");
+			return;
+		}
+		instance = this;
+	}
+
 
 	// Use this for initialization
 	void Start () {
@@ -31,8 +39,8 @@ public class GameManager : MonoBehaviour {
 		level.LoadLevel(0);
 		levelSpawner = this.GetComponent<LevelSpawner>();
 		tileList = levelSpawner.SpawnLevel(level);
+		//Do Spawnchoserscript
 		//Apply all playerUpgrades for units
-		//Spawn Units
 
 		//Test: Spawn PlayerUnit on Tile(3)(1)
 		if (GameObject.Find ("Tile(3)(1)") != null) {
@@ -73,14 +81,7 @@ public class GameManager : MonoBehaviour {
 		playerController.OnTurnStart ();
 		playersTurn = true;
 	}
-
-	void Awake() {
-		if (instance != null) {
-			Debug.LogError("More than one GameManager in scene!");
-			return;
-		}
-		instance = this;
-	}
+		
 	// Update is called once per frame
 	void Update () {
 		if (Input.GetKeyDown (KeyCode.Escape)) {

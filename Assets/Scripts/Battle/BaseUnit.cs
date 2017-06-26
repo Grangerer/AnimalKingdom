@@ -7,6 +7,7 @@ public class BaseUnit {
 
 	//Upgrades
 	public int id;
+	public string name;
 	private int level =0;
 	readonly static int maxLevel = 5;
 	public Upgrade upgrade;

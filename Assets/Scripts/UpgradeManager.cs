@@ -12,6 +12,7 @@ public class UpgradeManager : MonoBehaviour {
 
 	public Text experienceText;
 	private string experienceBaseString = "Experience:\n";
+	public Text unitNameText;
 
 	public GameObject ShowTile;
 	public GameObject arrowLeft;
@@ -127,6 +128,7 @@ public class UpgradeManager : MonoBehaviour {
 		GameObject tmpUnit = Instantiate (displayUnits[unitID], position, Quaternion.identity * Quaternion.Euler(0,25,0));
 		tmpUnit.GetComponent<Unit> ().Setup (spawnOnTile);
 		currentShownUnit = tmpUnit;
+		unitNameText.text = currentShownUnit.GetComponent<Unit>().baseUnit.name;
 		DisplayTalentTree ();
 	}
 
