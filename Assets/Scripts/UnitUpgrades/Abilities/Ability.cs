@@ -14,6 +14,7 @@ public abstract class Ability {
 	 */
 
 	protected string name;
+	protected string description;
 	protected int triggerId;
 
 	public virtual Attack Apply (Attack attack){
@@ -37,6 +38,12 @@ public abstract class Ability {
 	public string Name {
 		get {
 			return name;
+		}
+	}
+
+	public string Description {
+		get {
+			return description;
 		}
 	}
 }

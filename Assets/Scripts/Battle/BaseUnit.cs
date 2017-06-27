@@ -19,7 +19,7 @@ public class BaseUnit {
 	public int attackRange;
 	private int currentAttackRange;
 	public int attackDamage;
-	public int currentAttackDamage;
+	private int currentAttackDamage;
 
 	public BaseUnit(BaseUnit toCopy){
 		this.id = toCopy.id;
@@ -42,6 +42,13 @@ public class BaseUnit {
 			break;
 		case 1: //Horse
 			upgrade = new Upgrades_Horse ();
+			break;
+		case 2: //Spitting Snake
+			break;
+		case 3: //Porcupine
+			upgrade = new Upgrades_Porcupine ();
+			break;
+		case 4: //Frog
 			break;
 		case 5: //Panther
 			upgrade = new Upgrades_Panther ();
@@ -67,7 +74,15 @@ public class BaseUnit {
 		currentAttackDamage = attackDamage;
 	}
 
+	public void Heal(float healAmount){
+		CurrentHealth += Mathf.RoundToInt(healAmount);
+		if (CurrentHealth > health) {
+			CurrentHealth = health;
+		}
+	}
 
+
+	//Propertystuff
 	public int CurrentHealth {
 		get {
 			return currentHealth;

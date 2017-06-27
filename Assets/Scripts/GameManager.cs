@@ -36,7 +36,7 @@ public class GameManager : MonoBehaviour {
 		ai = AI.instance;
 		//Spawn Level
 		Level level = new Level();
-		level.LoadLevel(0);
+		level.LoadLevel(1);
 		levelSpawner = this.GetComponent<LevelSpawner>();
 		tileList = levelSpawner.SpawnLevel(level);
 		//Do Spawnchoserscript
@@ -152,6 +152,7 @@ public class GameManager : MonoBehaviour {
 		string sceneToLoadName = "UpgradeUnits";
 		SceneManager.LoadScene (sceneToLoadName);
 	}
+
 	//Propertystuff
 	public bool GamePaused {
 		get {

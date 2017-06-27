@@ -8,6 +8,8 @@ public class Unit : MonoBehaviour {
 
 	//Status Ailments and remembering last turn stuff
 	bool movedLastTurn = false;
+	int distanceMovedLastTurn = 0;
+	int distanceMoved = 0;
 	bool attackedLastTurn = false;
 
 	private bool ownedByPlayer = false;
@@ -105,6 +107,8 @@ public class Unit : MonoBehaviour {
 		return true;
 	}
 	public void MoveToTile(GameObject tile){
+		//Debug.Log ("MoveDistance: " + GetMoveDistance(tile.GetComponent<Tile>(),currentTile.GetComponent<Tile>()));
+		distanceMoved = GetMoveDistance (tile.GetComponent<Tile> (), currentTile.GetComponent<Tile> ());
 		TurnTowards (tile);
 		//Move
 		Vector3 newPosition = new Vector3 (tile.transform.position.x, this.transform.position.y, tile.transform.position.z);
@@ -129,6 +133,75 @@ public class Unit : MonoBehaviour {
 		unitMove.gameObject.SetActive (!moveBool);
 	}
 
+	public int GetMoveDistance(Tile a, Tile b){
+		int distance = 0;
+		List<Tile> tilesToCheckA = new List<Tile> ();
+		List<Tile> tilesToCheckB = new List<Tile> ();
+
+		//increase Distance
+		//Add all adjacent tiles from a
+		//increase Distance
+		//Add all adjacent tiles from b
+		if (a.Equals (b)) {
+			return distance;
+		}
+		distance++;
+		foreach (GameObject tile in a.AdjacentTiles) {
+			if (tile.GetComponent<Tile> ().Equals (b)) {
+				return distance = 1;
+			} else if(!tile.GetComponent<Tile>().Occupied){
+				tilesToCheckA.Add(tile.GetComponent<Tile>());
+			}
+		}
+		distance++;
+		foreach (GameObject tile in b.AdjacentTiles) {
+			if (tilesToCheckA.Contains(tile.GetComponent<Tile>())) {
+				return distance;
+			} else if(!tile.GetComponent<Tile>().Occupied){
+				tilesToCheckB.Add(tile.GetComponent<Tile>());
+			}
+		}
+
+		List<Tile> tmpList = new List<Tile> ();
+		List<Tile> tilesA = tilesToCheckA;
+		List<Tile> tilesB = tilesToCheckB;
+		while(true) {
+			//A
+			distance++;
+			tmpList = new List<Tile> ();
+			foreach (Tile tile in tilesToCheckA) {
+				foreach (GameObject tileGO in tile.AdjacentTiles) {
+					if (tileGO.GetComponent<Tile> ().Equals (b) || tilesB.Contains(tileGO.GetComponent<Tile>())) {
+						return distance;
+					} else {
+						if (!tileGO.GetComponent<Tile> ().Occupied && !tilesA.Contains (tileGO.GetComponent<Tile> ()) && !tmpList.Contains (tileGO.GetComponent<Tile> ())) {
+							tmpList.Add (tileGO.GetComponent<Tile> ());
+						}
+					}
+				}
+			}
+			tilesToCheckA = tmpList;
+			tilesA.AddRange(tmpList);
+			//B
+			distance++;
+			tmpList = new List<Tile> ();
+			foreach (Tile tile in tilesToCheckB) {
+				foreach (GameObject tileGO in tile.AdjacentTiles) {
+					if (tileGO.GetComponent<Tile> ().Equals (a) || tilesA.Contains(tileGO.GetComponent<Tile>())) {
+						return distance;
+					} else {
+						if (!tileGO.GetComponent<Tile> ().Occupied && !tilesB.Contains (tileGO.GetComponent<Tile> ()) && !tmpList.Contains (tileGO.GetComponent<Tile> ())) {
+							tmpList.Add (tileGO.GetComponent<Tile> ());
+						}
+					}
+				}
+			}
+			tilesToCheckB = tmpList;
+			tilesB.AddRange(tmpList);
+		}
+
+		return -1;
+	}
 	//Attack
 	public bool FindAllAttackableTiles(Material attackableMaterial){
 		ResetCurrentlyColoredTiles ();
@@ -171,6 +244,41 @@ public class Unit : MonoBehaviour {
 		currentlyColoredTiles = toColorTiles;
 		return true;
 	}
+
+	public bool HasEnemiesWithinAttackrange(){
+		bool foundAttackableTile = false;
+		Tile baseTile = this.CurrentTile.GetComponent<Tile> ();
+		List<GameObject> toColorTiles = new List<GameObject> ();
+		//Add all adjacentTiles to recolor list
+
+		foreach (GameObject tile in baseTile.AdjacentTiles) {
+			toColorTiles.Add(tile);
+		}
+		//add adjacent tiles of all added tiles, excluding already added tiles => repeat equal to attackrange
+		for (int i = 1; i < baseUnit.CurrentAttackRange; i++) {
+			List<GameObject> tmpTiles = new List<GameObject> ();
+			foreach (GameObject tile in toColorTiles) {
+				foreach (GameObject checkTile in tile.GetComponent<Tile>().AdjacentTiles) {
+					if (checkTile.name != baseTile.name) {
+						tmpTiles.Add (checkTile);
+					}
+				}
+			}
+			foreach (GameObject tile in tmpTiles) {
+				if (!toColorTiles.Exists (t => t.name == tile.name)) {
+					toColorTiles.Add (tile);
+				}
+			}							
+		}
+
+		foreach (GameObject tileGO in toColorTiles) {
+			if (tileGO.GetComponent<Tile> ().Unit != null && !tileGO.GetComponent<Tile> ().Unit.GetComponent<Unit> ().OwnedByPlayer) {				
+				foundAttackableTile = true;
+			}
+		}
+		return foundAttackableTile;
+	}
+
 	public void AttackTile(GameObject tile){
 		Attack attack = new Attack (this, tile.GetComponent<Tile> ().Unit.GetComponent<Unit> (), baseUnit.CurrentAttackDamage);
 		attack = OnAttacking (attack);
@@ -224,6 +332,20 @@ public class Unit : MonoBehaviour {
 			float xScale = (float)baseUnit.CurrentHealth/ (float)baseUnit.health;
 			healthBar.Find("Health").localScale = new Vector3(xScale,1,1);
 		}
+		//Do all relevant checks regarding death and abilities
+		if (baseUnit.CurrentHealth <= 0) {
+			DestroyUnit ();
+		}
+	}
+	public void Damage(float damage){
+		int finalDamage;
+			finalDamage = Mathf.RoundToInt(damage);
+			//Damage
+			baseUnit.CurrentHealth -= finalDamage;
+			//Adjust Healthbar
+			healthBar.gameObject.SetActive(true);
+			float xScale = (float)baseUnit.CurrentHealth/ (float)baseUnit.health;
+			healthBar.Find("Health").localScale = new Vector3(xScale,1,1);
 		//Do all relevant checks regarding death and abilities
 		if (baseUnit.CurrentHealth <= 0) {
 			DestroyUnit ();
@@ -312,6 +434,8 @@ public class Unit : MonoBehaviour {
 	//Turn
 	public void OnTurnStart(){
 		movedLastTurn = moved;
+		distanceMovedLastTurn = distanceMoved;
+		distanceMoved = 0;
 		attackedLastTurn = attacked;
 		ProcessMoving (false);
 		ProcessAttacking (false);
@@ -340,6 +464,23 @@ public class Unit : MonoBehaviour {
 		baseUnit.SetupOnBattleStart ();
 	}
 
+	//Checks
+	public bool HasAdjacentAlly(){
+		foreach (GameObject tile in currentTile.GetComponent<Tile>().AdjacentTiles) {
+			if (tile.GetComponent<Tile>().Occupied && tile.GetComponent<Tile>().Unit!=null && tile.GetComponent<Tile>().Unit.GetComponent<Unit> ().OwnedByPlayer == this.OwnedByPlayer) {
+				return true;
+			}
+		}
+		return false;
+	}
+	public bool HasAdjacentEnemy(){
+		foreach (GameObject tile in currentTile.GetComponent<Tile>().AdjacentTiles) {
+			if (tile.GetComponent<Tile>().Occupied && tile.GetComponent<Tile>().Unit!=null && tile.GetComponent<Tile>().Unit.GetComponent<Unit> ().OwnedByPlayer != this.OwnedByPlayer) {
+				return true;
+			}
+		}
+		return false;
+	}
 
 
 	//PropertyStuff
@@ -397,6 +538,22 @@ public class Unit : MonoBehaviour {
 		}
 		set {
 			attackedLastTurn = value;
+		}
+	}
+	public int DistanceMovedLastTurn {
+		get {
+			return distanceMovedLastTurn;
+		}
+		set {
+			distanceMovedLastTurn = value;
+		}
+	}
+	public int DistanceMoved {
+		get {
+			return distanceMoved;
+		}
+		set {
+			distanceMoved = value;
 		}
 	}
 }

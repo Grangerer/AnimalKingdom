@@ -11,6 +11,7 @@ You take 7.5% less damage for each adjacent ally
 	 * */
 	public Ability_Horse_6l(){
 		name = "Pack";
+		description = "You take 7.5% less damage for each adjacent ally";
 		triggerId = (int) Trigger.OnBeingAttack;
 	}
 

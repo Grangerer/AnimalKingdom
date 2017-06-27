@@ -15,30 +15,30 @@ public class Upgrades_Panther : Upgrade {
 	public override void SetupText(){
 		upgradeTitleLeft.Add ("Endurance");
 		upgradeDescriptionLeft.Add ("+2 health");
-		upgradeTitleLeft.Add ("Hidden");
-		upgradeDescriptionLeft.Add ("Attacks against you have a 50% chance to miss, if you haven't attacked last turn");
+		upgradeTitleLeft.Add (abilityPanther2L.Name);
+		upgradeDescriptionLeft.Add (abilityPanther2L.Description);
 		upgradeTitleLeft.Add ("Endurance");
 		upgradeDescriptionLeft.Add ("+3 health");
-		upgradeTitleLeft.Add ("Precise Claw");
-		upgradeDescriptionLeft.Add ("Attacks cannot miss, if you haven't attacked last turn");
+		upgradeTitleLeft.Add (abilityPanther4L.Name);
+		upgradeDescriptionLeft.Add (abilityPanther4L.Description);
 		upgradeTitleLeft.Add ("Celerity");
 		upgradeDescriptionLeft.Add ("+1 movementspeed");
-		upgradeTitleLeft.Add ("Pounce");
-		upgradeDescriptionLeft.Add ("Attacks against enemies without adjacent allies deal 50% additional damage");
+		upgradeTitleLeft.Add (abilityPanther6L.Name);
+		upgradeDescriptionLeft.Add (abilityPanther6L.Description);
 
 
 		upgradeTitleRight.Add ("Assault");
 		upgradeDescriptionRight.Add ("+1 attackdamage");
-		upgradeTitleRight.Add ("Sharpened Claw");
-		upgradeDescriptionRight.Add ("Attacks deal 25% additional damage, if you haven't attacked last turn");
+		upgradeTitleRight.Add (abilityPanther2R.Name);
+		upgradeDescriptionRight.Add (abilityPanther2R.Description);
 		upgradeTitleRight.Add ("Assault");
 		upgradeDescriptionRight.Add ("+2 attackdamage");
-		upgradeTitleRight.Add ("Sprint");
-		upgradeDescriptionRight.Add ("Gain 50% increased movementspeed, if you haven't moved last turn");
+		upgradeTitleRight.Add (abilityPanther4R.Name);
+		upgradeDescriptionRight.Add (abilityPanther4R.Description);
 		upgradeTitleRight.Add ("Assault");
 		upgradeDescriptionRight.Add ("+3 attackdamage");
-		upgradeTitleRight.Add ("Finisher");
-		upgradeDescriptionRight.Add ("Attacks deal 50% additional damage against enemies that are below 50% health");
+		upgradeTitleRight.Add (abilityPanther6R.Name);
+		upgradeDescriptionRight.Add (abilityPanther6R.Description);
 	}
 
 	public override void ApplyUpgrades(Unit unit){

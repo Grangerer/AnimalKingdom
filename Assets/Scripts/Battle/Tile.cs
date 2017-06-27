@@ -115,4 +115,16 @@ public class Tile : MonoBehaviour {
 			currentlyAttackable = value;
 		}
 	}
+
+	public int XGridPosition {
+		get {
+			return xGridPosition;
+		}
+	}
+
+	public int ZGridPosition {
+		get {
+			return zGridPosition;
+		}
+	}
 }

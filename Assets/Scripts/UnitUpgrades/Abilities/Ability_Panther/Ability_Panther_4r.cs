@@ -11,6 +11,7 @@ Gain 50% increased movementspeed, if you haven't moved last turn
 	 * */
 	public Ability_Panther_4r(){
 		name = "Sprint";
+		description = "Gain 50% increased movementspeed, if you haven't moved last turn";
 		triggerId = (int) Trigger.OnTurnStart;
 	}
 

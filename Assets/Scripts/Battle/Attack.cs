@@ -8,6 +8,7 @@ public class Attack {
 	Unit defender;
 	float baseDamage;
 	float modifiedDamage;
+	int attackDistance;
 	bool attackHit = true;
 	bool cannotMiss = false;
 
@@ -19,6 +20,12 @@ public class Attack {
 		this.attacker = attacker;
 		this.defender = defender;
 		modifiedDamage = baseDamage;
+		attackDistance = CalculateAttackdistance (attacker.CurrentTile.GetComponent<Tile> (), defender.CurrentTile.GetComponent<Tile> ());
+	}
+	int CalculateAttackdistance(Tile attackerTile, Tile defenderTile){
+
+		int distance = Mathf.Abs (attackerTile.XGridPosition - defenderTile.XGridPosition) + Mathf.Abs (attackerTile.ZGridPosition - defenderTile.ZGridPosition);
+		return distance;
 	}
 
 	public int GetFinalDamage(){
@@ -97,6 +104,15 @@ public class Attack {
 		}
 		set {
 			appliedBuffs = value;
+		}
+	}
+
+	public int AttackDistance {
+		get {
+			return attackDistance;
+		}
+		set {
+			attackDistance = value;
 		}
 	}
 }

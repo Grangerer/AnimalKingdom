@@ -11,6 +11,7 @@ Attacks deal 25% additional damage, if you haven't attacked last turn
 	 * */
 	public Ability_Panther_2r(){
 		name = "Sharpened Claw";
+		description = "Attacks deal 25% additional damage, if you haven't attacked last turn";
 		triggerId = (int) Trigger.OnAttack;
 	}
 

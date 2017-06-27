@@ -6,17 +6,23 @@ using UnityEngine;
 public class Ability_Horse_6r : Ability {
 
 	/*AbilityType: OnTurnStart
-Agility:
-You can move through allies
+Frenzy:
+You gain +1 movementspeed and attackdamage if you moved and attacked last turn
 	 * */
 	public Ability_Horse_6r(){
-		name = "Agility";
+		name = "Frenzy";
+		description = "You gain +1 movementspeed and attackdamage if you moved and attacked last turn";
 		triggerId = (int) Trigger.OnTurnStart;
 	}
 
-	public override Attack Apply (Attack attack){
-		//strange stuff
-		return attack;
+	public override BaseUnit ApplyTurn (Unit unit){
+		//		Debug.Log (name);
+		if (unit.MovedLastTurn && unit.AttackedLastTurn) {
+			//			Debug.Log (name + " applied");
+			unit.baseUnit.CurrentMovementspeed += 1;
+			unit.baseUnit.CurrentAttackDamage += 1;
+		}
+		return unit.baseUnit;
 	}
 
 }

@@ -37,8 +37,8 @@ public class UIController : MonoBehaviour {
 			movementSpeedText.text = "Movementspeed: " + tmpBase.CurrentMovementspeed;
 			RecolorText (tmpBase.CurrentAttackRange, tmpBase.attackRange, attackrangeText);
 			attackrangeText.text = "Attackrange: " + tmpBase.CurrentAttackRange;
-			RecolorText (tmpBase.currentAttackDamage, tmpBase.attackDamage, damageText);
-			damageText.text = "Damage: " + tmpBase.currentAttackDamage;
+			RecolorText (tmpBase.CurrentAttackDamage, tmpBase.attackDamage, damageText);
+			damageText.text = "Damage: " + tmpBase.CurrentAttackDamage;
 		}
 	}
 

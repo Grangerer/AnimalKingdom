@@ -77,5 +77,9 @@ public class LevelSpawner : MonoBehaviour {
 	}
 
 
+	public void SpawnLevelFromFile(int levelID){
+		
+	}
+
 
 }

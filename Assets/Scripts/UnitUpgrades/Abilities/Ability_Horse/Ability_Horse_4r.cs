@@ -11,6 +11,7 @@ Attacks against enemies without adjacent allies deal 25% additional damage
 	 * */
 	public Ability_Horse_4r(){
 		name = "Overrun";
+		description = "Attacks against enemies without adjacent allies deal 25% additional damage";
 		triggerId = (int) Trigger.OnAttack;
 	}
 

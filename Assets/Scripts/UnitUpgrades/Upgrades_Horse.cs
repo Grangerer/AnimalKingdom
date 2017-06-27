@@ -15,30 +15,30 @@ public class Upgrades_Horse : Upgrade {
 	public override void SetupText(){
 		upgradeTitleLeft.Add ("Celerity");
 		upgradeDescriptionLeft.Add ("+1 movementspeed");
-		upgradeTitleLeft.Add ("Agitation");
-		upgradeDescriptionLeft.Add ("Attacks against you have a 20% chance to miss");
+		upgradeTitleLeft.Add (abilityHorse2L.Name);
+		upgradeDescriptionLeft.Add (abilityHorse2L.Description);
 		upgradeTitleLeft.Add ("Endurance");
 		upgradeDescriptionLeft.Add ("+2 health");
-		upgradeTitleLeft.Add ("Kick");
-		upgradeDescriptionLeft.Add ("Successful attacks reduce the targets movementspeed by 1. \n(Cannot reduce below 1)");
+		upgradeTitleLeft.Add (abilityHorse4L.Name);
+		upgradeDescriptionLeft.Add (abilityHorse4L.Description);
 		upgradeTitleLeft.Add ("Endurance");
 		upgradeDescriptionLeft.Add ("+4 health");
-		upgradeTitleLeft.Add ("Pack");
-		upgradeDescriptionLeft.Add ("You take 7.5% less damage for each adjacent ally");
+		upgradeTitleLeft.Add (abilityHorse6L.Name);
+		upgradeDescriptionLeft.Add (abilityHorse6L.Description);
 
 
 		upgradeTitleRight.Add ("Assault");
 		upgradeDescriptionRight.Add ("+1 attackdamage");
-		upgradeTitleRight.Add ("Charge");
-		upgradeDescriptionRight.Add ("Attacks deal 5% additional damage for each square you have moved this turn");
+		upgradeTitleRight.Add (abilityHorse2R.Name);
+		upgradeDescriptionRight.Add (abilityHorse2R.Description);
 		upgradeTitleRight.Add ("Assault");
 		upgradeDescriptionRight.Add ("+2 attackdamage");
-		upgradeTitleRight.Add ("Overrun");
-		upgradeDescriptionRight.Add ("Attacks against enemies without adjacent allies deal 25% additional damage");
+		upgradeTitleRight.Add (abilityHorse4R.Name);
+		upgradeDescriptionRight.Add (abilityHorse4R.Description);
 		upgradeTitleRight.Add ("Celerity");
 		upgradeDescriptionRight.Add ("+1 movementspeed");
-		upgradeTitleRight.Add ("Agility");
-		upgradeDescriptionRight.Add ("You can move through allies");
+		upgradeTitleRight.Add (abilityHorse6R.Name);
+		upgradeDescriptionRight.Add (abilityHorse6R.Description);
 	}
 
 	public override void ApplyUpgrades(Unit unit){

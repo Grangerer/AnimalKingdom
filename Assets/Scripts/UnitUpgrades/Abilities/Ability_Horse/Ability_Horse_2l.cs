@@ -8,19 +8,18 @@ public class Ability_Horse_2l : Ability
 
 	/*AbilityType: OnBeingAttacked
 Agitation:
-Attacks against you have a 20% chance to miss
+Attacks against you deal 2.5% less damage for each square you moved last turn
 	 * */
 	public Ability_Horse_2l ()
 	{
 		name = "Agitation";
+		description = "Attacks against you deal 2.5% less damage for each square you moved last turn";
 		triggerId = (int) Trigger.OnBeingAttack;
 	}
 
 	public override Attack Apply (Attack attack)
 	{
-		if (Random.Range (1, 101) <= 20) {
-			attack.AttackHit = false;
-		}
+		attack.ModifiedDamage -= attack.BaseDamage * 0.025f * attack.Defender.DistanceMovedLastTurn;
 		return attack;
 	}
 
