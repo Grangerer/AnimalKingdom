@@ -6,7 +6,6 @@ using UnityEngine.SceneManagement;
 
 public class UpgradeManager : MonoBehaviour {
 
-	public List<GameObject> displayUnits;
 	private int currentUnitID = 0;
 	private GameObject currentShownUnit;
 
@@ -92,8 +91,8 @@ public class UpgradeManager : MonoBehaviour {
 	}
 
 	IEnumerator NextUnit(){
-		if (currentUnitID < displayUnits.Count-1) {
-			Debug.Log ("Next unit");
+		if (currentUnitID < Data.currentData.units.Count-1) {
+			//Debug.Log ("Next unit");
 			currentUnitID++;
 			//Display Arrow Right animation
 			arrowRightAnimation.Stop ();
@@ -124,8 +123,8 @@ public class UpgradeManager : MonoBehaviour {
 		if (currentShownUnit != null) {
 			Destroy (currentShownUnit);
 		}
-		Vector3 position = new Vector3 (spawnOnTile.transform.position.x, displayUnits[unitID].transform.position.y, spawnOnTile.transform.position.z);
-		GameObject tmpUnit = Instantiate (displayUnits[unitID], position, Quaternion.identity * Quaternion.Euler(0,25,0));
+		Vector3 position = new Vector3 (spawnOnTile.transform.position.x, Data.currentData.units[unitID].transform.position.y, spawnOnTile.transform.position.z);
+		GameObject tmpUnit = Instantiate (Data.currentData.units[unitID], position, Quaternion.identity * Quaternion.Euler(0,25,0));
 		tmpUnit.GetComponent<Unit> ().Setup (spawnOnTile);
 		currentShownUnit = tmpUnit;
 		unitNameText.text = currentShownUnit.GetComponent<Unit>().baseUnit.name;
@@ -225,7 +224,7 @@ public class UpgradeManager : MonoBehaviour {
 	}
 
 	public void Back(){
-		SaveLoad.Save();
+		SaveLoad.SavePlayer();
 		SceneManager.LoadScene ("MainMenu");
 	}
 }

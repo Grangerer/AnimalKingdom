@@ -38,13 +38,14 @@ public class Unit : MonoBehaviour {
 	Transform unitAttack;
 
 
-	public UnitAI unitAI = new UnitAI();
+	private UnitAI unitAI = new UnitAI();
 	private AI ai;
 	private PlayerController playerController;
 
 	List<GameObject> currentlyColoredTiles;
 	// Use this for initialization
 	void Awake () {
+		
 		ai = AI.instance;
 		playerController = PlayerController.instance;
 		healthBar = this.transform.Find("HealthBar");
@@ -199,8 +200,6 @@ public class Unit : MonoBehaviour {
 			tilesToCheckB = tmpList;
 			tilesB.AddRange(tmpList);
 		}
-
-		return -1;
 	}
 	//Attack
 	public bool FindAllAttackableTiles(Material attackableMaterial){
@@ -232,17 +231,18 @@ public class Unit : MonoBehaviour {
 		}
 
 		foreach (GameObject tileGO in toColorTiles) {
+			//targets
 			if (tileGO.GetComponent<Tile> ().Unit != null && !tileGO.GetComponent<Tile> ().Unit.GetComponent<Unit> ().OwnedByPlayer) {				
 				tileGO.GetComponent<Tile> ().Recolor (attackableMaterial);
 				tileGO.GetComponent<Tile> ().CurrentlyAttackable = true;
 				foundAttackableTile = true;
+			}//attackrange
+			else if (!tileGO.GetComponent<Tile> ().Occupied){
+				tileGO.GetComponent<Tile> ().Recolor (attackableMaterial);
 			}
 		}
-		if (!foundAttackableTile) {
-			return false;
-		}
 		currentlyColoredTiles = toColorTiles;
-		return true;
+		return foundAttackableTile;
 	}
 
 	public bool HasEnemiesWithinAttackrange(){
@@ -386,6 +386,29 @@ public class Unit : MonoBehaviour {
 			
 	}
 
+	void CheckAllDeBuffs(){
+		onTurnStart = RemoveExpiredDeBuffs (onTurnStart);
+		onTurnEnd = RemoveExpiredDeBuffs (onTurnEnd);
+		onMove = RemoveExpiredDeBuffs (onMove);
+		onAttacking = RemoveExpiredDeBuffs (onAttacking);
+		onBeingAttacked = RemoveExpiredDeBuffs (onBeingAttacked);
+	}
+
+	List<Ability> RemoveExpiredDeBuffs(List<Ability> deBuffList){
+		List<Ability> tmpList = new List<Ability> ();
+
+		foreach (Ability ability in deBuffList) {
+			if (ability is De_Buff) {
+				if (((De_Buff)ability).Duration > 0) {
+					tmpList.Add (ability);
+				}	
+			} else {
+				tmpList.Add (ability);
+			}			
+		}
+		return tmpList;
+	}
+
 	void TurnTowards(GameObject target){
 		//Turn towards target
 		Vector3 targetPoint = new Vector3(target.transform.position.x, transform.position.y, target.transform.position.z) - transform.position;
@@ -411,7 +434,6 @@ public class Unit : MonoBehaviour {
 		foreach (Ability ability in abilityList) {
 			this.baseUnit = ability.ApplyTurn(this);
 		}
-		//Check if buffs/debuffs are expired
 	}
 
 	void DestroyUnit(){
@@ -450,8 +472,9 @@ public class Unit : MonoBehaviour {
 		turnEnded = true;
 		unitMove.gameObject.SetActive (false);
 		unitAttack.gameObject.SetActive (false);
+		ApplyTurnAbilities (onTurnEnd);
 		//Check all buffs and debuffs and remove them if they have no duration left
-
+		CheckAllDeBuffs();
 	}
 
 	public void DisplayUnitSelector(bool display){
@@ -554,6 +577,11 @@ public class Unit : MonoBehaviour {
 		}
 		set {
 			distanceMoved = value;
+		}
+	}
+	public UnitAI UnitAI {
+		get {
+			return unitAI;
 		}
 	}
 }

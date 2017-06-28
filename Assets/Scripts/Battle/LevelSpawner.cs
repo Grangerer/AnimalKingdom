@@ -7,8 +7,6 @@ public class LevelSpawner : MonoBehaviour {
 	private AI ai;
 
 	public GameObject tile;
-	public List<GameObject> obstacles;
-	public List<GameObject> enemies;
 	private float spaceBetweenTiles;
 
 	private GameObject tileParent;
@@ -61,15 +59,15 @@ public class LevelSpawner : MonoBehaviour {
 		return tileList;
 	}
 	void SpawnObstacle(Vector3 position, GameObject tile){
-		int chosenObstacleIndex = Random.Range(0,obstacles.Count);
+		int chosenObstacleIndex = Random.Range(0, Data.currentData.obstacles.Count);
 
-		position.y = obstacles [chosenObstacleIndex].transform.position.y;
-		GameObject obstacle = Instantiate(obstacles[chosenObstacleIndex], position, Quaternion.identity);
+		position.y = Data.currentData.obstacles [chosenObstacleIndex].transform.position.y;
+		GameObject obstacle = Instantiate(Data.currentData.obstacles[chosenObstacleIndex], position, Quaternion.identity);
 		obstacle.transform.parent = tile.transform;
 	}
 	void SpawnEnemy(GameObject spawnOnTile, int unitID){
-		Vector3 position = new Vector3 (spawnOnTile.transform.position.x, enemies[unitID].transform.position.y, spawnOnTile.transform.position.z);
-		GameObject tmpUnit = Instantiate (enemies[unitID], position, Quaternion.identity);
+		Vector3 position = new Vector3 (spawnOnTile.transform.position.x, Data.currentData.units[unitID].transform.position.y, spawnOnTile.transform.position.z);
+		GameObject tmpUnit = Instantiate (Data.currentData.units[unitID], position, Quaternion.identity);
 		tmpUnit.GetComponent<Unit> ().Setup (spawnOnTile);
 		tmpUnit.GetComponent<Unit> ().OwnedByPlayer = false;
 		spawnOnTile.GetComponent<Tile> ().ReferenceUnit(tmpUnit);

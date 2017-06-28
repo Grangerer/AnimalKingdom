@@ -6,7 +6,7 @@ public class AI : MonoBehaviour {
 
 	public static AI instance;
 
-	GameManager gameManager;
+	BattleManager battleManager;
 
 	List<GameObject> units = new List<GameObject> ();
 	List<GameObject> turnUnits;
@@ -15,7 +15,7 @@ public class AI : MonoBehaviour {
 	GameObject activeUnit = null;
 	// Use this for initialization
 	void Start () {
-		gameManager = GameManager.instance;
+		battleManager = BattleManager.instance;
 	}
 	
 	// Update is called once per frame
@@ -43,7 +43,7 @@ public class AI : MonoBehaviour {
 			activeUnit = turnUnits[unitChooser];
 			turnUnits.RemoveAt(unitChooser);
 			//Find all enemy units in move+attackrange=>choose (1.The one you can kill 2.The one with the least hp)
-			activeUnit.GetComponent<Unit>().unitAI.TakeTurn();
+			activeUnit.GetComponent<Unit>().UnitAI.TakeTurn();
 			//wait 
 			yield return new WaitForSeconds(waitTime);
 		} while(turnUnits.Count > 0);//Repeat until all units acted
@@ -62,7 +62,7 @@ public class AI : MonoBehaviour {
 		//Check if any units are left
 		if (units.Count == 0) {
 			//Player wins match
-			gameManager.WinMatch();
+			battleManager.WinMatch();
 		}
 	
 	}

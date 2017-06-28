@@ -9,7 +9,7 @@ public static class SaveLoad {
 
 	public static List<Player> savedPlayers = new List<Player>();
 
-	public static void Save(){
+	public static void SavePlayer(){
 		savedPlayers.Add(Player.current);
 		BinaryFormatter bf = new BinaryFormatter();
 		FileStream file = File.Create (Application.persistentDataPath + "/savedGames.gd");
@@ -17,7 +17,7 @@ public static class SaveLoad {
 		file.Close();
 	}
 
-	public static void Load(){
+	public static void LoadPlayer(){
 		Debug.Log(Application.persistentDataPath);
 		if(File.Exists(Application.persistentDataPath + "/savedGames.gd")) {	
 			BinaryFormatter bf = new BinaryFormatter();
@@ -27,5 +27,6 @@ public static class SaveLoad {
 			file.Close();
 		}
 	}
+
 
 }

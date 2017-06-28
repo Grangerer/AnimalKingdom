@@ -7,7 +7,7 @@ public class PlayerController : MonoBehaviour
 
 	public static PlayerController instance;
 
-	GameManager gameManager;
+	BattleManager battleManager;
 	UIController uiController;
 
 	List<GameObject> units = new List<GameObject> ();
@@ -27,7 +27,7 @@ public class PlayerController : MonoBehaviour
 	// Use this for initialization
 	void Start ()
 	{
-		gameManager = GameManager.instance;
+		battleManager = BattleManager.instance;
 		uiController = UIController.instance;
 		//Disable UI (Cleanup)
 		unitControl.SetActive (false);
@@ -45,7 +45,7 @@ public class PlayerController : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
 	{
-		if (!gameManager.GamePaused) {
+		if (!battleManager.GamePaused) {
 			if (Input.GetMouseButtonDown (0)) {
 				CheckMouseTarget ();
 			}
@@ -168,10 +168,9 @@ public class PlayerController : MonoBehaviour
 	public void PrepareAttack ()
 	{
 		if (!selectedUnit.GetComponent<Unit> ().Attacked) {
-			if (selectedUnit.GetComponent<Unit> ().FindAllAttackableTiles (attackableMaterial)) {
-				attacking = true;
-				moving = false;
-			}
+			selectedUnit.GetComponent<Unit> ().FindAllAttackableTiles (attackableMaterial);
+			attacking = true;
+			moving = false;
 		}
 	}
 
@@ -186,7 +185,6 @@ public class PlayerController : MonoBehaviour
 	//Unit
 	public void AddUnit (GameObject unit)
 	{
-		//unit.GetComponent<Unit> ().baseUnit.upgrade.ApplyUpgrades (unit.GetComponent<Unit> ().baseUnit);
 		units.Add (unit);
 	}
 	public void ApplyUpgrades(){
@@ -252,7 +250,7 @@ public class PlayerController : MonoBehaviour
 		myTurn = false;
 		AdjustUnitControl ();
 		//Tell GameManager to go to next turn
-		gameManager.NextTurn ();
+		battleManager.NextTurn ();
 	}
 
 	void UnselectUnit ()
@@ -273,7 +271,7 @@ public class PlayerController : MonoBehaviour
 		//Check if no unit is left
 		if (units.Count == 0) {
 			//Player looses match
-			gameManager.LooseMatch ();
+			battleManager.LooseMatch ();
 		}
 	}
 

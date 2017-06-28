@@ -7,4 +7,9 @@ public abstract class De_Buff : Ability {
 
 	protected int duration;
 
+	public int Duration {
+		get {
+			return duration;
+		}
+	}
 }

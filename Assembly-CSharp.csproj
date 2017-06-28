@@ -49,8 +49,10 @@
      <Compile Include="Assets\Scripts\Battle\AI.cs" />
      <Compile Include="Assets\Scripts\Battle\Attack.cs" />
      <Compile Include="Assets\Scripts\Battle\BaseUnit.cs" />
+     <Compile Include="Assets\Scripts\Battle\BattleManager.cs" />
      <Compile Include="Assets\Scripts\Battle\CameraController.cs" />
      <Compile Include="Assets\Scripts\Battle\HealthBar.cs" />
+     <Compile Include="Assets\Scripts\Battle\ImprovedLevel.cs" />
      <Compile Include="Assets\Scripts\Battle\Level.cs" />
      <Compile Include="Assets\Scripts\Battle\LevelEnemies.cs" />
      <Compile Include="Assets\Scripts\Battle\LevelSpawner.cs" />
@@ -59,8 +61,8 @@
      <Compile Include="Assets\Scripts\Battle\UIController.cs" />
      <Compile Include="Assets\Scripts\Battle\Unit.cs" />
      <Compile Include="Assets\Scripts\Battle\UnitAI.cs" />
+     <Compile Include="Assets\Scripts\Data.cs" />
      <Compile Include="Assets\Scripts\GameManager.cs" />
-     <Compile Include="Assets\Scripts\GlobalInformation.cs" />
      <Compile Include="Assets\Scripts\MainMenuManager.cs" />
      <Compile Include="Assets\Scripts\Player.cs" />
      <Compile Include="Assets\Scripts\SaveLoad.cs" />
