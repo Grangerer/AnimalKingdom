@@ -19,7 +19,9 @@ public class Debuff_Slow : De_Buff {
 	}
 
 	public override BaseUnit ApplyTurn(Unit unit){
-		unit.baseUnit.CurrentMovementspeed -= slowAmount;
+		if (unit.baseUnit.CurrentMovementspeed > 1) {
+			unit.baseUnit.CurrentMovementspeed -= slowAmount;
+		}
 
 		duration--;
 

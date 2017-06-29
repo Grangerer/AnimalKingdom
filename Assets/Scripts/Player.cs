@@ -23,14 +23,6 @@ public class Player  {
 		experience = 0;
 	}
 
-
-	public void PrintOut(){
-		//foreach (int unit in units) {
-		//	Debug.Log(unit.GetComponent<Unit> ().health);
-		//}
-		Debug.Log ("Current Experience: " + experience);
-	}
-
 	public void SpentExperience(int experienceCost){
 		experience -= experienceCost;
 	}

@@ -21,7 +21,21 @@ SSXXOXO
 SSXXXXX
  
 	 */
+	int id;
+	string name;
 	string structure;
+	BattleObjective objective;
+	int numberOfPlayerUnits;
+	int experienceReward;
 
+	public ImprovedLevel(int id){
+		this.id = id;
 
+	}
+}
+
+public enum BattleObjective{
+	DestroyAll,
+	DestroySpecific,
+	EnterArea
 }

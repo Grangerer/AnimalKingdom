@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Levels>
+	<level id="0">
+		<name>Tutorial</name>
+		<structure>
+			XXO4XO1-
+			XXX3XOX-
+			XXOXO3X-
+			XXOXXXX-
+			OXXXXXX-
+			SSXXOXO-
+			SSXXXXX
+		</structure>
+		<numberOfPlayerUnits>2</numberOfPlayerUnits>
+		<expReward>100</expReward>
+	</level>
+	<level id="1">
+		<name>Tutorial</name>
+		<structure>
+			XXO4XO1-
+			XXX3XOX-
+			XXOXO3X-
+			XXOXXXX-
+			OXXXXXX-
+			SSXXOXO-
+			SSXXXXX
+		</structure>
+		<numberOfPlayerUnits>3</numberOfPlayerUnits>
+		<expReward>125</expReward>
+	</level>
+	<level id="10">
+		<name>Surrounded</name>
+		<structure>
+			O5XXOXX1O-
+			5XXXOXXX1-
+			XXOXXXOXX-
+			XXOXSXOXX-
+			XXXSSSXXX-
+			XXOXSXOXX-
+			XXOXXXOXX-
+			2XXXOXXX5-
+			O2XXOXX5O
+		</structure>
+		<numberOfPlayerUnits>5</numberOfPlayerUnits>
+		<expReward>200</expReward>
+	</level>
+</Levels>
+
+

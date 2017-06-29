@@ -35,7 +35,6 @@ public class MainMenuManager : MonoBehaviour {
 		if (SaveLoad.savedPlayers.Count != 0) {
 			//Insert a way to specify, which player should be loaded
 			player = SaveLoad.savedPlayers [0];
-			player.PrintOut ();
 		} else {
 			Debug.Log ("No saved player found");
 			player = new Player ();
@@ -52,7 +51,7 @@ public class MainMenuManager : MonoBehaviour {
 		SceneManager.LoadScene ("UpgradeScene");
 	}
 	public void GoToBattleSelectScreen(){
-		SceneManager.LoadScene ("TestScene");
+		SceneManager.LoadScene ("Battle");
 	}
 	public void GoToOptions(){
 		

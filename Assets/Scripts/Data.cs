@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Xml;
 using UnityEngine;
 
 public class Data : MonoBehaviour {
@@ -12,14 +13,11 @@ public class Data : MonoBehaviour {
 	//Contains all Levels. All Scenes use this list to Setup
 	List<ImprovedLevel> levels = new List<ImprovedLevel>();
 
-	void Start(){
-		LoadLevelData ();
-
-
-	
+	void Setup(){
+		LoadLevelData ();	
 	}
 
 	void LoadLevelData(){
-
+		//Read the "levels.txt" file and create levels based of this
 	}
 }

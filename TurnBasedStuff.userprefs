@@ -1,30 +1,25 @@
 ﻿<Properties RefactoringSettings.EnableRefactorings="True" StartupItem="Assembly-CSharp.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\MainMenuManager.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Battle\Tile.cs">
     <Files>
-      <File FileName="Assets\Scripts\Battle\BaseUnit.cs" Line="47" Column="10" />
-      <File FileName="Assets\Scripts\Battle\Unit.cs" Line="52" Column="1" />
-      <File FileName="Assets\Scripts\Battle\Attack.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Battle\PlayerController.cs" Line="48" Column="1" />
-      <File FileName="Assets\Scripts\Battle\UIController.cs" Line="30" Column="3" />
-      <File FileName="Assets\Scripts\UnitUpgrades\Abilities\De_Buff.cs" Line="8" Column="18" />
-      <File FileName="Assets\Scripts\Battle\LevelSpawner.cs" Line="48" Column="61" />
-      <File FileName="Assets\Scripts\Battle\Level.cs" Line="5" Column="1" />
-      <File FileName="Assets\Scripts\Battle\LevelEnemies.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\GameManager.cs" Line="25" Column="24" />
-      <File FileName="Assets\Scripts\Player.cs" Line="18" Column="44" />
-      <File FileName="Assets\Scripts\MainMenuManager.cs" Line="19" Column="46" />
-      <File FileName="Assets\Scripts\Data.cs" Line="12" Column="58" />
-      <File FileName="Assets\Scripts\SaveLoad.cs" Line="30" Column="1" />
-      <File FileName="Assets\Scripts\Battle\AI.cs" Line="46" Column="37" />
-      <File FileName="Assets\Scripts\UpgradeManager.cs" Line="93" Column="2" />
+      <File FileName="Assets\Scripts\MainMenuManager.cs" Line="37" Column="39" />
+      <File FileName="Assets\Scripts\Data.cs" Line="6" Column="34" />
+      <File FileName="Assets\Scripts\SaveLoad.cs" Line="30" Column="3" />
+      <File FileName="Assets\Scripts\Battle\AI.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\UpgradeManager.cs" Line="98" Column="23" />
       <File FileName="Assets\Scripts\Battle\BattleManager.cs" Line="112" Column="13" />
+      <File FileName="Assets\Scripts\Battle\ImprovedLevel.cs" Line="6" Column="1" />
+      <File FileName="Assets\Scripts\Levels\Levels.txt" Line="17" Column="16" />
+      <File FileName="Assets\Scripts\Battle\UnitAI.cs" Line="164" Column="3" />
+      <File FileName="Assets\Scripts\Battle\Unit.cs" Line="104" Column="33" />
+      <File FileName="Assets\Scripts\UnitUpgrades\Abilities\GeneralDebuffs\Debuff_Slow.cs" Line="24" Column="4" />
+      <File FileName="Assets\Scripts\Battle\Tile.cs" Line="95" Column="4" />
+      <File FileName="Assets\Scripts\Battle\LevelSpawner.cs" Line="48" Column="61" />
+      <File FileName="Assets\Scripts\Player.cs" Line="24" Column="3" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
-    <BreakpointStore>
-      <RunToCursorBreakpoint file="D:\Daten\TurnBasedStuff\Assets\Scripts\Battle\LevelSpawner.cs" line="22" column="3" />
-    </BreakpointStore>
+    <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
 </Properties>
