@@ -35,12 +35,12 @@ public class BattleManager : MonoBehaviour {
 		ai = AI.instance;
 		//Spawn Level
 		Level level = new Level();
-		level.LoadLevel(1);
+		level.LoadLevel(0);
 		levelSpawner = this.GetComponent<LevelSpawner>();
 		tileList = levelSpawner.SpawnLevel(level);
 		//Do Spawnchoserscript
 		//Apply all playerUpgrades for units
-
+		/*
 		//Test: Spawn PlayerUnit on Tile(3)(1)
 		if (GameObject.Find ("Tile(3)(1)") != null) {
 			GameObject spawnOnTile = GameObject.Find ("Tile(3)(1)");
@@ -76,6 +76,7 @@ public class BattleManager : MonoBehaviour {
 			spawnOnTile.GetComponent<Tile> ().ReferenceUnit(tmpUnit);
 			playerController.AddUnit (tmpUnit);
 		}
+		*/
 		playerController.ApplyUpgrades ();
 		playerController.OnTurnStart ();
 		playersTurn = true;

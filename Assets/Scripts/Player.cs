@@ -10,6 +10,8 @@ public class Player  {
 
 	List<BaseUnit> units = new List<BaseUnit>();
 	int experience;
+	//Unitpriority
+	List<int> priorityIDList = new List<int>(){0,1,5,5,5};
 	//Unlocked Levels
 
 
@@ -35,13 +37,20 @@ public class Player  {
 			experience = value;
 		}
 	}
-
 	public List<BaseUnit> Units {
 		get {
 			return units;
 		}
 		set {
 			units = value;
+		}
+	}
+	public List<int> PriorityIDList {
+		get {
+			return priorityIDList;
+		}
+		set {
+			priorityIDList = value;
 		}
 	}
 }

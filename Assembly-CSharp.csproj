@@ -67,6 +67,12 @@
      <Compile Include="Assets\Scripts\Player.cs" />
      <Compile Include="Assets\Scripts\SaveLoad.cs" />
      <Compile Include="Assets\Scripts\UnitUpgrades\Abilities\Ability.cs" />
+     <Compile Include="Assets\Scripts\UnitUpgrades\Abilities\Ability_Bear\Ability_Bear_2l.cs" />
+     <Compile Include="Assets\Scripts\UnitUpgrades\Abilities\Ability_Bear\Ability_Bear_2r.cs" />
+     <Compile Include="Assets\Scripts\UnitUpgrades\Abilities\Ability_Bear\Ability_Bear_4l.cs" />
+     <Compile Include="Assets\Scripts\UnitUpgrades\Abilities\Ability_Bear\Ability_Bear_4r.cs" />
+     <Compile Include="Assets\Scripts\UnitUpgrades\Abilities\Ability_Bear\Ability_Bear_6l.cs" />
+     <Compile Include="Assets\Scripts\UnitUpgrades\Abilities\Ability_Bear\Ability_Bear_6r.cs" />
      <Compile Include="Assets\Scripts\UnitUpgrades\Abilities\Ability_Horse\Ability_Horse_2l.cs" />
      <Compile Include="Assets\Scripts\UnitUpgrades\Abilities\Ability_Horse\Ability_Horse_2r.cs" />
      <Compile Include="Assets\Scripts\UnitUpgrades\Abilities\Ability_Horse\Ability_Horse_4l.cs" />

@@ -8,35 +8,22 @@ public class Level {
 
 	int gridHeight;
 	int gridWidth;
+	//Playunitpositions
+	HashSet<KeyValuePair<int,int>> playerUnitPositions = new HashSet<KeyValuePair<int, int>>();
 	//ObstaclePositions
 	HashSet<KeyValuePair<int,int>> obstaclePositions = new HashSet<KeyValuePair<int, int>>();
 	//EnemyPositions + enemy
 	List<LevelEnemies> enemyPositionsAndType = new List<LevelEnemies>();
-
-	/*Improved Version:
-	  Textfile containing a "grid":
-	  X = empty
-	  O = Obstacle
-	  S = Playerspawn
-	  Numbers = Id of spawned enemy
-
-Example:
-
-XXO4XO1
-XXX3XOX
-XXOXO3X
-XXOXXXX
-OXXXXXX
-SSXXOXO
-SSXXXXX
- 
-	 */
 
 	public void LoadLevel(int id){
 		switch (id) {
 		case 0:
 			gridWidth = 8;
 			gridHeight = 8;
+			//Playerunits
+			playerUnitPositions.Add (new KeyValuePair<int, int>(0,0));
+			playerUnitPositions.Add (new KeyValuePair<int, int>(0,1));
+			playerUnitPositions.Add (new KeyValuePair<int, int>(1,0));
 			//Enemies
 			enemyPositionsAndType.Add (new LevelEnemies (0, 3, 6));
 			enemyPositionsAndType.Add (new LevelEnemies (1, 7, 5));
@@ -58,6 +45,10 @@ SSXXXXX
 		case 1:
 			gridWidth = 8;
 			gridHeight = 14;
+			//Playerunits
+			playerUnitPositions.Add (new KeyValuePair<int, int>(0,0));
+			playerUnitPositions.Add (new KeyValuePair<int, int>(0,1));
+			playerUnitPositions.Add (new KeyValuePair<int, int>(1,0));
 			//Enemies
 			enemyPositionsAndType.Add (new LevelEnemies (0, 3, 6));
 			enemyPositionsAndType.Add (new LevelEnemies (1, 7, 5));
@@ -114,6 +105,15 @@ SSXXXXX
 	public List<LevelEnemies> EnemyPositionsAndType {
 		get {
 			return enemyPositionsAndType;
+		}
+	}
+
+	public HashSet<KeyValuePair<int, int>> PlayerUnitPositions {
+		get {
+			return playerUnitPositions;
+		}
+		set {
+			playerUnitPositions = value;
 		}
 	}
 }
