@@ -10,8 +10,11 @@ public class Data : MonoBehaviour {
 	public List<GameObject> units = new List<GameObject>();
 	//Contains all Obstacles. All scenes use this list to setup
 	public List<GameObject> obstacles = new List<GameObject>();
-	//Contains all Levels. All Scenes use this list to Setup
-	List<ImprovedLevel> levels = new List<ImprovedLevel>();
+	Level chosenLevel = new Level();
+
+	void Start(){
+		chosenLevel.LoadLevel (0);
+	}
 
 	void Setup(){
 		LoadLevelData ();	
@@ -19,5 +22,11 @@ public class Data : MonoBehaviour {
 
 	void LoadLevelData(){
 		//Read the "levels.txt" file and create levels based of this
+	}
+
+	public Level ChosenLevel {
+		get {
+			return chosenLevel;
+		}
 	}
 }

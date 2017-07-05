@@ -1,19 +1,15 @@
 ﻿<Properties RefactoringSettings.EnableRefactorings="True" StartupItem="Assembly-CSharp.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\UnitUpgrades\Abilities\Ability_Bear\Ability_Bear_6r.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\UnitSelectManager.cs">
     <Files>
-      <File FileName="Assets\Scripts\UnitUpgrades\Abilities\Ability_Bear\Ability_Bear_2l.cs" Line="15" Column="71" />
-      <File FileName="Assets\Scripts\UnitUpgrades\Abilities\Ability_Bear\Ability_Bear_2r.cs" Line="18" Column="1" />
-      <File FileName="Assets\Scripts\UnitUpgrades\Abilities\Ability_Bear\Ability_Bear_4l.cs" Line="18" Column="2" />
-      <File FileName="Assets\Scripts\UnitUpgrades\Abilities\Ability_Bear\Ability_Bear_4r.cs" Line="18" Column="47" />
-      <File FileName="Assets\Scripts\UnitUpgrades\Abilities\Ability_Bear\Ability_Bear_6l.cs" Line="20" Column="46" />
-      <File FileName="Assets\Scripts\UnitUpgrades\Abilities\Ability_Bear\Ability_Bear_6r.cs" Line="21" Column="6" />
-      <File FileName="Assets\Scripts\UnitUpgrades\Abilities\Ability_Tortoise\Ability_Tortoise_2l.cs" Line="22" Column="3" />
-      <File FileName="Assets\Scripts\UnitUpgrades\Abilities\Ability_Tortoise\Ability_Tortoise_6l.cs" Line="19" Column="3" />
-      <File FileName="Assets\Scripts\UnitUpgrades\Abilities\Ability_Horse\Ability_Horse_2l.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\UnitUpgrades\Abilities\Ability_Horse\Ability_Horse_2r.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\UnitUpgrades\Abilities\Ability_Horse\Ability_Horse_4l.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\UnitUpgrades\Abilities\Ability_Horse\Ability_Horse_4r.cs" Line="19" Column="2" />
+      <File FileName="Assets\Scripts\Battle\Attack.cs" Line="76" Column="2" />
+      <File FileName="Assets\Scripts\Battle\Unit.cs" Line="341" Column="66" />
+      <File FileName="Assets\Scripts\UnitSelectManager.cs" Line="94" Column="136" />
+      <File FileName="Assets\Scripts\Data.cs" Line="25" Column="3" />
+      <File FileName="Assets\Scripts\Battle\Level.cs" Line="55" Column="16" />
+      <File FileName="Assets\Scripts\MainMenuManager.cs" Line="54" Column="43" />
+      <File FileName="Assets\Scripts\UpgradeManager.cs" Line="107" Column="1" />
+      <File FileName="Assets\Scripts\Battle\BaseUnit.cs" Line="1" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

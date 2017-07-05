@@ -8,6 +8,7 @@ public class Level {
 
 	int gridHeight;
 	int gridWidth;
+	int levelID;
 	//Playunitpositions
 	HashSet<KeyValuePair<int,int>> playerUnitPositions = new HashSet<KeyValuePair<int, int>>();
 	//ObstaclePositions
@@ -16,8 +17,16 @@ public class Level {
 	List<LevelEnemies> enemyPositionsAndType = new List<LevelEnemies>();
 
 	public void LoadLevel(int id){
+		//Playunitpositions
+		playerUnitPositions = new HashSet<KeyValuePair<int, int>>();
+		//ObstaclePositions
+		obstaclePositions = new HashSet<KeyValuePair<int, int>>();
+		//EnemyPositions + enemy
+		enemyPositionsAndType = new List<LevelEnemies>();
+
 		switch (id) {
 		case 0:
+			levelID = 0;
 			gridWidth = 8;
 			gridHeight = 8;
 			//Playerunits
@@ -43,6 +52,7 @@ public class Level {
 			obstaclePositions.Add (new KeyValuePair<int,int> (7, 4));
 			break;
 		case 1:
+			levelID = 1;
 			gridWidth = 8;
 			gridHeight = 14;
 			//Playerunits

@@ -9,8 +9,6 @@ public class Attack {
 	float baseDamage;
 	float modifiedDamage;
 	int attackDistance;
-	bool attackHit = true;
-	bool cannotMiss = false;
 
 	List<De_Buff> appliedDebuffs = new List<De_Buff>();
 	List<De_Buff> appliedBuffs = new List<De_Buff>();
@@ -51,17 +49,6 @@ public class Attack {
 			attacker = value;
 		}
 	}
-
-
-	public bool AttackHit {
-		get {
-			return attackHit;
-		}
-		set {
-			attackHit = value;
-		}
-	}
-
 	public float BaseDamage {
 		get {
 			return baseDamage;
@@ -70,7 +57,6 @@ public class Attack {
 			baseDamage = value;
 		}
 	}
-
 	public float ModifiedDamage {
 		get {
 			return modifiedDamage;
@@ -79,16 +65,6 @@ public class Attack {
 			modifiedDamage = value;
 		}
 	}
-
-	public bool CannotMiss {
-		get {
-			return cannotMiss;
-		}
-		set {
-			cannotMiss = value;
-		}
-	}
-
 	public List<De_Buff> AppliedDebuffs {
 		get {
 			return appliedDebuffs;

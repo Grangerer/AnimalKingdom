@@ -312,14 +312,7 @@ public class Unit : MonoBehaviour {
 	}
 
 	public void Damage(Attack attack){
-		int finalDamage;
-		//Miss
-		if (!attack.AttackHit && !attack.CannotMiss) {
-			//Nothing happens
-			//Will display the dodge in the combat log
-			Debug.Log("Attack on me "+this.name+" missed!");
-		} else {
-			finalDamage = attack.GetFinalDamage ();
+		int finalDamage = attack.GetFinalDamage ();
 			//Damage
 			baseUnit.CurrentHealth -= finalDamage;
 			//Apply debuffs
@@ -331,7 +324,7 @@ public class Unit : MonoBehaviour {
 			healthBar.gameObject.SetActive(true);
 			float xScale = (float)baseUnit.CurrentHealth/ (float)baseUnit.health;
 			healthBar.Find("Health").localScale = new Vector3(xScale,1,1);
-		}
+
 		//Do all relevant checks regarding death and abilities
 		if (baseUnit.CurrentHealth <= 0) {
 			DestroyUnit ();

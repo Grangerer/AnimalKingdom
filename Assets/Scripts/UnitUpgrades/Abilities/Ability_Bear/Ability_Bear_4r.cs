@@ -17,7 +17,7 @@ Gain 50% increased movementspeed, if you haven't moved last turn
 
 	public override Attack Apply (Attack attack){
 		//Apply a Debuff, that is triggered if the target dies and removed if the target does not die due to this attack
-		return unit.baseUnit;
+		return attack;
 	}
 
 }

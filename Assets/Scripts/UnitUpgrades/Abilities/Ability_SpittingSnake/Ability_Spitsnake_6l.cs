@@ -28,12 +28,8 @@ Ranged Attacks against you have a 12% chance to miss for every adjacent obstacle
 		}
 
 		if (!attackerIsAdjacent) {
-			if (Random.Range (1, 101) <= amountOfAdjacentObstacles * 12) {
-				Debug.Log ("Ranged attack would miss: Camouflage");
-				attack.AttackHit = false;
-			}
+			attack.ModifiedDamage -= attack.BaseDamage * amountOfAdjacentObstacles * 0.12f;
 		}
-
 		return attack;
 	}
 

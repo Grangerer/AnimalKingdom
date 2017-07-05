@@ -66,6 +66,7 @@
      <Compile Include="Assets\Scripts\MainMenuManager.cs" />
      <Compile Include="Assets\Scripts\Player.cs" />
      <Compile Include="Assets\Scripts\SaveLoad.cs" />
+     <Compile Include="Assets\Scripts\UnitSelectManager.cs" />
      <Compile Include="Assets\Scripts\UnitUpgrades\Abilities\Ability.cs" />
      <Compile Include="Assets\Scripts\UnitUpgrades\Abilities\Ability_Bear\Ability_Bear_2l.cs" />
      <Compile Include="Assets\Scripts\UnitUpgrades\Abilities\Ability_Bear\Ability_Bear_2r.cs" />

@@ -51,7 +51,7 @@ public class MainMenuManager : MonoBehaviour {
 		SceneManager.LoadScene ("UpgradeScene");
 	}
 	public void GoToBattleSelectScreen(){
-		SceneManager.LoadScene ("Battle");
+		SceneManager.LoadScene ("UnitSelectScene");
 	}
 	public void GoToOptions(){
 		
