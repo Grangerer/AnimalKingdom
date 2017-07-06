@@ -44,11 +44,13 @@ public class BaseUnit {
 			upgrade = new Upgrades_Horse ();
 			break;
 		case 2: //Spitting Snake
+			upgrade = new Upgrades_Panther ();
 			break;
 		case 3: //Porcupine
 			upgrade = new Upgrades_Porcupine ();
 			break;
 		case 4: //Frog
+			upgrade = new Upgrades_Panther ();
 			break;
 		case 5: //Panther
 			upgrade = new Upgrades_Panther ();

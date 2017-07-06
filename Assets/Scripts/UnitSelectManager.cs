@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class UnitSelectManager : MonoBehaviour {
 
@@ -9,7 +10,8 @@ public class UnitSelectManager : MonoBehaviour {
 
 	List<GameObject> units = new List<GameObject>();
 
-
+	public Material doubleWarnColor;
+	bool noCurrentDuplicates = true;
 
 	// Use this for initialization
 	void Start () {
@@ -25,10 +27,8 @@ public class UnitSelectManager : MonoBehaviour {
 			if (Physics.Raycast (ray, out hit, 100)) {
 				if (hit.transform.parent.name == "ArrowLeft" || hit.transform.name == "ArrowLeft") {
 					int tileID = GetTileID (hit);
-
-					Debug.Log ("Test");
 					StartCoroutine(LastUnit (tileID));
-				} else if (hit.transform.root.name == "ArrowRight") {
+				} else if (hit.transform.parent.name == "ArrowRight" || hit.transform.root.name == "ArrowRight") {
 					int tileID = GetTileID (hit);
 					StartCoroutine(NextUnit (tileID));
 				}
@@ -43,12 +43,11 @@ public class UnitSelectManager : MonoBehaviour {
 			arrowRightAnimation.Play ();
 			yield return new WaitForSeconds (arrowRightAnimation.clip.length/4*3);
 			//Display next Unit*/
-			Debug.Log ("Test");
+			Debug.Log ("TestNext");
 			DisplayUnit(units[tileID].GetComponent<Unit>().baseUnit.id +1, tileID);
 		} else {
 			//Display "Cannot next" animation
 		}
-		Debug.Log ("Test");
 		yield return 0;
 	}
 	IEnumerator LastUnit(int tileID){
@@ -58,7 +57,7 @@ public class UnitSelectManager : MonoBehaviour {
 			arrowLeftAnimation.Play ();
 			yield return new WaitForSeconds (arrowLeftAnimation.clip.length/4*3);
 			//Display next Unit*/
-			Debug.Log ("Test");
+			Debug.Log ("TestLast");
 			DisplayUnit(units[tileID].GetComponent<Unit>().baseUnit.id-1,tileID);
 		} else {
 			//Display "Cannot last" animation
@@ -83,7 +82,7 @@ public class UnitSelectManager : MonoBehaviour {
 		tmpUnit.GetComponent<Unit> ().Setup (tiles [i]);
 
 		if (units.Count > i && units [i] != null) {
-			Debug.Log ("Test Display");
+			Debug.Log ("Test Display Prio");
 			Destroy (units [i]);
 			units [i] = tmpUnit;
 		} else {
@@ -95,12 +94,58 @@ public class UnitSelectManager : MonoBehaviour {
 		GameObject tmpUnit = Instantiate (Data.currentData.units[unitID], position, Quaternion.identity * Quaternion.Euler(0,25,0));
 		tmpUnit.GetComponent<Unit> ().Setup (tiles [tileID]);
 
-		if (units.Count > unitID && units [unitID] != null) {
+		if (units.Count > tileID && units [tileID] != null) {
 			Debug.Log ("Test Display");
-			Destroy (units [unitID]);
-			units [unitID] = tmpUnit;
+			Destroy (units [tileID]);
+			units [tileID] = tmpUnit;
 		} else {
 			units.Add (tmpUnit);				
+		}
+		CheckDoubles ();
+	}
+
+	void CheckDoubles(int tileID){
+		bool noDoubleFound = true;
+		for (int i = 0; i < units.Count-1; i++) {			
+			if (units[i].GetComponent<Unit> ().baseUnit.id == units [tileID].GetComponent<Unit> ().baseUnit.id && i != tileID) {
+				Recolor(tileID);
+				Recolor (i);
+				noDoubleFound = false;
+			}
+		}
+		if (noDoubleFound) {
+			Recolor (tileID, false);
+
+		}
+	}
+
+	void CheckDoubles(){
+		List<int> idList = new List<int> ();
+		List<int> doublesIDlist = new List<int> ();
+		noCurrentDuplicates = true;
+		for (int i = 0; i < units.Count; i++) {
+			if (!idList.Contains (units [i].GetComponent<Unit> ().baseUnit.id)) {
+				idList.Add (units [i].GetComponent<Unit> ().baseUnit.id);
+			} else {				
+				doublesIDlist.Add (units [i].GetComponent<Unit> ().baseUnit.id);
+			}
+		}
+		for (int i = 0; i < units.Count; i++) {
+			if (doublesIDlist.Contains (units [i].GetComponent<Unit> ().baseUnit.id)) {
+				Recolor (i);
+				noCurrentDuplicates = false;
+			} else {
+				Recolor(i, false);
+			}
+		}
+
+	}
+
+	void Recolor(int tileID,bool duplicate = true){
+		if (duplicate) {
+			tiles [tileID].GetComponentInChildren<Tile> ().Recolor (doubleWarnColor);
+		} else {
+			tiles [tileID].GetComponentInChildren<Tile> ().ResetColor ();
 		}
 	}
 
@@ -136,6 +181,20 @@ public class UnitSelectManager : MonoBehaviour {
 		return -1;
 	}
 
+	public void GoToBattle(){
+		if (noCurrentDuplicates) {
+			SetPlayerPriorityList ();
+			SceneManager.LoadScene ("Battle");
+		} else {
+			Debug.Log ("Insert duplicate-warning");
+		}
+	}
+
+	void SetPlayerPriorityList(){
+		for (int i = 0; i < units.Count; i++) {
+			Player.current.PriorityIDList [i] = units [i].GetComponent<Unit> ().baseUnit.id;
+		}
+	}
 
 	/*
 	 * Display amount of tiles, equal to amount of playunits in chosen level (This includes repositioning the camera)
