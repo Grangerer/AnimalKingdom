@@ -184,11 +184,20 @@ public class UnitSelectManager : MonoBehaviour {
 	public void GoToBattle(){
 		if (noCurrentDuplicates) {
 			SetPlayerPriorityList ();
-			SceneManager.LoadScene ("Battle");
+			Data.currentData.LoadScene ("Battle");
 		} else {
 			Debug.Log ("Insert duplicate-warning");
 		}
 	}
+
+	public void GoBack(){
+		//Replace with "LevelSelect", once implemented
+		Data.currentData.LoadScene ("MainMenu");
+	}
+	public void GoToUpgrade(){
+		Data.currentData.LoadScene ("UpgradeScene");
+	}
+
 
 	void SetPlayerPriorityList(){
 		for (int i = 0; i < units.Count; i++) {

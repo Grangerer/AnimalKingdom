@@ -48,10 +48,10 @@ public class MainMenuManager : MonoBehaviour {
 		SaveLoad.SavePlayer ();
 	}
 	public void GoToUpgradeScreen(){
-		SceneManager.LoadScene ("UpgradeScene");
+		Data.currentData.LoadScene ("UpgradeScene");
 	}
 	public void GoToBattleSelectScreen(){
-		SceneManager.LoadScene ("UnitSelectScene");
+		Data.currentData.LoadScene ("UnitSelectScene");
 	}
 	public void GoToOptions(){
 		

@@ -81,7 +81,7 @@ public class BattleManager : MonoBehaviour {
 	public void LooseMatch(){
 		Debug.Log ("Player has lost the match");
 		Time.timeScale = 0;
-		SceneManager.LoadScene ("UpgradeScene");
+		Data.currentData.LoadScene ("UpgradeScene");
 	}
 	//Menu
 	public void OpenInBattleMenu(){
@@ -100,17 +100,17 @@ public class BattleManager : MonoBehaviour {
 	}
 	public void RestartLevel(){
 		string sceneToLoadName = SceneManager.GetActiveScene ().name;
-		SceneManager.LoadScene (sceneToLoadName);
+		Data.currentData.LoadScene (sceneToLoadName);
 	}
 	public void OpenOptions(){}
 	public void GoToMainMenu(){
 		SaveLoad.SavePlayer ();
 		string sceneToLoadName = "MainMenu";
-		SceneManager.LoadScene (sceneToLoadName);
+		Data.currentData.LoadScene (sceneToLoadName);
 	}
 	public void GoToUpgrade(){
 		string sceneToLoadName = "UpgradeUnits";
-		SceneManager.LoadScene (sceneToLoadName);
+		Data.currentData.LoadScene (sceneToLoadName);
 	}
 
 	//Propertystuff

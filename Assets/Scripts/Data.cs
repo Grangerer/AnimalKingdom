@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Xml;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Data : MonoBehaviour {
 
@@ -11,6 +12,8 @@ public class Data : MonoBehaviour {
 	//Contains all Obstacles. All scenes use this list to setup
 	public List<GameObject> obstacles = new List<GameObject>();
 	Level chosenLevel = new Level();
+
+	public string previousLevelName = null;
 
 	void Start(){
 		chosenLevel.LoadLevel (0);
@@ -22,6 +25,13 @@ public class Data : MonoBehaviour {
 
 	void LoadLevelData(){
 		//Read the "levels.txt" file and create levels based of this
+	}
+
+	public void LoadScene(string nextSceneName){
+		if (nextSceneName != SceneManager.GetActiveScene ().name) {
+			previousLevelName = SceneManager.GetActiveScene ().name;
+		}
+		SceneManager.LoadScene (nextSceneName);
 	}
 
 	public Level ChosenLevel {

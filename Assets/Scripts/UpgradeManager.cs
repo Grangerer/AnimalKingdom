@@ -225,6 +225,6 @@ public class UpgradeManager : MonoBehaviour {
 
 	public void Back(){
 		SaveLoad.SavePlayer();
-		SceneManager.LoadScene ("MainMenu");
+		Data.currentData.LoadScene (Data.currentData.previousLevelName);
 	}
 }
