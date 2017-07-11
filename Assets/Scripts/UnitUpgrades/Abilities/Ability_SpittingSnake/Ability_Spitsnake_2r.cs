@@ -6,18 +6,18 @@ using UnityEngine;
 public class Ability_Spitsnake_2r : Ability {
 
 	/*AbilityType: OnAttacking
-Sharpened Claw:
-Attacks deal 25% additional damage, if you haven't attacked last turn
+Venom:
+Successful attacks deal 2 additional damage at the end of their next turn
 	 * */
 	public Ability_Spitsnake_2r(){
-		name = "Sharpened Claw";
+		name = "Venom";
+		description = "Attacks deal 2 additional damage at the end of the targets next turn";
 		triggerId = (int) Trigger.OnAttack;
 	}
 
 	public override Attack Apply (Attack attack){
-		if (!attack.Attacker.AttackedLastTurn) {
-			attack.ModifiedDamage += attack.BaseDamage * 0.25f;
-		}
+		Debug.Log ("Applying Venom");
+		attack.Defender.AddAbility (new Debuff_Venom ());
 		return attack;
 	}
 

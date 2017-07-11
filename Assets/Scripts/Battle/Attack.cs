@@ -10,8 +10,6 @@ public class Attack {
 	float modifiedDamage;
 	int attackDistance;
 
-	List<De_Buff> appliedDebuffs = new List<De_Buff>();
-	List<De_Buff> appliedBuffs = new List<De_Buff>();
 
 	public Attack(Unit attacker, Unit defender, int damage){
 		this.baseDamage = damage;
@@ -65,24 +63,6 @@ public class Attack {
 			modifiedDamage = value;
 		}
 	}
-	public List<De_Buff> AppliedDebuffs {
-		get {
-			return appliedDebuffs;
-		}
-		set {
-			appliedDebuffs = value;
-		}
-	}
-
-	public List<De_Buff> AppliedBuffs {
-		get {
-			return appliedBuffs;
-		}
-		set {
-			appliedBuffs = value;
-		}
-	}
-
 	public int AttackDistance {
 		get {
 			return attackDistance;

@@ -11,6 +11,7 @@ Ranged Attacks against you have a 12% chance to miss for every adjacent obstacle
 	 * */
 	public Ability_Spitsnake_6l(){
 		name = "Camouflage";
+		description = "Ranged Attacks against you deal 12% less damage for every adjacent obstacle";
 		triggerId = (int) Trigger.OnAttack;
 	}
 

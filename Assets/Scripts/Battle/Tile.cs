@@ -77,6 +77,7 @@ public class Tile : MonoBehaviour {
 	}
 	public void DeactivateAnimation(){
 		this.GetComponent<Animator> ().enabled = false;
+		//this.GetComponent<Animator> ().ResetTrigger ("Tile_Highlight");
 	}
 
 

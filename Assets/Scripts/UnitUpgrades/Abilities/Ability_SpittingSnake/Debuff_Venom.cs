@@ -17,8 +17,8 @@ Successful attacks deal 2 additional damage at the end of their next turn
 	}
 
 	public override BaseUnit ApplyTurn(Unit unit){
-		Debug.Log ("This could be a gamebreaking bug. Venom_Debuff");
-		unit.DebuffDamage (2);
+		Debug.Log ("This could be a gamebreaking bug @Venom_Debuff");
+		unit.Damage (2f);
 		duration--;
 
 		return unit.baseUnit;

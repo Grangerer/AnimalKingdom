@@ -12,6 +12,8 @@ public class Unit : MonoBehaviour {
 	int distanceMoved = 0;
 	bool attackedLastTurn = false;
 
+	bool immobilized;
+
 	private bool ownedByPlayer = false;
 	private GameObject currentTile;
 	private Transform healthBar;
@@ -58,11 +60,6 @@ public class Unit : MonoBehaviour {
 		unitOwned = this.transform.FindChild("UnitSelector/UnitOwned");
 		unitMove = this.transform.FindChild("UnitSelector/UnitMove");
 		unitAttack = this.transform.FindChild("UnitSelector/UnitAttack");
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
 	}
 
 	//Movement
@@ -313,17 +310,12 @@ public class Unit : MonoBehaviour {
 
 	public void Damage(Attack attack){
 		int finalDamage = attack.GetFinalDamage ();
-			//Damage
-			baseUnit.CurrentHealth -= finalDamage;
-			//Apply debuffs
-			foreach(De_Buff debuff in attack.AppliedDebuffs ){
-				AddAbility (debuff);
-				Debug.Log ("Added " + debuff.Name);
-			}
-			//Adjust Healthbar
-			healthBar.gameObject.SetActive(true);
-			float xScale = (float)baseUnit.CurrentHealth/ (float)baseUnit.health;
-			healthBar.Find("Health").localScale = new Vector3(xScale,1,1);
+		//Damage
+		baseUnit.CurrentHealth -= finalDamage;
+		//Adjust Healthbar
+		healthBar.gameObject.SetActive (true);
+		float xScale = (float)baseUnit.CurrentHealth / (float)baseUnit.health;
+		healthBar.Find ("Health").localScale = new Vector3 (xScale, 1, 1);
 
 		//Do all relevant checks regarding death and abilities
 		if (baseUnit.CurrentHealth <= 0) {
@@ -332,34 +324,18 @@ public class Unit : MonoBehaviour {
 	}
 	public void Damage(float damage){
 		int finalDamage;
-			finalDamage = Mathf.RoundToInt(damage);
-			//Damage
-			baseUnit.CurrentHealth -= finalDamage;
-			//Adjust Healthbar
-			healthBar.gameObject.SetActive(true);
-			float xScale = (float)baseUnit.CurrentHealth/ (float)baseUnit.health;
-			healthBar.Find("Health").localScale = new Vector3(xScale,1,1);
-		//Do all relevant checks regarding death and abilities
-		if (baseUnit.CurrentHealth <= 0) {
-			DestroyUnit ();
-		}
-	}
-
-	public void DebuffDamage(int damage){
+		finalDamage = Mathf.RoundToInt (damage);
 		//Damage
-		baseUnit.CurrentHealth -= damage;
+		baseUnit.CurrentHealth -= finalDamage;
 		//Adjust Healthbar
-		healthBar.gameObject.SetActive(true);
-		float xScale = (float)baseUnit.CurrentHealth/ (float)baseUnit.health;
-		healthBar.Find("Health").localScale = new Vector3(xScale,1,1);
+		healthBar.gameObject.SetActive (true);
+		float xScale = (float)baseUnit.CurrentHealth / (float)baseUnit.health;
+		healthBar.Find ("Health").localScale = new Vector3 (xScale, 1, 1);
 		//Do all relevant checks regarding death and abilities
 		if (baseUnit.CurrentHealth <= 0) {
 			DestroyUnit ();
 		}
 	}
-
-
-
 
 	//General
 	public void AddAbility(Ability ability){
@@ -575,6 +551,14 @@ public class Unit : MonoBehaviour {
 	public UnitAI UnitAI {
 		get {
 			return unitAI;
+		}
+	}
+	public bool Immobilized {
+		get {
+			return immobilized;
+		}
+		set {
+			immobilized = value;
 		}
 	}
 }

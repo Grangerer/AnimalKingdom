@@ -11,6 +11,7 @@ Gain 100% increased movementspeed while below 50% health
 	 * */
 	public Ability_Spitsnake_2l(){
 		name = "Slither";
+		description = "Gain 100% increased movementspeed while below 50% health";
 		triggerId = (int) Trigger.OnTurnStart;
 	}
 

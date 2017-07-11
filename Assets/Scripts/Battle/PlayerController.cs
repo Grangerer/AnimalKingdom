@@ -189,7 +189,7 @@ public class PlayerController : MonoBehaviour
 	}
 	public void ApplyUpgrades(){
 
-		Debug.Log ("Amount of playerUnits: " + units.Count);
+		//Debug.Log ("Amount of playerUnits: " + units.Count);
 		List<int> upgradedUnitsId = new List<int> ();
 		foreach (GameObject unit in units) {
 			//if(!upgradedUnitsId.Contains(unit.GetComponent<Unit>().baseUnit.id)){

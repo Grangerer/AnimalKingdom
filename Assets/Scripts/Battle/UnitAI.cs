@@ -6,16 +6,11 @@ public class UnitAI : MonoBehaviour {
 
 
 	private Unit unit;
-	private List<Unit> attackableUnits = new List<Unit>();
+	private List<Unit> attackableUnits;
 	private Unit target;
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
+
+	void Awake(){
+		attackableUnits = new List<Unit> ();
 	}
 
 	public void TakeTurn(){
@@ -32,7 +27,9 @@ public class UnitAI : MonoBehaviour {
 		}//Move towards closest enemy
 		else {
 			//Move to a free adjacent square, if possible
-			MoveToRandomAdjacentTile();
+			if (!unit.Immobilized) {
+				MoveToRandomAdjacentTile ();
+			}
 		}
 	}
 	//Enemy Found

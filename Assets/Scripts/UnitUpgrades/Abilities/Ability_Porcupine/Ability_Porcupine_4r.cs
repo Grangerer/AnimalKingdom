@@ -12,7 +12,7 @@ Successful attacks reduce the targets movementspeed by 1.
 	 * */
 	public Ability_Porcupine_4r(){
 		name = "Restraining Quills";
-		description = "Successful attacks reduce the targets movementspeed by 1";
+		description = "Attacks reduce the targets movementspeed by 1. \n(Cannot reduce below 1)";
 		triggerId = (int) Trigger.OnAttack;
 	}
 

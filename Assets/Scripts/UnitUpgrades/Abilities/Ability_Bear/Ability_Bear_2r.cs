@@ -11,12 +11,13 @@ Attacks deal 25% additional damage, if you haven't attacked last turn
 	 * */
 	public Ability_Bear_2r(){
 		name = "Taunt";
-		description = "Successful attacks reduce the damage the target does against all other units by 25%";
+		description = "Attacks reduce the damage the target does against all other units by 25%";
 		triggerId = (int) Trigger.OnAttack;
 	}
 
 	public override Attack Apply (Attack attack){
 		//Apply a debuff that memorizes this unit and is triggered OnAttack of the targeted unit
+		attack.Defender.AddAbility(new Debuff_Taunt(attack.Attacker,1));
 
 		return attack;
 	}

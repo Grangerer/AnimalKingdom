@@ -11,6 +11,7 @@ Successful attacks deal additional damage equal to 15% of the targets current HP
 	 * */
 	public Ability_Spitsnake_6r(){
 		name = "Caustic";
+		description = "Attacks deal additional damage equal to 15% of the targets current HP";
 		triggerId = (int) Trigger.OnAttack;
 	}
 

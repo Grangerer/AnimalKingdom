@@ -77,7 +77,7 @@ public class UnitSelectManager : MonoBehaviour {
 		}	
 	}
 	void DisplayUnitPriority(int i){
-		Vector3 position = new Vector3 (tiles[i].transform.position.x, Data.currentData.units[Player.current.PriorityIDList [i]].transform.position.y, tiles[i].transform.position.z);
+		Vector3 position = new Vector3 (tiles[i].transform.position.x, Data.currentData.units[Player.current.PriorityIDList [i]].transform.position.y + tiles[i].transform.position.y, tiles[i].transform.position.z);
 		GameObject tmpUnit = Instantiate (Data.currentData.units[Player.current.PriorityIDList [i]], position, Quaternion.identity * Quaternion.Euler(0,25,0));
 		tmpUnit.GetComponent<Unit> ().Setup (tiles [i]);
 
@@ -90,7 +90,7 @@ public class UnitSelectManager : MonoBehaviour {
 		}
 	}
 	void DisplayUnit(int unitID, int tileID){
-		Vector3 position = new Vector3 (tiles[tileID].transform.position.x, Data.currentData.units[unitID].transform.position.y, tiles[tileID].transform.position.z);
+		Vector3 position = new Vector3 (tiles[tileID].transform.position.x, Data.currentData.units[unitID].transform.position.y + tiles[tileID].transform.position.y, tiles[tileID].transform.position.z);
 		GameObject tmpUnit = Instantiate (Data.currentData.units[unitID], position, Quaternion.identity * Quaternion.Euler(0,25,0));
 		tmpUnit.GetComponent<Unit> ().Setup (tiles [tileID]);
 

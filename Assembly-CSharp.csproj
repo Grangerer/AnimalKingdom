@@ -74,6 +74,7 @@
      <Compile Include="Assets\Scripts\UnitUpgrades\Abilities\Ability_Bear\Ability_Bear_4r.cs" />
      <Compile Include="Assets\Scripts\UnitUpgrades\Abilities\Ability_Bear\Ability_Bear_6l.cs" />
      <Compile Include="Assets\Scripts\UnitUpgrades\Abilities\Ability_Bear\Ability_Bear_6r.cs" />
+     <Compile Include="Assets\Scripts\UnitUpgrades\Abilities\Ability_Bear\Debuff_Taunt.cs" />
      <Compile Include="Assets\Scripts\UnitUpgrades\Abilities\Ability_Horse\Ability_Horse_2l.cs" />
      <Compile Include="Assets\Scripts\UnitUpgrades\Abilities\Ability_Horse\Ability_Horse_2r.cs" />
      <Compile Include="Assets\Scripts\UnitUpgrades\Abilities\Ability_Horse\Ability_Horse_4l.cs" />
@@ -107,12 +108,14 @@
      <Compile Include="Assets\Scripts\UnitUpgrades\Abilities\Ability_Tortoise\Ability_Tortoise_6l.cs" />
      <Compile Include="Assets\Scripts\UnitUpgrades\Abilities\Ability_Tortoise\Ability_Tortoise_6r.cs" />
      <Compile Include="Assets\Scripts\UnitUpgrades\Abilities\De_Buff.cs" />
+     <Compile Include="Assets\Scripts\UnitUpgrades\Abilities\GeneralDebuffs\Debuff_Immobilize.cs" />
      <Compile Include="Assets\Scripts\UnitUpgrades\Abilities\GeneralDebuffs\Debuff_Slow.cs" />
      <Compile Include="Assets\Scripts\UnitUpgrades\Upgrade.cs" />
      <Compile Include="Assets\Scripts\UnitUpgrades\Upgrade_Bear.cs" />
      <Compile Include="Assets\Scripts\UnitUpgrades\Upgrades_Horse.cs" />
      <Compile Include="Assets\Scripts\UnitUpgrades\Upgrades_Panther.cs" />
      <Compile Include="Assets\Scripts\UnitUpgrades\Upgrades_Porcupine.cs" />
+     <Compile Include="Assets\Scripts\UnitUpgrades\Upgrades_Spitsnake.cs" />
      <Compile Include="Assets\Scripts\UpgradeManager.cs" />
      <None Include="Assets\Scripts\Levels\Levels.txt" />
  <Reference Include="UnityEngine.UI">

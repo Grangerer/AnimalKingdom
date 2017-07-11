@@ -11,7 +11,7 @@ Successful attacks against adjacent enemies heal you for 20% of your maximum hp
 	 * */
 	public Ability_Spitsnake_4l(){
 		name = "Leech";
-		description = "Successful attacks against adjacent enemies heal you for 20% of your maximum hp";
+		description = "Attacks against adjacent enemies heal you for 20% of your maximum hp";
 		triggerId = (int) Trigger.OnAttack;
 	}
 

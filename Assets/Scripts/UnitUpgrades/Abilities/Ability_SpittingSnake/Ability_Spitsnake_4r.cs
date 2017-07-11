@@ -11,6 +11,7 @@ Successful attacks against adjacent enemies deal 25% additional damage
 	 * */
 	public Ability_Spitsnake_4r(){
 		name = "Bite";
+		description = "Attacks against adjacent Enemies deal 25% additional damage";
 		triggerId = (int) Trigger.OnAttack;
 	}
 

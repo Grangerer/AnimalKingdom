@@ -23,6 +23,7 @@ public class BaseUnit {
 
 	public BaseUnit(BaseUnit toCopy){
 		this.id = toCopy.id;
+		this.name = toCopy.name;
 		this.level = toCopy.level;
 		this.upgrade = toCopy.upgrade;
 		this.health = toCopy.health;
@@ -44,7 +45,7 @@ public class BaseUnit {
 			upgrade = new Upgrades_Horse ();
 			break;
 		case 2: //Spitting Snake
-			upgrade = new Upgrades_Panther ();
+			upgrade = new Upgrades_Spitsnake ();
 			break;
 		case 3: //Porcupine
 			upgrade = new Upgrades_Porcupine ();
@@ -83,6 +84,9 @@ public class BaseUnit {
 		}
 	}
 
+	public void Immobilize(){
+		this.CurrentMovementspeed = 0;
+	}
 
 	//Propertystuff
 	public int CurrentHealth {

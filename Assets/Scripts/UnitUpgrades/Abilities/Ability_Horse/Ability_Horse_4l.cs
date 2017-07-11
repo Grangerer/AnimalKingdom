@@ -12,7 +12,7 @@ Successful attacks reduce the targets movementspeed by 1.
 	 * */
 	public Ability_Horse_4l(){
 		name = "Kick";
-		description = "Successful attacks reduce the targets movementspeed by 1. \n(Cannot reduce below 1)";
+		description = "Attacks reduce the targets movementspeed by 1. \n(Cannot reduce below 1)";
 		triggerId = (int) Trigger.OnAttack;
 	}
 

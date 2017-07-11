@@ -32,6 +32,7 @@ public class BattleManager : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+		Time.timeScale = 1;
 		ai = AI.instance;
 		//Spawn Level
 		Level level = new Level();
