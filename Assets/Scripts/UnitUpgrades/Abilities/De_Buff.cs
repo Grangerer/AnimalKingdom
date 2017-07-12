@@ -12,4 +12,9 @@ public abstract class De_Buff : Ability {
 			return duration;
 		}
 	}
+
+	public virtual void ApplyOnDeath(){
+		Debug.Log ("You are trying to use public virtual void Apply (), but the childScript does not contain an implementation of it");
+	}
+
 }

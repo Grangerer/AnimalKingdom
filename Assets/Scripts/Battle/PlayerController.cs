@@ -286,4 +286,9 @@ public class PlayerController : MonoBehaviour
 			selectedUnit = value;
 		}
 	}
+	public List<GameObject> Units {
+		get {
+			return units;
+		}
+	}
 }

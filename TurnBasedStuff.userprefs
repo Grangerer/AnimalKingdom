@@ -1,16 +1,15 @@
 ﻿<Properties RefactoringSettings.EnableRefactorings="True" StartupItem="Assembly-CSharp.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Battle\Unit.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\UnitUpgrades\Abilities\Ability_MonitorLizard\Ability_MonitorLizard_2r.cs">
     <Files>
-      <File FileName="Assets\Scripts\UnitUpgrades\Abilities\Ability_Panther\Ability_Panther_2l.cs" Line="27" Column="1" />
-      <File FileName="Assets\Scripts\UnitUpgrades\Upgrade_Bear.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Battle\Unit.cs" Line="202" Column="66" />
-      <File FileName="Assets\Scripts\Battle\BaseUnit.cs" Line="26" Column="27" />
-      <File FileName="Assets\Scripts\Battle\PlayerController.cs" Line="188" Column="20" />
-      <File FileName="Assets\Scripts\Battle\Attack.cs" Line="65" Column="3" />
-      <File FileName="Assets\Scripts\UnitUpgrades\Abilities\Ability_Horse\Ability_Horse_4r.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\UnitUpgrades\Abilities\Ability_Horse\Ability_Horse_4l.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\UnitUpgrades\Abilities\Ability.cs" Line="40" Column="16" />
+      <File FileName="Assets\Scripts\UnitUpgrades\Upgrades_MonitorLizard.cs" Line="73" Column="41" />
+      <File FileName="Assets\Scripts\Battle\Unit.cs" Line="537" Column="21" />
+      <File FileName="Assets\Scripts\UnitUpgrades\Abilities\Ability_Bear\Debuff_Taunt.cs" Line="17" Column="37" />
+      <File FileName="Assets\Scripts\UnitUpgrades\Abilities\Ability_MonitorLizard\Ability_MonitorLizard_6l.cs" Line="21" Column="3" />
+      <File FileName="Assets\Scripts\Battle\Attack.cs" Line="25" Column="46" />
+      <File FileName="Assets\Scripts\Battle\BaseUnit.cs" Line="60" Column="10" />
+      <File FileName="Assets\Scripts\UnitUpgrades\Abilities\Ability_MonitorLizard\Ability_MonitorLizard_2l.cs" Line="16" Column="48" />
+      <File FileName="Assets\Scripts\UnitUpgrades\Abilities\Ability_MonitorLizard\Ability_MonitorLizard_2r.cs" Line="24" Column="3" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

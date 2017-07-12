@@ -10,6 +10,8 @@ public class Attack {
 	float modifiedDamage;
 	int attackDistance;
 
+	List<De_Buff> onDeath = new List<De_Buff> ();
+
 
 	public Attack(Unit attacker, Unit defender, int damage){
 		this.baseDamage = damage;
@@ -26,6 +28,12 @@ public class Attack {
 
 	public int GetFinalDamage(){
 		return (int) Mathf.Round(modifiedDamage);
+	}
+
+	public void ApplyOnDeath(){
+		foreach (De_Buff deBuff in onDeath) {
+			deBuff.ApplyOnDeath ();
+		}
 	}
 
 
@@ -69,6 +77,15 @@ public class Attack {
 		}
 		set {
 			attackDistance = value;
+		}
+	}
+
+	public List<De_Buff> OnDeath {
+		get {
+			return onDeath;
+		}
+		set {
+			onDeath = value;
 		}
 	}
 }

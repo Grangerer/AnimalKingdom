@@ -56,6 +56,9 @@ public class BaseUnit {
 		case 5: //Panther
 			upgrade = new Upgrades_Panther ();
 			break;
+		case 7: //Monitor Lizard
+			upgrade = new Upgrades_MonitorLizard ();
+			break;
 		default:
 			break;
 		}	

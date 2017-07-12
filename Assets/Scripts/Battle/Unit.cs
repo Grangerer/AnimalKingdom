@@ -124,6 +124,7 @@ public class Unit : MonoBehaviour {
 
 		currentlyColoredTiles = new List<GameObject> ();
 
+		ApplyTurnAbilities (onMove);
 	}
 
 	void ProcessMoving(bool moveBool){
@@ -319,6 +320,7 @@ public class Unit : MonoBehaviour {
 
 		//Do all relevant checks regarding death and abilities
 		if (baseUnit.CurrentHealth <= 0) {
+			attack.ApplyOnDeath ();
 			DestroyUnit ();
 		}
 	}
