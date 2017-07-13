@@ -22,7 +22,7 @@ public class Ability_MonitorLizard_4l : Ability {
 				toHealUnit = checkUnit;
 			}
 		}
-		toHealUnit.baseUnit.Heal (toHealUnit.baseUnit.health * 0.15f);
+		toHealUnit.Heal (toHealUnit.baseUnit.health * 0.15f);
 
 		return unit.baseUnit;
 	}

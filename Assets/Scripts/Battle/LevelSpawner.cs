@@ -83,9 +83,10 @@ public class LevelSpawner : MonoBehaviour {
 	}
 	void SpawnPlayerUnit(GameObject spawnOnTile, int playerUnitCount){
 		Debug.Log("Player.current.PriorityIDList[playerUnitCount] "+ Player.current.PriorityIDList[playerUnitCount]);
-		Vector3 position = new Vector3 (spawnOnTile.transform.position.x, Data.currentData.units[Player.current.PriorityIDList[playerUnitCount]].transform.position.y, spawnOnTile.transform.position.z);
-		GameObject tmpUnit = Instantiate (Data.currentData.units[Player.current.PriorityIDList[playerUnitCount]], position, Quaternion.identity);
-		tmpUnit.GetComponent<Unit> ().baseUnit = new BaseUnit (Player.current.Units [Player.current.PriorityIDList[playerUnitCount]]);
+		int unitDataArrayPosition = Data.currentData.units.FindIndex (x => x.GetComponent<Unit>().baseUnit.id == Player.current.PriorityIDList[playerUnitCount]);
+		Vector3 position = new Vector3 (spawnOnTile.transform.position.x, Data.currentData.units[unitDataArrayPosition].transform.position.y, spawnOnTile.transform.position.z);
+		GameObject tmpUnit = Instantiate (Data.currentData.units[unitDataArrayPosition], position, Quaternion.identity);
+		tmpUnit.GetComponent<Unit> ().baseUnit = new BaseUnit (Player.current.Units [unitDataArrayPosition]);
 		tmpUnit.GetComponent<Unit> ().Setup (spawnOnTile);
 		tmpUnit.GetComponent<Unit> ().OwnedByPlayer = true;
 		spawnOnTile.GetComponent<Tile> ().ReferenceUnit(tmpUnit);

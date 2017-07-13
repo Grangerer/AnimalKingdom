@@ -21,7 +21,7 @@ Regenerate 15% of your maximum hp at the end of your turn if you haven't moved t
 		//		Debug.Log (name);
 		if (!unit.Moved) {
 			//			Debug.Log (name + " applied");
-			unit.baseUnit.Heal(unit.baseUnit.health * 0.2f);
+			unit.Heal(unit.baseUnit.health * 0.2f);
 		}
 		return unit.baseUnit;
 	}

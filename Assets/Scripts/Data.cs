@@ -18,7 +18,7 @@ public class Data : MonoBehaviour {
 	void Start(){
 		chosenLevel.LoadLevel (0);
 	}
-
+	 
 	void Setup(){
 		LoadLevelData ();	
 	}
@@ -34,9 +34,13 @@ public class Data : MonoBehaviour {
 		SceneManager.LoadScene (nextSceneName);
 	}
 
+	//Propertystuff
 	public Level ChosenLevel {
 		get {
 			return chosenLevel;
+		}
+		set {
+			chosenLevel = value;
 		}
 	}
 }

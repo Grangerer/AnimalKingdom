@@ -13,7 +13,7 @@ public class Player  {
 	//Unitpriority
 	List<int> priorityIDList = new List<int>(){0,1,5,5,5};
 	//Unlocked Levels
-
+	int unlockedLevel;
 
 	public void SetupNewPlayer(List<GameObject> playerUnits){
 		foreach (GameObject unit in playerUnits) {
@@ -23,6 +23,7 @@ public class Player  {
 
 		}
 		experience = 0;
+		unlockedLevel = 1;
 	}
 
 	public void SpentExperience(int experienceCost){
@@ -51,6 +52,15 @@ public class Player  {
 		}
 		set {
 			priorityIDList = value;
+		}
+	}
+
+	public int UnlockedLevel {
+		get {
+			return unlockedLevel;
+		}
+		set {
+			unlockedLevel = value;
 		}
 	}
 }

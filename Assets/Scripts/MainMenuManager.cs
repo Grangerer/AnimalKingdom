@@ -51,7 +51,7 @@ public class MainMenuManager : MonoBehaviour {
 		Data.currentData.LoadScene ("UpgradeScene");
 	}
 	public void GoToBattleSelectScreen(){
-		Data.currentData.LoadScene ("UnitSelectScene");
+		Data.currentData.LoadScene ("LevelSelect");
 	}
 	public void GoToOptions(){
 		

@@ -19,7 +19,7 @@ At the start of your turn, regenerate 30% of your maximum hp if you have neither
 		//		Debug.Log (name);
 		if (!unit.AttackedLastTurn && !unit.MovedLastTurn) {
 			//			Debug.Log (name + " applied");
-			unit.baseUnit.Heal(unit.baseUnit.health*0.3f);
+			unit.Heal(unit.baseUnit.health*0.3f);
 		}
 		return unit.baseUnit;
 	}

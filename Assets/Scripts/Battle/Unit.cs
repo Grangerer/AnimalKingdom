@@ -314,10 +314,7 @@ public class Unit : MonoBehaviour {
 		//Damage
 		baseUnit.CurrentHealth -= finalDamage;
 		//Adjust Healthbar
-		healthBar.gameObject.SetActive (true);
-		float xScale = (float)baseUnit.CurrentHealth / (float)baseUnit.health;
-		healthBar.Find ("Health").localScale = new Vector3 (xScale, 1, 1);
-
+		AdjustHealthBar();
 		//Do all relevant checks regarding death and abilities
 		if (baseUnit.CurrentHealth <= 0) {
 			attack.ApplyOnDeath ();
@@ -330,13 +327,29 @@ public class Unit : MonoBehaviour {
 		//Damage
 		baseUnit.CurrentHealth -= finalDamage;
 		//Adjust Healthbar
-		healthBar.gameObject.SetActive (true);
-		float xScale = (float)baseUnit.CurrentHealth / (float)baseUnit.health;
-		healthBar.Find ("Health").localScale = new Vector3 (xScale, 1, 1);
+		AdjustHealthBar();
 		//Do all relevant checks regarding death and abilities
 		if (baseUnit.CurrentHealth <= 0) {
 			DestroyUnit ();
 		}
+	}
+
+	public void Heal(float healAmount){
+		baseUnit.CurrentHealth += Mathf.RoundToInt(healAmount);
+		if (baseUnit.CurrentHealth > baseUnit.health) {
+			baseUnit.CurrentHealth = baseUnit.health;
+		}
+		AdjustHealthBar ();
+	}
+
+	private void AdjustHealthBar(){
+		if (baseUnit.CurrentHealth == baseUnit.health) {
+			healthBar.gameObject.SetActive (false);
+		} else {
+			healthBar.gameObject.SetActive (true);
+		}
+		float xScale = (float)baseUnit.CurrentHealth / (float)baseUnit.health;
+		healthBar.Find ("Health").localScale = new Vector3 (xScale, 1, 1);
 	}
 
 	//General

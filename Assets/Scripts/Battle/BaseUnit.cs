@@ -80,13 +80,6 @@ public class BaseUnit {
 		currentAttackDamage = attackDamage;
 	}
 
-	public void Heal(float healAmount){
-		CurrentHealth += Mathf.RoundToInt(healAmount);
-		if (CurrentHealth > health) {
-			CurrentHealth = health;
-		}
-	}
-
 	public void Immobilize(){
 		this.CurrentMovementspeed = 0;
 	}

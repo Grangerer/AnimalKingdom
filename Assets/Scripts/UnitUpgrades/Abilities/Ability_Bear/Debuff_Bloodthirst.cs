@@ -19,6 +19,6 @@ Attacks reduce the damage the target does against all other units by 25%
 	}
 
 	public override void ApplyOnDeath (){
-		applyingUnit.baseUnit.Heal (applyingUnit.baseUnit.health * 0.25f);
+		applyingUnit.Heal (applyingUnit.baseUnit.health * 0.25f);
 	}
 }

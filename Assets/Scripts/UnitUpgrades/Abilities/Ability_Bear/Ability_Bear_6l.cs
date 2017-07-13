@@ -17,7 +17,7 @@ Attacks against enemies without adjacent allies deal 40% additional damage
 
 	public override BaseUnit ApplyTurn (Unit unit){
 		//		Debug.Log (name);
-		unit.baseUnit.Heal(unit.baseUnit.health*0.1f);
+		unit.Heal(unit.baseUnit.health*0.1f);
 
 		return unit.baseUnit;
 	}

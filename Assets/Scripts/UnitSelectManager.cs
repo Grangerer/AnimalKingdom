@@ -37,28 +37,30 @@ public class UnitSelectManager : MonoBehaviour {
 	}
 
 	IEnumerator NextUnit(int tileID){
-		if (units[tileID].GetComponent<Unit>().baseUnit.id < Data.currentData.units.Count-1) {
+		int currentIndex = Data.currentData.units.FindIndex (x => x.GetComponent<Unit>().baseUnit.id == units [tileID].GetComponent<Unit>().baseUnit.id);
+		if (currentIndex < Data.currentData.units.Count-1) {
 			/*Display Arrow Right animation
 			arrowRightAnimation.Stop ();
 			arrowRightAnimation.Play ();
 			yield return new WaitForSeconds (arrowRightAnimation.clip.length/4*3);
 			//Display next Unit*/
-			Debug.Log ("TestNext");
-			DisplayUnit(units[tileID].GetComponent<Unit>().baseUnit.id +1, tileID);
+			//Debug.Log ("TestNext");
+			DisplayUnit(currentIndex+1, tileID);
 		} else {
 			//Display "Cannot next" animation
 		}
 		yield return 0;
 	}
 	IEnumerator LastUnit(int tileID){
-		if (units[tileID].GetComponent<Unit>().baseUnit.id > 0) {
+		int currentIndex = Data.currentData.units.FindIndex (x => x.GetComponent<Unit>().baseUnit.id == units [tileID].GetComponent<Unit>().baseUnit.id);
+		if (currentIndex > 0) {
 			/*//Display Arrow Left animation
 			arrowLeftAnimation.Stop ();
 			arrowLeftAnimation.Play ();
 			yield return new WaitForSeconds (arrowLeftAnimation.clip.length/4*3);
 			//Display next Unit*/
-			Debug.Log ("TestLast");
-			DisplayUnit(units[tileID].GetComponent<Unit>().baseUnit.id-1,tileID);
+			//Debug.Log ("TestLast");
+			DisplayUnit(currentIndex-1,tileID);
 		} else {
 			//Display "Cannot last" animation
 		}
@@ -77,12 +79,13 @@ public class UnitSelectManager : MonoBehaviour {
 		}	
 	}
 	void DisplayUnitPriority(int i){
-		Vector3 position = new Vector3 (tiles[i].transform.position.x, Data.currentData.units[Player.current.PriorityIDList [i]].transform.position.y + tiles[i].transform.position.y, tiles[i].transform.position.z);
-		GameObject tmpUnit = Instantiate (Data.currentData.units[Player.current.PriorityIDList [i]], position, Quaternion.identity * Quaternion.Euler(0,25,0));
+		int currentIndex = Data.currentData.units.FindIndex (x => x.GetComponent<Unit>().baseUnit.id == Player.current.PriorityIDList [i]);
+		Vector3 position = new Vector3 (tiles[i].transform.position.x, Data.currentData.units[currentIndex].transform.position.y + tiles[i].transform.position.y, tiles[i].transform.position.z);
+		GameObject tmpUnit = Instantiate (Data.currentData.units[currentIndex], position, Quaternion.identity * Quaternion.Euler(0,25,0));
 		tmpUnit.GetComponent<Unit> ().Setup (tiles [i]);
 
 		if (units.Count > i && units [i] != null) {
-			Debug.Log ("Test Display Prio");
+			//Debug.Log ("Test Display Prio");
 			Destroy (units [i]);
 			units [i] = tmpUnit;
 		} else {
@@ -95,7 +98,7 @@ public class UnitSelectManager : MonoBehaviour {
 		tmpUnit.GetComponent<Unit> ().Setup (tiles [tileID]);
 
 		if (units.Count > tileID && units [tileID] != null) {
-			Debug.Log ("Test Display");
+			//Debug.Log ("Test Display");
 			Destroy (units [tileID]);
 			units [tileID] = tmpUnit;
 		} else {
@@ -192,7 +195,7 @@ public class UnitSelectManager : MonoBehaviour {
 
 	public void GoBack(){
 		//Replace with "LevelSelect", once implemented
-		Data.currentData.LoadScene ("MainMenu");
+		Data.currentData.LoadScene (Data.currentData.previousLevelName);
 	}
 	public void GoToUpgrade(){
 		Data.currentData.LoadScene ("UpgradeScene");
