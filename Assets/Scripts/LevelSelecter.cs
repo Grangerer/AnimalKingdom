@@ -12,8 +12,7 @@ public class LevelSelecter : MonoBehaviour {
 		Color32 lockedColor = new Color32 (100, 100, 100,100);
         for (int i = levelReached; i < levelButtons.Length; i++) {
             levelButtons[i].interactable = false;
-			levelButtons[i].image.color = Color.red;
-			Debug.Log (levelButtons [i].name);
+			levelButtons[i].GetComponent<Image>().color = lockedColor;
         }
 		
     }

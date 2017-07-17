@@ -334,6 +334,7 @@ public class Unit : MonoBehaviour {
 		}
 	}
 
+
 	public void Heal(float healAmount){
 		baseUnit.CurrentHealth += Mathf.RoundToInt(healAmount);
 		if (baseUnit.CurrentHealth > baseUnit.health) {

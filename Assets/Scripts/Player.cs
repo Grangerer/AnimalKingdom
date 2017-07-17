@@ -11,7 +11,7 @@ public class Player  {
 	List<BaseUnit> units = new List<BaseUnit>();
 	int experience;
 	//Unitpriority
-	List<int> priorityIDList = new List<int>(){0,1,5,5,5};
+	List<int> priorityIDList = new List<int>(){0,1,2,3,4};
 	//Unlocked Levels
 	int unlockedLevel;
 
@@ -23,7 +23,8 @@ public class Player  {
 
 		}
 		experience = 0;
-		unlockedLevel = 1;
+		Debug.Log ("Player.Unlocked Level currently not 1!");
+		unlockedLevel = 10; //Set this to 1!!
 	}
 
 	public void SpentExperience(int experienceCost){

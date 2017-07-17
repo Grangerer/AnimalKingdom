@@ -35,10 +35,8 @@ public class BattleManager : MonoBehaviour {
 		Time.timeScale = 1;
 		ai = AI.instance;
 		//Spawn Level
-		Level level = new Level();
-		level.LoadLevel(0);
 		levelSpawner = this.GetComponent<LevelSpawner>();
-		tileList = levelSpawner.SpawnLevel(level);
+		tileList = levelSpawner.SpawnLevel(Data.currentData.ChosenLevel);
 		playerController.ApplyUpgrades ();
 		playerController.OnTurnStart ();
 		playersTurn = true;
@@ -76,6 +74,9 @@ public class BattleManager : MonoBehaviour {
 	public void WinMatch(){
 		Debug.Log ("Player has won the match");
 		Player.current.Experience += 100;
+		if (Player.current.UnlockedLevel == Data.currentData.ChosenLevel.LevelID + 1) {
+			Player.current.UnlockedLevel++;
+		}
 		Time.timeScale = 0;
 		GoToMainMenu ();
 	}

@@ -1,17 +1,20 @@
 ﻿<Properties RefactoringSettings.EnableRefactorings="True" StartupItem="Assembly-CSharp.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\LevelSelecter.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Battle\Unit.cs">
     <Files>
       <File FileName="Assets\Scripts\UnitUpgrades\Abilities\Ability_MonitorLizard\Ability_MonitorLizard_2r.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\UnitUpgrades\Abilities\Ability_MonitorLizard\Ability_MonitorLizard_2l.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Battle\Level.cs" Line="22" Column="22" />
-      <File FileName="Assets\Scripts\Player.cs" Line="26" Column="20" />
+      <File FileName="Assets\Scripts\Battle\Level.cs" Line="78" Column="12" />
+      <File FileName="Assets\Scripts\Player.cs" Line="14" Column="54" />
       <File FileName="Assets\Scripts\Data.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\LevelSelecter.cs" Line="16" Column="38" />
+      <File FileName="Assets\Scripts\LevelSelecter.cs" Line="25" Column="1" />
       <File FileName="Assets\Scripts\UnitSelectManager.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\MainMenuManager.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\SceneFader.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\UpgradeManager.cs" Line="228" Column="67" />
+      <File FileName="Assets\Scripts\UpgradeManager.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\GameManager.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\Battle\BattleManager.cs" Line="39" Column="66" />
+      <File FileName="Assets\Scripts\Battle\Unit.cs" Line="47" Column="41" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
