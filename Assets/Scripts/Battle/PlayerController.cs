@@ -240,19 +240,21 @@ public class PlayerController : MonoBehaviour
 
 	public void EndTurn ()
 	{
-		//Cleanupstuff
-		if (selectedUnit != null) {
-			UnselectUnit ();
+		if (myTurn) {
+			//Cleanupstuff
+			if (selectedUnit != null) {
+				UnselectUnit ();
+			}
+			//end all turns for units
+			foreach (GameObject unit in units) {
+				unit.GetComponent<Unit> ().OnTurnEnd ();
+			}
+			ResetTurnStat ();
+			myTurn = false;
+			AdjustUnitControl ();
+			//Tell GameManager to go to next turn
+			battleManager.NextTurn ();
 		}
-		//end all turns for units
-		foreach (GameObject unit in units) {
-			unit.GetComponent<Unit> ().OnTurnEnd();
-		}
-		ResetTurnStat ();
-		myTurn = false;
-		AdjustUnitControl ();
-		//Tell GameManager to go to next turn
-		battleManager.NextTurn ();
 	}
 
 	void UnselectUnit ()

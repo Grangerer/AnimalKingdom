@@ -2,15 +2,16 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class UIController : MonoBehaviour {
 
 	public static UIController instance;
 
-	public Text healthText;
-	public Text movementSpeedText;
-	public Text attackrangeText;
-	public Text damageText;
+	public TMP_Text healthText;
+	public TMP_Text movementSpeedText;
+	public TMP_Text attackrangeText;
+	public TMP_Text damageText;
 
 
 	// Use this for initialization
@@ -42,7 +43,7 @@ public class UIController : MonoBehaviour {
 		}
 	}
 
-	void RecolorText(int currentValue, int baseValue, Text recolorText){
+	void RecolorText(int currentValue, int baseValue, TMP_Text recolorText){
 		if (currentValue < baseValue) {
 			//Recolor damage.text red
 			recolorText.color = Color.red;

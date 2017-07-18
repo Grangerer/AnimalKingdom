@@ -318,7 +318,7 @@ public class Unit : MonoBehaviour {
 		//Do all relevant checks regarding death and abilities
 		if (baseUnit.CurrentHealth <= 0) {
 			attack.ApplyOnDeath ();
-			DestroyUnit ();
+			StartCoroutine (Die ());
 		}
 	}
 	public void Damage(float damage){
@@ -330,8 +330,19 @@ public class Unit : MonoBehaviour {
 		AdjustHealthBar();
 		//Do all relevant checks regarding death and abilities
 		if (baseUnit.CurrentHealth <= 0) {
-			DestroyUnit ();
+			StartCoroutine (Die ());
 		}
+	}
+
+	IEnumerator Die(){
+		
+		for (int i = 10; i > 0; i--) {
+			yield return new WaitForSeconds(0.001f * i);
+			this.transform.localScale = new Vector3 (transform.localScale.x * 0.8f, transform.localScale.y * 0.8f, transform.localScale.z * 0.8f);
+		}
+
+		DestroyUnit ();
+		yield return 0;
 	}
 
 
@@ -344,7 +355,7 @@ public class Unit : MonoBehaviour {
 	}
 
 	private void AdjustHealthBar(){
-		if (baseUnit.CurrentHealth == baseUnit.health) {
+		if (baseUnit.CurrentHealth == baseUnit.health || baseUnit.CurrentHealth <= 0) {
 			healthBar.gameObject.SetActive (false);
 		} else {
 			healthBar.gameObject.SetActive (true);

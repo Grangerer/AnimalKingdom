@@ -65,7 +65,7 @@ public class BattleManager : MonoBehaviour {
 	}
 	IEnumerator AIStart(){
 		StartCoroutine( ai.StartTurn ());
-		yield return new WaitForSeconds (1);
+		yield return new WaitForSeconds (ai.Units.Count * ai.waitTime);
 		Debug.Log ("AiTurn End");
 		NextTurn();
 	}

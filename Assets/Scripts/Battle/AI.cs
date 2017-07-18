@@ -66,4 +66,10 @@ public class AI : MonoBehaviour {
 		}
 	
 	}
+
+	public List<GameObject> Units {
+		get {
+			return units;
+		}
+	}
 }

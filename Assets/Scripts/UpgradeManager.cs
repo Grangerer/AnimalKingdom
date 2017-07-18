@@ -3,15 +3,16 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using TMPro;
 
 public class UpgradeManager : MonoBehaviour {
 
 	private int currentUnitID = 0;
 	private GameObject currentShownUnit;
 
-	public Text experienceText;
+	public TMP_Text experienceText;
 	private string experienceBaseString = "Experience:\n";
-	public Text unitNameText;
+	public TMP_Text unitNameText;
 
 	public GameObject ShowTile;
 	public GameObject arrowLeft;
@@ -20,16 +21,17 @@ public class UpgradeManager : MonoBehaviour {
 	Animation arrowRightAnimation;
 
 	//UpgradetreeText
-	public List<Text> upgradeTitlesLeft = new List<Text>();
-	public List<Text> upgradeDescriptionLeft = new List<Text>();
-	public List<Text> upgradeTitlesRight = new List<Text>();
-	public List<Text> upgradeDescriptionRight = new List<Text>();
+	public List<TMP_Text> upgradeTitlesLeft = new List<TMP_Text>();
+	public List<TMP_Text> upgradeDescriptionLeft = new List<TMP_Text>();
+	public List<TMP_Text> upgradeTitlesRight = new List<TMP_Text>();
+	public List<TMP_Text> upgradeDescriptionRight = new List<TMP_Text>();
 	public List<Button> unlockButtons = new List<Button>();
 	public List<GameObject> talentTier;
 
 	public Color unlockedTierColor;
 	public Color lockedTierColor;
 
+	private float outlineThickness = 0.15f;
 	// Use this for initialization
 	void Start () {
 		arrowLeftAnimation = arrowLeft.GetComponent<Animation>();
@@ -163,22 +165,22 @@ public class UpgradeManager : MonoBehaviour {
 	}
 	void ColorUpgrade(int tier, bool leftSide){
 		if (leftSide) {
-			upgradeTitlesLeft [tier].GetComponent<Outline> ().enabled =true ;
-			upgradeDescriptionLeft [tier].GetComponent<Outline> ().enabled = true;
-			upgradeTitlesRight [tier].GetComponent<Outline> ().enabled =false;
-			upgradeDescriptionRight [tier].GetComponent<Outline> ().enabled =false;
+			upgradeTitlesLeft [tier].outlineWidth = outlineThickness;
+			upgradeDescriptionLeft [tier].outlineWidth = outlineThickness;
+			upgradeTitlesRight [tier].outlineWidth = 0;
+			upgradeDescriptionRight [tier].outlineWidth = 0;
 		} else {
-			upgradeTitlesLeft [tier].GetComponent<Outline> ().enabled = false;
-			upgradeDescriptionLeft [tier].GetComponent<Outline> ().enabled = false;
-			upgradeTitlesRight [tier].GetComponent<Outline> ().enabled =true;
-			upgradeDescriptionRight [tier].GetComponent<Outline> ().enabled =true;
+			upgradeTitlesLeft [tier].outlineWidth = 0;
+			upgradeDescriptionLeft [tier].outlineWidth = 0;
+			upgradeTitlesRight [tier].outlineWidth = outlineThickness;
+			upgradeDescriptionRight [tier].outlineWidth = outlineThickness;
 		}
 	}
 	void UncolorUpgrade(int tier){
-			upgradeTitlesLeft [tier].GetComponent<Outline> ().enabled =false ;
-			upgradeDescriptionLeft [tier].GetComponent<Outline> ().enabled = false;
-			upgradeTitlesRight [tier].GetComponent<Outline> ().enabled =false;
-			upgradeDescriptionRight [tier].GetComponent<Outline> ().enabled =false;
+		upgradeTitlesLeft [tier].outlineWidth = 0;
+		upgradeDescriptionLeft [tier].outlineWidth = 0;
+		upgradeTitlesRight [tier].outlineWidth = 0;
+		upgradeDescriptionRight [tier].outlineWidth = 0;
 	}
 
 	void DisplayUnlockButtons(){
