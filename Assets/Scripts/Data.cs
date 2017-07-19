@@ -12,7 +12,7 @@ public class Data : MonoBehaviour {
 	//Contains all Obstacles. All scenes use this list to setup
 	public List<GameObject> obstacles = new List<GameObject>();
 	Level chosenLevel = new Level();
-
+	[HideInInspector]
 	public string previousLevelName = null;
 
 	void Start(){
@@ -27,10 +27,13 @@ public class Data : MonoBehaviour {
 		//Read the "levels.txt" file and create levels based of this
 	}
 
-	public void LoadScene(string nextSceneName){
-		if (nextSceneName != SceneManager.GetActiveScene ().name) {
+	public void LoadScene(string nextSceneName, string goBackSceneName = null){
+		if (nextSceneName != SceneManager.GetActiveScene ().name && goBackSceneName == null) {
 			previousLevelName = SceneManager.GetActiveScene ().name;
+		} else {
+			previousLevelName = goBackSceneName;
 		}
+
 		SceneManager.LoadScene (nextSceneName);
 	}
 

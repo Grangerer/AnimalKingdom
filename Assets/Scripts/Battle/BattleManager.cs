@@ -6,10 +6,8 @@ using UnityEngine.SceneManagement;
 public class BattleManager : MonoBehaviour {
 
 	public static BattleManager instance;
-	//Test
-	public GameObject testUnit;
-	//Test
 
+	bool gameOver = false;
 	public PlayerController playerController;
 	bool playersTurn;
 
@@ -72,27 +70,30 @@ public class BattleManager : MonoBehaviour {
 		
 	//Win Match
 	public void WinMatch(){
+		gameOver = true;
 		Debug.Log ("Player has won the match");
+		UIController.instance.ShowBattleWonMenu (Player.current.Experience,100);
 		Player.current.Experience += 100;
 		if (Player.current.UnlockedLevel == Data.currentData.ChosenLevel.LevelID + 1) {
 			Player.current.UnlockedLevel++;
 		}
-		Time.timeScale = 0;
-		GoToMainMenu ();
 	}
 	public void LooseMatch(){
+		gameOver = true;
 		Debug.Log ("Player has lost the match");
 		Time.timeScale = 0;
-		Data.currentData.LoadScene ("UpgradeScene");
+		UIController.instance.ShowBattleOverMenu ();
 	}
 	//Menu
 	public void OpenInBattleMenu(){
-		if (BattleMenu.activeSelf == false) {
-			Time.timeScale = 0;
-			gamePaused = true;
-			BattleMenu.SetActive (true);
-		} else {
-			Resume ();
+		if (!gameOver) {
+			if (BattleMenu.activeSelf == false) {
+				Time.timeScale = 0;
+				gamePaused = true;
+				BattleMenu.SetActive (true);
+			} else {
+				Resume ();
+			}
 		}
 	}
 	public void Resume(){
@@ -111,8 +112,12 @@ public class BattleManager : MonoBehaviour {
 		Data.currentData.LoadScene (sceneToLoadName);
 	}
 	public void GoToUpgrade(){
-		string sceneToLoadName = "UpgradeUnits";
-		Data.currentData.LoadScene (sceneToLoadName);
+		string sceneToLoadName = "UpgradeScene";
+		Data.currentData.LoadScene (sceneToLoadName, "MainMenu");
+	}
+	public void NextLevel(){
+		Data.currentData.ChosenLevel.LoadLevel (Data.currentData.ChosenLevel.LevelID + 1);
+		Data.currentData.LoadScene ("UnitSelectScene");
 	}
 
 	//Propertystuff

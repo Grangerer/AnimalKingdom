@@ -13,7 +13,11 @@ public class UIController : MonoBehaviour {
 	public TMP_Text attackrangeText;
 	public TMP_Text damageText;
 
+	public GameObject battleOverMenu;
 
+
+	public GameObject battleWonMenu;
+	public TMP_Text expText;
 	// Use this for initialization
 	void Start () {
 		
@@ -31,7 +35,7 @@ public class UIController : MonoBehaviour {
 	}
 
 	public void SetUnitStatPanel(Unit unit){
-		if (unit != null) {
+		if (unit != null && unit.baseUnit.CurrentHealth>0) {
 			BaseUnit tmpBase = unit.baseUnit;
 			healthText.text = "Health: " + tmpBase.CurrentHealth + " / " + tmpBase.health;
 			RecolorText (tmpBase.CurrentMovementspeed, tmpBase.movementSpeed, movementSpeedText);
@@ -61,5 +65,21 @@ public class UIController : MonoBehaviour {
 		movementSpeedText.text = "";
 		attackrangeText.text = "";
 		damageText.text = "";
+	}
+
+	public void ShowBattleOverMenu(){
+		battleOverMenu.SetActive (true);
+
+	}
+
+	public void ShowBattleWonMenu (int experience, int experienceGained){
+		battleWonMenu.SetActive (true);
+		StartCoroutine(CountExpUp(experience, experienceGained));
+	}
+	IEnumerator CountExpUp(int exp, int expGained){
+		for (int i = 0; i <= expGained; i++) {
+			expText.text = exp + " + " + i;
+			yield return new WaitForSeconds (1f / expGained);
+		}
 	}
 }

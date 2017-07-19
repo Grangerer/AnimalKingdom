@@ -34,6 +34,9 @@ public class Level {
 		case 2:
 			SetLevel3 ();
 			break;
+		case 3:
+			SetLevel4 ();
+			break;
 		default:
 			Debug.Log ("Error. Selected Level doesn't exist");
 			break;
@@ -135,6 +138,18 @@ public class Level {
 		obstaclePositions.Add (new KeyValuePair<int,int> (5, 3));
 		obstaclePositions.Add (new KeyValuePair<int,int> (6, 4));
 		obstaclePositions.Add (new KeyValuePair<int,int> (7, 5));
+	}
+	void SetLevel4(){
+		levelID = 2;
+		gridWidth = 5;
+		gridHeight = 5;
+		//Playerunits
+		playerUnitPositions.Add (new KeyValuePair<int, int>(4,4));
+		playerUnitPositions.Add (new KeyValuePair<int, int>(4,3));
+		playerUnitPositions.Add (new KeyValuePair<int, int>(4,2));
+		playerUnitPositions.Add (new KeyValuePair<int, int>(4,1));
+		//Enemies
+		enemyPositionsAndType.Add (new LevelEnemies (0, 0, 0));
 	}
 	//Propertystuff
 	public int GridHeight {
