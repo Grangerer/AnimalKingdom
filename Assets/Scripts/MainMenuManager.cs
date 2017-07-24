@@ -39,7 +39,7 @@ public class MainMenuManager : MonoBehaviour {
 			Debug.Log ("No saved player found");
 			player = new Player ();
 			player.SetupNewPlayer (Data.currentData.units);
-			player.Experience = 20000;
+			player.Experience = 0;
 		}
 		Player.current = player;
 	}

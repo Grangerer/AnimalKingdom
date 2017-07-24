@@ -23,8 +23,8 @@ public class Player  {
 
 		}
 		experience = 0;
-		Debug.Log ("Player.Unlocked Level currently not 1!");
-		unlockedLevel = 10; //Set this to 1!!
+		//Debug.Log ("Player.Unlocked Level currently not 1!");
+		unlockedLevel = 1; //Set this to 1!!
 	}
 
 	public void SpentExperience(int experienceCost){
