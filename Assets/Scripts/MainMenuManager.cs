@@ -20,11 +20,7 @@ public class MainMenuManager : MonoBehaviour {
 		Vector3 position = new Vector3 (0f, Data.currentData.units[0].transform.position.y, 0f);
 		GameObject tmpUnit = Instantiate (Data.currentData.units[0], position, Quaternion.identity * Quaternion.Euler(0,25,0));
 		StartCoroutine (MoveBackground (tmpUnit));
-		*/
-	}
-	
-	// Update is called once per frame
-	void Update () {
+        */
 		
 	}
 
@@ -57,7 +53,12 @@ public class MainMenuManager : MonoBehaviour {
 		
 	}
 
-	IEnumerator MoveBackground(GameObject go){
+    public void ExitApplication()
+    {
+        Application.Quit();
+    }
+
+    IEnumerator MoveBackground(GameObject go){
 		do {
 			go.transform.Translate(new Vector3(0.3f * Time.deltaTime,0f, 0.1f*Time.deltaTime));
 			yield return new WaitForSeconds (Time.deltaTime);

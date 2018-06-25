@@ -275,7 +275,7 @@ public class PlayerController : MonoBehaviour
 		//Check if no unit is left
 		if (units.Count == 0) {
 			//Player looses match
-			battleManager.LooseMatch ();
+			battleManager.LoseMatch ();
 		}
 	}
 

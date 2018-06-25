@@ -17,6 +17,15 @@ public class LevelSelecter : MonoBehaviour {
 		
     }
 
+    void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape)) {
+            SaveLoad.SavePlayer();
+            string sceneToLoadName = "MainMenu";
+            Data.currentData.LoadScene(sceneToLoadName);
+        }
+    }
+
     public void Select(int levelID) {
 		Data.currentData.ChosenLevel.LoadLevel (levelID);
 		Data.currentData.LoadScene ("UnitSelectScene");

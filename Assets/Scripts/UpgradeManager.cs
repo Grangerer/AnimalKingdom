@@ -30,8 +30,6 @@ public class UpgradeManager : MonoBehaviour {
 
 	public Color unlockedTierColor;
 	public Color lockedTierColor;
-
-	private float outlineThickness = 0.15f;
 	// Use this for initialization
 	void Start () {
 		arrowLeftAnimation = arrowLeft.GetComponent<Animation>();
@@ -53,7 +51,7 @@ public class UpgradeManager : MonoBehaviour {
 					StartCoroutine(NextUnit ());
 				}
 				//Check all Talentoptions
-				checkAllTalentOptions(hit);
+				CheckAllTalentOptions(hit);
 			}
 		}
 		if (Input.GetKeyDown (KeyCode.A) || Input.GetKeyDown (KeyCode.LeftArrow)) {
@@ -64,7 +62,7 @@ public class UpgradeManager : MonoBehaviour {
 
 	}
 
-	void checkAllTalentOptions(RaycastHit hit){
+	void CheckAllTalentOptions(RaycastHit hit){
 		if (hit.transform.name.Equals("Talent1L")) {
 			LockUpdate (0, 1);
 		}else if (hit.transform.name.Equals("Talent1R")) {
@@ -164,24 +162,19 @@ public class UpgradeManager : MonoBehaviour {
 		}
 	}
 	void ColorUpgrade(int tier, bool leftSide){
-		if (leftSide) {
-			upgradeTitlesLeft [tier].outlineWidth = outlineThickness;
-			upgradeDescriptionLeft [tier].outlineWidth = outlineThickness;
-			upgradeTitlesRight [tier].outlineWidth = 0;
-			upgradeDescriptionRight [tier].outlineWidth = 0;
+		if (leftSide)
+		{
+		    upgradeTitlesLeft[tier].GetComponentInParent<Image>().enabled = true;
+			upgradeTitlesRight [tier].GetComponentInParent<Image>().enabled = false;
 		} else {
-			upgradeTitlesLeft [tier].outlineWidth = 0;
-			upgradeDescriptionLeft [tier].outlineWidth = 0;
-			upgradeTitlesRight [tier].outlineWidth = outlineThickness;
-			upgradeDescriptionRight [tier].outlineWidth = outlineThickness;
-		}
+		    upgradeTitlesLeft[tier].GetComponentInParent<Image>().enabled = false;
+		    upgradeTitlesRight[tier].GetComponentInParent<Image>().enabled = true;
+        }
 	}
 	void UncolorUpgrade(int tier){
-		upgradeTitlesLeft [tier].outlineWidth = 0;
-		upgradeDescriptionLeft [tier].outlineWidth = 0;
-		upgradeTitlesRight [tier].outlineWidth = 0;
-		upgradeDescriptionRight [tier].outlineWidth = 0;
-	}
+	    upgradeTitlesLeft[tier].GetComponentInParent<Image>().enabled = false;
+        upgradeTitlesRight[tier].GetComponentInParent<Image>().enabled = false;
+    }
 
 	void DisplayUnlockButtons(){
 		int unlockLevel = Player.current.Units [currentUnitID].Level;

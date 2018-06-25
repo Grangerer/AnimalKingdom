@@ -91,3 +91,5 @@ D:\Daten\TurnBasedStuff\Temp\bin\Debug\UnityEngine.HoloLens.xml
 D:\Daten\TurnBasedStuff\Temp\bin\Debug\UnityEngine.VR.xml
 D:\Daten\TurnBasedStuff\obj\Debug\Assembly-CSharp.dll
 D:\Daten\TurnBasedStuff\obj\Debug\Assembly-CSharp.pdb
+C:\Users\FS\Documents\turnbased3rdProject\Temp\bin\Debug\TextMeshPro-1.0.55.56.0b11.dll
+C:\Users\FS\Documents\turnbased3rdProject\obj\Debug\Assembly-CSharp.csproj.CoreCompileInputs.cache
